@@ -141,7 +141,7 @@
       z-index: 1;
       pointer-events: none;
       background:
-        linear-gradient(180deg, rgba(5,10,24,0.9) 0%, rgba(5,10,24,0.3) 15%, transparent 35%, transparent 55%, rgba(5,10,24,0.2) 75%, rgba(5,10,24,0.85) 100%);
+        linear-gradient(180deg, rgba(5,10,24,0.6) 0%, rgba(5,10,24,0.1) 10%, transparent 30%, transparent 65%, rgba(5,10,24,0.15) 85%, rgba(5,10,24,0.5) 100%);
     }
 
     /* ── Scroll content container ── */
@@ -171,7 +171,8 @@
     .hero__inner {
       position: relative;
       z-index: 1;
-      max-width: 720px;
+      max-width: 960px;
+      width: 100%;
     }
 
     .hero__kicker {
@@ -184,15 +185,12 @@
     .hero__title {
       font-family: var(--font-heading);
       font-weight: 700;
-      font-size: clamp(3.5rem, 10vw, 8rem);
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
       margin-bottom: 1.25rem;
-      padding-bottom: 0.05em;
-      background: linear-gradient(135deg, #ffffff 0%, #c0c0d0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      padding: 0.05em 0.1em;
+      color: #ffffff;
       opacity: 0;
       animation: fadeInUp 1s ease 0.5s both;
     }
@@ -865,7 +863,7 @@
 
       // ── Scene ──
       const scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(0x050a18, 0.012);
+      scene.fog = new THREE.FogExp2(0x050a18, 0.006);
 
       // ── Camera: low angle, as if standing on a ship bow ──
       const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
@@ -873,14 +871,14 @@
       camera.lookAt(0, 0, -20);
 
       // ── Lighting ──
-      const ambient = new THREE.AmbientLight(0x1a2a4a, 1.2);
+      const ambient = new THREE.AmbientLight(0x2a4a7a, 1.8);
       scene.add(ambient);
 
-      const moonLight = new THREE.DirectionalLight(0x4466aa, 0.8);
+      const moonLight = new THREE.DirectionalLight(0x6688cc, 1.2);
       moonLight.position.set(-5, 8, -10);
       scene.add(moonLight);
 
-      const horizonLight = new THREE.DirectionalLight(0x2a55b3, 0.3);
+      const horizonLight = new THREE.DirectionalLight(0x3a65c3, 0.6);
       horizonLight.position.set(0, 0.5, -50);
       scene.add(horizonLight);
 
@@ -901,11 +899,11 @@
       const oceanMat = new THREE.ShaderMaterial({
         uniforms: {
           uTime: { value: 0 },
-          uColor1: { value: new THREE.Color(0x0a1628) },
-          uColor2: { value: new THREE.Color(0x1a3a6e) },
-          uHighlight: { value: new THREE.Color(0x2a55b3) },
+          uColor1: { value: new THREE.Color(0x0d2040) },
+          uColor2: { value: new THREE.Color(0x1e4a8a) },
+          uHighlight: { value: new THREE.Color(0x3a70d0) },
           uFogColor: { value: new THREE.Color(0x050a18) },
-          uFogDensity: { value: 0.012 },
+          uFogDensity: { value: 0.006 },
           uCameraPos: { value: camera.position },
         },
         vertexShader: `
@@ -988,18 +986,18 @@
             vec3 color = mix(baseColor, uHighlight, fresnel * 0.5);
 
             // Wave crest foam hint
-            float foam = smoothstep(1.2, 2.0, vElevation) * 0.15;
-            color += vec3(foam);
+            float foam = smoothstep(0.8, 1.8, vElevation) * 0.25;
+            color += vec3(foam * 0.8, foam * 0.9, foam);
 
-            // Subtle specular from moon
+            // Specular from moon
             vec3 lightDir = normalize(vec3(-0.5, 0.8, -0.6));
             vec3 halfDir = normalize(lightDir + viewDir);
-            float spec = pow(max(dot(vNormal, halfDir), 0.0), 64.0);
-            color += vec3(0.2, 0.35, 0.55) * spec * 0.6;
+            float spec = pow(max(dot(vNormal, halfDir), 0.0), 48.0);
+            color += vec3(0.3, 0.5, 0.8) * spec * 0.8;
 
             // Shimmer on surface
             float shimmer = sin(vWorldPos.x * 2.0 + uTime * 2.0) * sin(vWorldPos.z * 1.5 + uTime * 1.5);
-            color += vec3(0.05, 0.1, 0.15) * smoothstep(0.5, 1.0, shimmer) * 0.3;
+            color += vec3(0.08, 0.15, 0.25) * smoothstep(0.3, 1.0, shimmer) * 0.4;
 
             // Fog
             float dist = length(vWorldPos - uCameraPos);
