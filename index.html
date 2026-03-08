@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oceanocratie — Une nation libre regarde la mer</title>
+  <meta name="description" content="Oceanocratie — Un livre de Colomban pour explorer le potentiel maritime francais. Sortie prevue Noel 2026." />
+
+  <!-- Security -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://oceanocratie.fr/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Oceanocratie — Une nation libre regarde la mer" />
+  <meta property="og:description" content="Un livre de Colomban pour explorer le potentiel maritime francais. Sortie prevue Noel 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://oceanocratie.fr/" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Oceanocratie" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  </noscript>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bleu: #2A55B3;
+      --bleu-dark: #1a3a7a;
+      --vert: #00BF63;
+      --rose: #B32A55;
+      --noir: #0F0F0F;
+      --noir-doux: #1A1A2E;
+      --blanc: #FAFAFA;
+      --gris-100: #F2F2F5;
+      --gris-200: #E4E4EA;
+      --gris-400: #9D9DAF;
+      --gris-500: #5C5C6E;
+      --font-heading: 'Poppins', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--noir-doux);
+      color: var(--blanc);
+      min-height: 100vh;
+      border-top: 3px solid;
+      border-image: linear-gradient(90deg, var(--bleu), var(--vert)) 1;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── Layout ── */
+    .page {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(42, 85, 179, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+
+    .hero__kicker {
+      color: var(--bleu);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--blanc) 0%, var(--gris-400) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__subtitle {
+      font-family: var(--font-heading);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero__description {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--gris-400);
+      margin-bottom: 3rem;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Book Visual ── */
+    .book-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .book {
+      width: 180px;
+      height: 260px;
+      background: linear-gradient(135deg, var(--bleu-dark), var(--bleu));
+      border-radius: 3px 12px 12px 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      box-shadow:
+        8px 8px 32px rgba(42, 85, 179, 0.35),
+        -3px 0 12px rgba(0, 0, 0, 0.3),
+        inset -2px 0 4px rgba(255, 255, 255, 0.05);
+      transform: perspective(800px) rotateY(-6deg);
+      transition: transform 0.4s ease;
+      position: relative;
+    }
+
+    .book::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
+      border-radius: 3px 0 0 3px;
+    }
+
+    .book:hover {
+      transform: perspective(800px) rotateY(-1deg);
+    }
+
+    .book__title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: white;
+      writing-mode: vertical-lr;
+      text-orientation: mixed;
+    }
+
+    .book__accent {
+      width: 8px;
+      height: 8px;
+      background: var(--vert);
+      border-radius: 50%;
+    }
+
+    /* ── CTA ── */
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--bleu);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--bleu-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(42, 85, 179, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blanc);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* ── Axes Section ── */
+    .axes {
+      padding: 4rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .axes__header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .axes__header .mono {
+      color: var(--vert);
+      margin-bottom: 0.75rem;
+    }
+
+    .axes__header h2 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.6rem;
+    }
+
+    .axes__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .axis {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .axis:hover {
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-4px);
+    }
+
+    .axis__dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .axis h3 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .axis p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--gris-400);
+    }
+
+    /* ── Author Section ── */
+    .author {
+      padding: 4rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      text-align: center;
+    }
+
+    .author .mono {
+      color: var(--bleu);
+      margin-bottom: 0.75rem;
+    }
+
+    .author h2 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .author p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--gris-400);
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .author__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--bleu);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .author__link:hover {
+      color: var(--vert);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      text-align: center;
+    }
+
+    .footer p {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gris-400);
+      letter-spacing: 0.05em;
+    }
+
+    .footer a {
+      color: var(--blanc);
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: var(--bleu);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero__inner > * {
+      animation: fadeInUp 0.8s ease both;
+    }
+
+    .hero__inner > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero__inner > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero__inner > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero__inner > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero__inner > *:nth-child(5) { animation-delay: 0.5s; }
+    .hero__inner > *:nth-child(6) { animation-delay: 0.6s; }
+
+    /* ── Waitlist ── */
+    .waitlist {
+      margin-bottom: 2.5rem;
+    }
+
+    .waitlist__label {
+      color: var(--vert);
+      margin-bottom: 1rem;
+    }
+
+    .waitlist__form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .waitlist__input {
+      flex: 1;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 0.85rem 1.25rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--blanc);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .waitlist__input::placeholder {
+      color: var(--gris-400);
+    }
+
+    .waitlist__input:focus {
+      border-color: var(--bleu);
+    }
+
+    .waitlist__btn {
+      flex-shrink: 0;
+    }
+
+    .waitlist__note {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--vert);
+      min-height: 1.2em;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .hero { padding: 4rem 1.5rem 3rem; }
+      .axes__grid { grid-template-columns: 1fr; }
+      .cta-group { flex-direction: column; align-items: center; }
+      .book { width: 140px; height: 200px; }
+      .waitlist__form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__inner">
+        <p class="mono hero__kicker">A paraitre — Noel 2026</p>
+        <h1 class="hero__title">Oceanocratie</h1>
+        <p class="hero__subtitle">Une nation libre regarde la mer.</p>
+        <div class="book-wrapper">
+          <div class="book">
+            <div class="book__accent"></div>
+            <span class="book__title">OCEANOCRATIE</span>
+          </div>
+        </div>
+        <p class="hero__description">
+          La France possede le 2e domaine maritime mondial : 11 millions de km&sup2;, 37 etats frontaliers maritimes. Et pourtant, elle tourne le dos a la mer. Ce livre explore pourquoi — et comment changer la donne.
+        </p>
+        <div class="waitlist">
+          <p class="waitlist__label mono">Liste d'attente — soyez prevenu(e) de la sortie</p>
+          <form class="waitlist__form" id="waitlist-form">
+            <input type="email" name="email" placeholder="votre@email.com" required class="waitlist__input" />
+            <button type="submit" class="btn btn-primary waitlist__btn">Me prevenir</button>
+          </form>
+          <p class="waitlist__note" id="waitlist-msg"></p>
+        </div>
+        <div class="cta-group">
+          <a href="https://colombanatsea.com" class="btn btn-outline">Decouvrir Colomban</a>
+          <a href="https://www.linkedin.com/in/colombanatsea/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Suivre sur LinkedIn</a>
+        </div>
+        <p class="mono" style="color: var(--gris-400); font-size: 0.7rem;">Un livre par Colomban — colombanatsea.com</p>
+      </div>
+    </section>
+
+    <!-- Les 3 axes -->
+    <section class="axes">
+      <div class="container">
+        <div class="axes__header">
+          <p class="mono">Le livre explore</p>
+          <h2>Trois revolutions, une seule cause</h2>
+        </div>
+        <div class="axes__grid">
+          <div class="axis">
+            <div class="axis__dot" style="background: var(--bleu);"></div>
+            <h3>Technologique</h3>
+            <p>Le maritime ne doit pas passer par la numerisation : il doit entrer directement dans l'ere de la digitalisation et de l'IA.</p>
+          </div>
+          <div class="axis">
+            <div class="axis__dot" style="background: var(--vert);"></div>
+            <h3>Environnementale</h3>
+            <p>Integrer le maritime dans une societe durable — au-dela du seul climat, avec des donnees ciblees et actionnables.</p>
+          </div>
+          <div class="axis">
+            <div class="axis__dot" style="background: var(--rose);"></div>
+            <h3>Socioculturelle</h3>
+            <p>Transformer les esprits au sein et au-dela du maritime. La vraie revolution est culturelle.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Auteur -->
+    <section class="author">
+      <div class="container">
+        <p class="mono">L'auteur</p>
+        <h2>Colomban</h2>
+        <p>
+          Officier de la Marine Marchande, entrepreneur et figure de la triple transition maritime. Delegue General du GASPE, cofondateur de VAIATA Dynamics, president de la Fondation ENSM.
+        </p>
+        <p>
+          Depuis 2013, Colomban porte la conviction que technologie, environnement et culture sont indissociables dans la transformation du maritime.
+        </p>
+        <a href="https://colombanatsea.com" class="author__link">
+          colombanatsea.com &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 <a href="https://colombanatsea.com">Colomban</a> — oceanocratie.fr</p>
+      </div>
+    </footer>
+
+  </div>
+  <script>
+    // Waitlist form — stores locally until a backend is configured
+    const form = document.getElementById('waitlist-form');
+    const msg = document.getElementById('waitlist-msg');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = new FormData(form).get('email');
+      if (!email) return;
+      // Store locally (replace with API call when backend is ready)
+      const stored = JSON.parse(localStorage.getItem('oceanocratie_waitlist') || '[]');
+      if (stored.includes(email)) {
+        msg.textContent = 'Vous etes deja inscrit(e) !';
+        return;
+      }
+      stored.push(email);
+      localStorage.setItem('oceanocratie_waitlist', JSON.stringify(stored));
+      msg.textContent = 'Merci ! Vous serez prevenu(e) de la sortie.';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
