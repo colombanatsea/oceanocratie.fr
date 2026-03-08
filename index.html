@@ -10,8 +10,9 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <!-- Favicon as data URI fallback + file -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 6C18 6 10 16 10 26c0 8 5 13 10 16s12 8 12 16c0-8 7-13 12-16s10-8 10-16C54 16 46 6 32 6z' fill='none' stroke='%232A55B3' stroke-width='5.5'/%3E%3Cpath d='M32 58c0-8-7-13-12-16S10 34 10 26' fill='none' stroke='%2300BF63' stroke-width='5.5'/%3E%3Ccircle cx='46' cy='12' r='3.5' fill='%2300BF63'/%3E%3C/svg%3E" />
 
   <!-- Canonical -->
   <link rel="canonical" href="https://oceanocratie.fr/" />
@@ -695,9 +696,6 @@
   <!-- Three.js canvas -->
   <canvas id="ocean-canvas"></canvas>
 
-  <!-- Atmospheric fog overlay -->
-  <div class="fog-overlay"></div>
-
   <!-- Spray particles -->
   <div class="spray" id="spray"></div>
 
@@ -832,414 +830,444 @@
 
   </div>
 
-  <!-- Three.js Ocean — cinematic rewrite -->
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-    }
-  }
-  </script>
-  <script type="module">
-    import * as THREE from 'three';
-
+  <!-- ═══════════════════════════════════════════════════════════
+       RAYMARCHED OCEAN — Based on "Seascape" by TDM (Shadertoy)
+       Adapted for nighttime moonlit scene. Pure fragment shader,
+       no geometry needed — infinite ocean via heightmap tracing.
+       ═══════════════════════════════════════════════════════════ -->
+  <script>
+  (function() {
+    'use strict';
     const isMobile = window.innerWidth <= 768;
     const canvas = document.getElementById('ocean-canvas');
     const fallback = document.getElementById('ocean-fallback');
 
     if (isMobile || !canvas) {
       if (canvas) canvas.style.display = 'none';
-    } else {
-      fallback.classList.add('hidden');
-
-      // ═══════════════════════════════════════
-      // RENDERER
-      // ═══════════════════════════════════════
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setClearColor(0x020810, 1);
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.1;
-      renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-      // ═══════════════════════════════════════
-      // SCENE
-      // ═══════════════════════════════════════
-      const scene = new THREE.Scene();
-
-      // Sky gradient — custom shader background
-      const skyGeo = new THREE.PlaneGeometry(2, 2);
-      const skyMat = new THREE.ShaderMaterial({
-        depthWrite: false, depthTest: false,
-        uniforms: {
-          uMoonPos: { value: new THREE.Vector2(0.3, 0.72) },
-        },
-        vertexShader: `
-          varying vec2 vUv;
-          void main() {
-            vUv = uv;
-            gl_Position = vec4(position.xy, 0.9999, 1.0);
-          }
-        `,
-        fragmentShader: `
-          varying vec2 vUv;
-          uniform vec2 uMoonPos;
-
-          void main() {
-            // Night sky gradient
-            vec3 top    = vec3(0.01, 0.02, 0.06);
-            vec3 mid    = vec3(0.02, 0.04, 0.12);
-            vec3 horizon = vec3(0.04, 0.08, 0.22);
-
-            float y = vUv.y;
-            vec3 sky = mix(horizon, mid, smoothstep(0.3, 0.55, y));
-            sky = mix(sky, top, smoothstep(0.55, 0.95, y));
-
-            // Horizon glow — subtle warm band
-            float hGlow = exp(-pow((y - 0.32) * 6.0, 2.0));
-            sky += vec3(0.06, 0.04, 0.12) * hGlow;
-
-            // Moon glow
-            float moonDist = length(vUv - uMoonPos);
-            float moonGlow = exp(-moonDist * 8.0) * 0.35;
-            float moonDisc = smoothstep(0.012, 0.009, moonDist);
-            sky += vec3(0.5, 0.55, 0.7) * moonGlow;
-            sky += vec3(0.85, 0.88, 0.95) * moonDisc;
-
-            gl_FragColor = vec4(sky, 1.0);
-          }
-        `
-      });
-      const skyMesh = new THREE.Mesh(skyGeo, skyMat);
-      skyMesh.renderOrder = -1;
-      skyMesh.frustumCulled = false;
-      scene.add(skyMesh);
-
-      // ═══════════════════════════════════════
-      // CAMERA — dramatic low angle
-      // ═══════════════════════════════════════
-      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 500);
-      camera.position.set(0, 1.8, 8);
-      camera.lookAt(0, 0.5, -30);
-
-      // ═══════════════════════════════════════
-      // OCEAN — Gerstner waves + full PBR-like shader
-      // ═══════════════════════════════════════
-      const SEG = 256;
-      const SIZE = 200;
-      const oceanGeo = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG);
-      oceanGeo.rotateX(-Math.PI / 2);
-
-      const oceanMat = new THREE.ShaderMaterial({
-        uniforms: {
-          uTime: { value: 0 },
-          uCameraPos: { value: camera.position },
-          uMoonDir: { value: new THREE.Vector3(0.3, 0.6, -0.74).normalize() },
-        },
-        vertexShader: `
-          uniform float uTime;
-          varying vec3 vWorldPos;
-          varying vec3 vNormal;
-          varying float vElevation;
-
-          // ── Gerstner wave ──
-          // Returns displacement (xyz) and partial derivatives for normal
-          // Q = steepness [0,1], A = amplitude, D = direction, w = frequency, phi = speed
-          vec3 gerstner(vec2 pos, float Q, float A, vec2 D, float w, float phi, float t, out vec2 dxy) {
-            float d = dot(D, pos);
-            float s = sin(w * d + phi * t);
-            float c = cos(w * d + phi * t);
-            float qaw = Q * A * w;
-            dxy = vec2(
-              D.x * qaw * c,
-              D.y * qaw * c
-            );
-            return vec3(
-              Q * A * D.x * c,
-              A * s,
-              Q * A * D.y * c
-            );
-          }
-
-          // ── Hash noise for micro-detail ──
-          vec2 hash22(vec2 p) {
-            p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
-            return -1.0 + 2.0 * fract(sin(p) * 43758.5453);
-          }
-          float gnoise(vec2 p) {
-            vec2 i = floor(p), f = fract(p);
-            vec2 u = f*f*(3.0-2.0*f);
-            return mix(
-              mix(dot(hash22(i), f), dot(hash22(i+vec2(1,0)), f-vec2(1,0)), u.x),
-              mix(dot(hash22(i+vec2(0,1)), f-vec2(0,1)), dot(hash22(i+vec2(1,1)), f-vec2(1,1)), u.x),
-              u.y
-            );
-          }
-
-          void main() {
-            vec3 pos = position;
-            float t = uTime;
-
-            // Sum 6 Gerstner wave octaves
-            vec2 totalDxy = vec2(0.0);
-            vec3 disp = vec3(0.0);
-            vec2 d1;
-
-            // Layer 1: Primary swell (long, powerful)
-            disp += gerstner(pos.xz, 0.45, 1.4, normalize(vec2(1.0, 0.6)), 0.08, 0.8, t, d1);
-            totalDxy += d1;
-
-            // Layer 2: Secondary swell (cross sea)
-            disp += gerstner(pos.xz, 0.35, 0.9, normalize(vec2(-0.7, 1.0)), 0.12, 1.0, t, d1);
-            totalDxy += d1;
-
-            // Layer 3: Wind waves
-            disp += gerstner(pos.xz, 0.25, 0.5, normalize(vec2(0.9, -0.4)), 0.22, 1.6, t, d1);
-            totalDxy += d1;
-
-            // Layer 4: Chop
-            disp += gerstner(pos.xz, 0.2, 0.3, normalize(vec2(-0.5, -0.8)), 0.35, 2.2, t, d1);
-            totalDxy += d1;
-
-            // Layer 5: Ripple
-            disp += gerstner(pos.xz, 0.15, 0.15, normalize(vec2(1.0, -1.0)), 0.6, 3.0, t, d1);
-            totalDxy += d1;
-
-            // Layer 6: Micro-chop
-            disp += gerstner(pos.xz, 0.1, 0.08, normalize(vec2(-1.0, 0.3)), 1.0, 4.0, t, d1);
-            totalDxy += d1;
-
-            pos += disp;
-
-            // Add noise detail
-            float nz = gnoise(pos.xz * 0.3 + t * 0.4) * 0.25;
-            nz += gnoise(pos.xz * 0.8 + t * 0.2) * 0.08;
-            pos.y += nz;
-
-            vElevation = disp.y + nz;
-
-            // Normal from Gerstner partials
-            vec3 normal = normalize(vec3(-totalDxy.x, 1.0, -totalDxy.y));
-            vNormal = normalMatrix * normal;
-
-            vWorldPos = (modelMatrix * vec4(pos, 1.0)).xyz;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-          }
-        `,
-        fragmentShader: `
-          precision highp float;
-          uniform float uTime;
-          uniform vec3 uCameraPos;
-          uniform vec3 uMoonDir;
-          varying vec3 vWorldPos;
-          varying vec3 vNormal;
-          varying float vElevation;
-
-          void main() {
-            vec3 N = normalize(vNormal);
-            vec3 V = normalize(uCameraPos - vWorldPos);
-            vec3 L = uMoonDir;
-
-            // ── Fresnel ──
-            float fresnel = pow(1.0 - max(dot(V, N), 0.0), 4.0);
-
-            // ── Base ocean colors ──
-            vec3 deepColor   = vec3(0.01, 0.03, 0.09);   // deep abyss
-            vec3 midColor    = vec3(0.02, 0.06, 0.18);    // mid blue
-            vec3 crestColor  = vec3(0.04, 0.12, 0.30);    // bright crest
-            vec3 sssColor    = vec3(0.0, 0.18, 0.25);     // subsurface teal
-
-            // Depth-based base color
-            float elevNorm = smoothstep(-2.5, 2.5, vElevation);
-            vec3 baseColor = mix(deepColor, midColor, elevNorm);
-            baseColor = mix(baseColor, crestColor, smoothstep(0.6, 1.0, elevNorm));
-
-            // ── Subsurface scattering simulation ──
-            // Light transmitting through thin wave crests
-            float sss = pow(max(dot(V, -L + N * 0.3), 0.0), 3.0) * smoothstep(0.0, 1.5, vElevation);
-            baseColor += sssColor * sss * 0.6;
-
-            // ── Fresnel reflection of sky ──
-            vec3 skyReflect = vec3(0.04, 0.08, 0.20);
-            vec3 color = mix(baseColor, skyReflect, fresnel * 0.65);
-
-            // ── Moon specular reflection (long glittering path) ──
-            vec3 H = normalize(L + V);
-            float NdH = max(dot(N, H), 0.0);
-
-            // Primary tight specular
-            float spec1 = pow(NdH, 256.0);
-            // Wider soft glow
-            float spec2 = pow(NdH, 32.0);
-            // Very wide ambient reflection
-            float spec3 = pow(NdH, 6.0);
-
-            vec3 moonColor = vec3(0.7, 0.75, 0.9);
-            color += moonColor * spec1 * 2.0;               // bright moon glints
-            color += moonColor * spec2 * 0.25;              // softer moon path
-            color += vec3(0.06, 0.08, 0.15) * spec3 * 0.3; // wide ambient moon glow
-
-            // ── Foam / whitecaps ──
-            float foam = smoothstep(1.2, 2.2, vElevation);
-            // Noisy foam edge
-            float foamNoise = fract(sin(dot(vWorldPos.xz * 3.0, vec2(12.9898, 78.233))) * 43758.5453);
-            foam *= smoothstep(0.3, 0.7, foamNoise);
-            color += vec3(0.5, 0.55, 0.65) * foam * 0.4;
-
-            // ── Distance-based atmospheric fog ──
-            float dist = length(vWorldPos - uCameraPos);
-            vec3 fogColor = vec3(0.025, 0.05, 0.14); // blue-ish night fog
-            float fogFactor = 1.0 - exp(-0.00015 * dist * dist);
-            // Add horizon glow to distant fog
-            float horizonFog = smoothstep(30.0, 120.0, dist);
-            vec3 horizonColor = vec3(0.04, 0.06, 0.16);
-            fogColor = mix(fogColor, horizonColor, horizonFog);
-            color = mix(color, fogColor, fogFactor);
-
-            // ── Subtle vignette darkening at edges ──
-            float depthDarken = smoothstep(80.0, 150.0, dist);
-            color *= 1.0 - depthDarken * 0.3;
-
-            gl_FragColor = vec4(color, 1.0);
-          }
-        `,
-        side: THREE.FrontSide,
-      });
-
-      const ocean = new THREE.Mesh(oceanGeo, oceanMat);
-      ocean.position.y = -1;
-      scene.add(ocean);
-
-      // ═══════════════════════════════════════
-      // STARFIELD — denser, more visible
-      // ═══════════════════════════════════════
-      const starCount = 1200;
-      const starPositions = new Float32Array(starCount * 3);
-      const starSizes = new Float32Array(starCount);
-      for (let i = 0; i < starCount; i++) {
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(Math.random() * 0.6 + 0.4); // upper sky only
-        const r = 80 + Math.random() * 60;
-        starPositions[i*3]   = r * Math.sin(phi) * Math.cos(theta);
-        starPositions[i*3+1] = r * Math.cos(phi);
-        starPositions[i*3+2] = r * Math.sin(phi) * Math.sin(theta);
-        starSizes[i] = 0.3 + Math.random() * 1.2;
-      }
-      const starGeo = new THREE.BufferGeometry();
-      starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));
-      starGeo.setAttribute('size', new THREE.Float32BufferAttribute(starSizes, 1));
-
-      const starMat = new THREE.ShaderMaterial({
-        uniforms: { uTime: { value: 0 } },
-        vertexShader: `
-          attribute float size;
-          uniform float uTime;
-          varying float vBright;
-          void main() {
-            vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
-            // Twinkle
-            float twinkle = sin(uTime * 1.5 + position.x * 10.0 + position.z * 7.0) * 0.3 + 0.7;
-            vBright = twinkle;
-            gl_PointSize = size * twinkle * (200.0 / -mvPos.z);
-            gl_Position = projectionMatrix * mvPos;
-          }
-        `,
-        fragmentShader: `
-          varying float vBright;
-          void main() {
-            float d = length(gl_PointCoord - 0.5) * 2.0;
-            float alpha = smoothstep(1.0, 0.0, d) * vBright * 0.7;
-            gl_FragColor = vec4(0.7, 0.78, 0.95, alpha);
-          }
-        `,
-        transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
-      });
-      scene.add(new THREE.Points(starGeo, starMat));
-
-      // ═══════════════════════════════════════
-      // SCROLL & CAMERA
-      // ═══════════════════════════════════════
-      let scrollY = 0, targetScrollY = 0;
-      window.addEventListener('scroll', () => { targetScrollY = window.scrollY; }, { passive: true });
-
-      canvas.addEventListener('webglcontextlost', (e) => {
-        e.preventDefault();
-        canvas.style.display = 'none';
-        fallback.classList.remove('hidden');
-      });
-
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-
-      // ═══════════════════════════════════════
-      // ANIMATION LOOP
-      // ═══════════════════════════════════════
-      const clock = new THREE.Clock();
-
-      function animate() {
-        requestAnimationFrame(animate);
-        const t = clock.getElapsedTime();
-
-        // Smooth scroll
-        scrollY += (targetScrollY - scrollY) * 0.06;
-        const sp = scrollY / (document.documentElement.scrollHeight - window.innerHeight || 1);
-
-        // Camera: gentle rise + pull-back as user scrolls
-        camera.position.set(
-          Math.sin(t * 0.15) * 0.5,              // subtle sway
-          1.8 + sp * 15,                          // rise with scroll
-          8 - sp * 4                              // pull back slightly
-        );
-        camera.lookAt(
-          Math.sin(t * 0.1) * 0.3,
-          0.3 + sp * 5,
-          -30
-        );
-        // Ship roll
-        camera.rotation.z = Math.sin(t * 0.2) * 0.012;
-
-        // Update shader uniforms
-        oceanMat.uniforms.uTime.value = t;
-        oceanMat.uniforms.uCameraPos.value.copy(camera.position);
-        starMat.uniforms.uTime.value = t;
-
-        renderer.render(scene, camera);
-      }
-
-      animate();
+      initNonGL();
+      return;
     }
 
-    // ── Spray particles ──
-    const sprayContainer = document.getElementById('spray');
-    if (sprayContainer && window.innerWidth > 768) {
-      for (let i = 0; i < 30; i++) {
-        const p = document.createElement('div');
-        p.className = 'spray__particle';
-        p.style.left = (Math.random() * 100) + '%';
-        p.style.bottom = (15 + Math.random() * 35) + '%';
-        p.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px');
-        p.style.animationDuration = (4 + Math.random() * 6) + 's';
-        p.style.animationDelay = (Math.random() * 8) + 's';
-        p.style.width = p.style.height = (1.5 + Math.random() * 3) + 'px';
-        sprayContainer.appendChild(p);
+    const gl = canvas.getContext('webgl', { antialias: false, alpha: false });
+    if (!gl) { initNonGL(); return; }
+
+    fallback.classList.add('hidden');
+
+    // ── Fullscreen quad ──
+    const quadVerts = new Float32Array([-1,-1, 1,-1, -1,1, 1,1]);
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, quadVerts, gl.STATIC_DRAW);
+
+    // ── Compile shaders ──
+    function compileShader(src, type) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        console.error('Shader error:', gl.getShaderInfoLog(s));
+        return null;
       }
+      return s;
     }
 
-    // ── Scroll reveal observer ──
-    const revealEls = document.querySelectorAll('.reveal');
-    const revealObs = new IntersectionObserver((entries) => {
+    const vertSrc = `
+      attribute vec2 aPos;
+      void main() { gl_Position = vec4(aPos, 0.0, 1.0); }
+    `;
+
+    // ════════════════════════════════════════════════════════════
+    // FRAGMENT SHADER — Raymarched moonlit ocean
+    // Inspired by "Seascape" by Alexander Alekseev (TDM), 2014
+    // CC BY-NC-SA 3.0 — adapted for nighttime scene
+    // ════════════════════════════════════════════════════════════
+    const fragSrc = `
+      precision highp float;
+      uniform float iTime;
+      uniform vec2 iResolution;
+
+      // ── Constants ──
+      const int NUM_STEPS = 8;
+      const int ITER_GEOMETRY = 3;
+      const int ITER_FRAGMENT = 5;
+      const float PI = 3.141592;
+      const float EPSILON = 1e-3;
+
+      // ── Ocean parameters ──
+      const float SEA_HEIGHT = 0.6;
+      const float SEA_CHOPPY = 4.0;
+      const float SEA_SPEED  = 0.8;
+      const float SEA_FREQ   = 0.16;
+
+      // ── Night ocean colors ──
+      const vec3 SEA_BASE       = vec3(0.0, 0.06, 0.12);
+      const vec3 SEA_WATER      = vec3(0.35, 0.5, 0.55);
+      const vec3 SEA_DEEP       = vec3(0.0, 0.02, 0.06);
+      const vec3 MOON_COLOR     = vec3(0.75, 0.8, 0.95);
+
+      // ── Octave rotation ──
+      mat2 octave_m = mat2(1.6, 1.2, -1.2, 1.6);
+
+      // ── Math utils ──
+      mat3 fromEuler(vec3 ang) {
+        vec2 a1 = vec2(sin(ang.x),cos(ang.x));
+        vec2 a2 = vec2(sin(ang.y),cos(ang.y));
+        vec2 a3 = vec2(sin(ang.z),cos(ang.z));
+        mat3 m;
+        m[0] = vec3(a1.y*a3.y+a1.x*a2.x*a3.x, a1.y*a2.x*a3.x+a3.y*a1.x, -a2.y*a3.x);
+        m[1] = vec3(-a2.y*a1.x, a1.y*a2.y, a2.x);
+        m[2] = vec3(a3.y*a1.x*a2.x+a1.y*a3.x, a1.x*a3.x-a1.y*a3.y*a2.x, a2.y*a3.y);
+        return m;
+      }
+
+      float hash(vec2 p) {
+        float h = dot(p, vec2(127.1, 311.7));
+        return fract(sin(h) * 43758.5453123);
+      }
+
+      float noise(vec2 p) {
+        vec2 i = floor(p);
+        vec2 f = fract(p);
+        vec2 u = f*f*(3.0-2.0*f);
+        return -1.0 + 2.0 * mix(
+          mix(hash(i), hash(i+vec2(1.0,0.0)), u.x),
+          mix(hash(i+vec2(0.0,1.0)), hash(i+vec2(1.0,1.0)), u.x),
+          u.y
+        );
+      }
+
+      // ── Lighting ──
+      float diffuse(vec3 n, vec3 l, float p) {
+        return pow(dot(n,l) * 0.4 + 0.6, p);
+      }
+
+      float specular(vec3 n, vec3 l, vec3 e, float s) {
+        float nrm = (s + 8.0) / (PI * 8.0);
+        return pow(max(dot(reflect(e,n),l), 0.0), s) * nrm;
+      }
+
+      // ══════════════════════════
+      // NIGHT SKY with moon & stars
+      // ══════════════════════════
+      vec3 getSkyColor(vec3 e) {
+        e.y = max(e.y, 0.0);
+
+        // Night gradient — deep blue to near-black
+        vec3 sky = vec3(0.005, 0.01, 0.03);
+        sky += vec3(0.01, 0.02, 0.06) * (1.0 - e.y);
+
+        // Horizon glow — subtle blue-purple band
+        float horizonGlow = pow(1.0 - e.y, 12.0);
+        sky += vec3(0.04, 0.05, 0.15) * horizonGlow;
+
+        // Stars — procedural via noise
+        float starField = hash(e.xz * 300.0 + e.y * 100.0);
+        float star = smoothstep(0.997, 0.999, starField) * smoothstep(0.05, 0.2, e.y);
+        sky += vec3(0.6, 0.65, 0.8) * star * 2.0;
+
+        // Faint twinkling stars
+        float twinkle = sin(iTime * 3.0 + starField * 100.0) * 0.5 + 0.5;
+        float star2 = smoothstep(0.993, 0.997, starField) * smoothstep(0.05, 0.3, e.y);
+        sky += vec3(0.3, 0.35, 0.5) * star2 * twinkle;
+
+        // Moon
+        vec3 moonDir = normalize(vec3(0.3, 0.35, -0.88));
+        float moonAngle = max(dot(e, moonDir), 0.0);
+
+        // Moon disc
+        float moonDisc = smoothstep(0.9997, 0.9999, moonAngle);
+        sky += vec3(0.9, 0.92, 1.0) * moonDisc * 3.0;
+
+        // Moon glow (large halo)
+        float moonGlow = pow(moonAngle, 256.0) * 1.5;
+        sky += MOON_COLOR * moonGlow;
+
+        // Wider atmospheric glow
+        float moonAtmo = pow(moonAngle, 16.0) * 0.15;
+        sky += vec3(0.15, 0.18, 0.3) * moonAtmo;
+
+        return sky;
+      }
+
+      // ══════════════════════════
+      // WAVE FUNCTION (TDM's sea_octave)
+      // ══════════════════════════
+      float sea_octave(vec2 uv, float choppy) {
+        uv += noise(uv);
+        vec2 wv = 1.0 - abs(sin(uv));
+        vec2 swv = abs(cos(uv));
+        wv = mix(wv, swv, wv);
+        return pow(1.0 - pow(wv.x * wv.y, 0.65), choppy);
+      }
+
+      // ══════════════════════════
+      // HEIGHTMAP — geometry pass (fewer iterations)
+      // ══════════════════════════
+      float map(vec3 p) {
+        float SEA_TIME = iTime * SEA_SPEED;
+        float freq = SEA_FREQ;
+        float amp = SEA_HEIGHT;
+        float choppy = SEA_CHOPPY;
+        vec2 uv = p.xz; uv.x *= 0.75;
+
+        float d, h = 0.0;
+        for(int i = 0; i < ITER_GEOMETRY; i++) {
+          d = sea_octave((uv + SEA_TIME) * freq, choppy);
+          d += sea_octave((uv - SEA_TIME) * freq, choppy);
+          h += d * amp;
+          uv *= octave_m;
+          freq *= 1.9;
+          amp *= 0.22;
+          choppy = mix(choppy, 1.0, 0.2);
+        }
+        return p.y - h;
+      }
+
+      // ══════════════════════════
+      // HEIGHTMAP — detailed pass (more iterations for normals)
+      // ══════════════════════════
+      float map_detailed(vec3 p) {
+        float SEA_TIME = iTime * SEA_SPEED;
+        float freq = SEA_FREQ;
+        float amp = SEA_HEIGHT;
+        float choppy = SEA_CHOPPY;
+        vec2 uv = p.xz; uv.x *= 0.75;
+
+        float d, h = 0.0;
+        for(int i = 0; i < ITER_FRAGMENT; i++) {
+          d = sea_octave((uv + SEA_TIME) * freq, choppy);
+          d += sea_octave((uv - SEA_TIME) * freq, choppy);
+          h += d * amp;
+          uv *= octave_m;
+          freq *= 1.9;
+          amp *= 0.22;
+          choppy = mix(choppy, 1.0, 0.2);
+        }
+        return p.y - h;
+      }
+
+      // ══════════════════════════
+      // NORMALS via finite differences
+      // ══════════════════════════
+      vec3 getNormal(vec3 p, float eps) {
+        vec3 n;
+        n.y = map_detailed(p);
+        n.x = map_detailed(vec3(p.x+eps, p.y, p.z)) - n.y;
+        n.z = map_detailed(vec3(p.x, p.y, p.z+eps)) - n.y;
+        n.y = eps;
+        return normalize(n);
+      }
+
+      // ══════════════════════════
+      // HEIGHTMAP TRACING (binary search)
+      // ══════════════════════════
+      float heightMapTracing(vec3 ori, vec3 dir, out vec3 p) {
+        float tm = 0.0;
+        float tx = 1000.0;
+        float hx = map(ori + dir * tx);
+        if(hx > 0.0) return tx;
+        float hm = map(ori + dir * tm);
+        float tmid = 0.0;
+        for(int i = 0; i < NUM_STEPS; i++) {
+          tmid = mix(tm, tx, hm / (hm - hx));
+          p = ori + dir * tmid;
+          float hmid = map(p);
+          if(hmid < 0.0) {
+            tx = tmid;
+            hx = hmid;
+          } else {
+            tm = tmid;
+            hm = hmid;
+          }
+        }
+        return tmid;
+      }
+
+      // ══════════════════════════
+      // OCEAN COLOR — nighttime adaptation
+      // ══════════════════════════
+      vec3 getSeaColor(vec3 p, vec3 n, vec3 l, vec3 eye, vec3 dist) {
+        float fresnel = 1.0 - max(dot(n, -eye), 0.0);
+        fresnel = pow(fresnel, 3.0) * 0.75;
+
+        // Reflected sky (night)
+        vec3 reflected = getSkyColor(reflect(eye, n));
+
+        // Refracted / underwater color
+        vec3 refracted = SEA_BASE + diffuse(n, l, 80.0) * SEA_WATER * 0.15;
+
+        vec3 color = mix(refracted, reflected, fresnel);
+
+        // Depth-based water tint
+        float atten = max(1.0 - dot(dist,dist) * 0.001, 0.0);
+        color += SEA_WATER * (p.y - SEA_HEIGHT) * 0.2 * atten;
+
+        // Subsurface scattering — teal glow through wave crests
+        float sss = pow(max(dot(eye, l), 0.0), 2.0) * smoothstep(-0.1, 0.3, p.y - SEA_HEIGHT * 0.5);
+        color += vec3(0.0, 0.12, 0.16) * sss * 0.4;
+
+        // Moonlight specular — tight (creates the glitter path)
+        color += vec3(specular(n, l, eye, 120.0)) * MOON_COLOR * 1.2;
+        // Wider specular halo
+        color += vec3(specular(n, l, eye, 20.0)) * MOON_COLOR * 0.15;
+
+        // Foam hint on crests
+        float foam = smoothstep(SEA_HEIGHT * 0.85, SEA_HEIGHT * 1.1, p.y);
+        float foamNoise = hash(p.xz * 8.0);
+        foam *= smoothstep(0.4, 0.8, foamNoise);
+        color += vec3(0.35, 0.4, 0.5) * foam * 0.2;
+
+        return color;
+      }
+
+      // ══════════════════════════
+      // MAIN
+      // ══════════════════════════
+      void main() {
+        float EPSILON_NRM = 0.1 / iResolution.x;
+
+        vec2 uv = gl_FragCoord.xy / iResolution.xy;
+        uv = uv * 2.0 - 1.0;
+        uv.x *= iResolution.x / iResolution.y;
+
+        float time = iTime * 0.15;
+
+        // ── Camera — slow cinematic drift ──
+        vec3 ang = vec3(
+          sin(time * 2.1) * 0.06,    // pitch wobble
+          sin(time) * 0.08 + 0.25,   // look slightly down at ocean
+          time * 0.5                  // slow yaw
+        );
+        vec3 ori = vec3(0.0, 3.5, time * 8.0);
+
+        // Ray direction with subtle barrel distortion
+        vec3 dir = normalize(vec3(uv.xy, -2.0));
+        dir.z += length(uv) * 0.14;
+        dir = normalize(dir) * fromEuler(ang);
+
+        // Moon light direction
+        vec3 light = normalize(vec3(0.3, 0.35, -0.88));
+
+        // ── Trace ocean ──
+        vec3 p;
+        heightMapTracing(ori, dir, p);
+        vec3 dist = p - ori;
+        vec3 n = getNormal(p, dot(dist,dist) * EPSILON_NRM);
+
+        // ── Composite sky + ocean ──
+        vec3 sky = getSkyColor(dir);
+        vec3 sea = getSeaColor(p, n, light, dir, dist);
+
+        // Smooth horizon blend
+        vec3 color = mix(sky, sea, pow(smoothstep(0.0, -0.05, dir.y), 0.3));
+
+        // ── Post-processing ──
+        // Subtle film grain
+        float grain = (hash(gl_FragCoord.xy + iTime) - 0.5) * 0.03;
+        color += grain;
+
+        // Cinematic tone mapping (ACES-like)
+        color = color * (2.51 * color + 0.03) / (color * (2.43 * color + 0.59) + 0.14);
+
+        // Vignette
+        vec2 vig = gl_FragCoord.xy / iResolution.xy;
+        float v = 1.0 - pow(length(vig - 0.5) * 1.1, 2.5);
+        color *= mix(0.7, 1.0, v);
+
+        gl_FragColor = vec4(color, 1.0);
+      }
+    `;
+
+    // ── Build program ──
+    const vs = compileShader(vertSrc, gl.VERTEX_SHADER);
+    const fs = compileShader(fragSrc, gl.FRAGMENT_SHADER);
+    if (!vs || !fs) { initNonGL(); return; }
+
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      console.error('Link error:', gl.getProgramInfoLog(prog));
+      initNonGL();
+      return;
+    }
+    gl.useProgram(prog);
+
+    // ── Attributes & uniforms ──
+    const aPos = gl.getAttribLocation(prog, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    const uTime = gl.getUniformLocation(prog, 'iTime');
+    const uRes = gl.getUniformLocation(prog, 'iResolution');
+
+    // ── Resize ──
+    let dpr = Math.min(window.devicePixelRatio, 1.5);
+    function resize() {
+      const w = window.innerWidth, h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // ── Animation ──
+    let startTime = performance.now();
+
+    function render() {
+      const t = (performance.now() - startTime) * 0.001;
+      gl.uniform1f(uTime, t);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      requestAnimationFrame(render);
+    }
+
+    // Context loss recovery
+    canvas.addEventListener('webglcontextlost', (e) => {
+      e.preventDefault();
+      canvas.style.display = 'none';
+      fallback.classList.remove('hidden');
+    });
+
+    render();
+
+    function initNonGL() {}
+  })();
+
+  // ── Spray particles ──
+  (function() {
+    const spray = document.getElementById('spray');
+    if (!spray || window.innerWidth <= 768) return;
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'spray__particle';
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.bottom = (15 + Math.random() * 35) + '%';
+      p.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px');
+      p.style.animationDuration = (4 + Math.random() * 6) + 's';
+      p.style.animationDelay = (Math.random() * 8) + 's';
+      p.style.width = p.style.height = (1.5 + Math.random() * 3) + 'px';
+      spray.appendChild(p);
+    }
+  })();
+
+  // ── Scroll reveal ──
+  (function() {
+    const els = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('visible');
-          revealObs.unobserve(e.target);
+          obs.unobserve(e.target);
         }
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(el => revealObs.observe(el));
+    els.forEach(el => obs.observe(el));
+  })();
   </script>
 
   <script>
