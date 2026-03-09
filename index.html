@@ -7,7 +7,7 @@
   <meta name="description" content="La France collectionne les atouts maritimes mais tourne le dos &agrave; la mer. Oc&eacute;anocratie explore ce ph&eacute;nom&egrave;ne — et comment changer la donne." />
 
   <!-- Security -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://script.google.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -350,7 +350,7 @@
 
     .book__title {
       font-family: var(--font-heading);
-      font-size: 1rem;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.18em;
       color: white;
@@ -372,14 +372,7 @@
     }
 
     .book__accent {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 6px;
-      height: 6px;
-      background: var(--vert);
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(0,191,99,0.5);
+      display: none;
     }
 
     /* ── Waitlist ── */
@@ -741,12 +734,21 @@
       .glass-card { padding: 2rem 1.5rem; border-radius: 16px; }
       .cta-group { flex-direction: column; align-items: center; }
       .book { width: 120px; height: 170px; }
-      .book__title { font-size: 0.7rem; }
+      .book__title { font-size: 0.55rem; }
       .waitlist__form { flex-direction: column; }
       .spray { display: none; }
       #droplets-canvas { display: none; }
     }
   </style>
+
+  <!-- Google Analytics 4 — Replace G-YYYYYYYYYY with your GA4 Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YYYYYYYYYY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YYYYYYYYYY');
+  </script>
 </head>
 <body>
   <!-- CSS ocean fallback (visible until Three.js loads, or on mobile) -->
@@ -778,8 +780,7 @@
 
         <div class="book-wrapper">
           <div class="book" id="book" role="img" aria-label="Couverture du livre Oc&eacute;anocratie par Colomban — livre bleu avec titre blanc">
-            <div class="book__accent"></div>
-            <span class="book__title">Oceanocratie</span>
+            <span class="book__title">OCEANOCRATIE</span>
             <div class="book__line"></div>
             <span class="book__author">Colomban</span>
           </div>
@@ -1538,6 +1539,10 @@
         msg.textContent = 'Merci ! Vous serez pr\u00e9venu(e) de la sortie.';
         msg.classList.remove('error');
         form.reset();
+        // Track waitlist signup as conversion
+        if (typeof gtag === 'function') {
+          gtag('event', 'sign_up', { method: 'waitlist', event_category: 'conversion' });
+        }
       })
       .catch((err) => {
         console.error('Waitlist submission error:', err);
