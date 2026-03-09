@@ -254,14 +254,17 @@
     .hero__description {
       font-size: 1.05rem;
       line-height: 1.8;
-      color: var(--gris-400);
+      color: var(--gris-200);
       margin-bottom: 2.5rem;
       max-width: 560px;
       margin-left: auto;
       margin-right: auto;
       opacity: 0;
       animation: fadeInUp 0.8s ease 0.9s both;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.6), 0 0 30px rgba(5,10,24,0.7);
+      text-shadow: 0 2px 12px rgba(0,0,0,0.9), 0 0 40px rgba(5,10,24,0.95), 0 0 80px rgba(5,10,24,0.7);
+      background: radial-gradient(ellipse at center, rgba(5,10,24,0.6) 0%, transparent 70%);
+      padding: 1.5rem;
+      border-radius: 12px;
     }
 
     .hero__scroll-hint {
@@ -632,36 +635,6 @@
     .author__link:hover { color: var(--vert); }
 
     /* ── Stats ribbon ── */
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      padding: 3rem 0;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      text-align: center;
-      max-width: 260px;
-    }
-
-    .stat__number {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: 2rem;
-      color: var(--blanc);
-      display: block;
-      line-height: 1.1;
-    }
-
-    .stat__label {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--gris-500);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 0.25rem;
-    }
 
     /* ── Tout passe par la mer ── */
     .sea-pillars {
@@ -1038,8 +1011,6 @@
       .book { width: 120px; height: 170px; }
       .book__title { font-size: 0.7rem; }
       .waitlist__form { flex-direction: column; }
-      .stats { gap: 1.5rem; }
-      .stat__number { font-size: 1.5rem; }
       .spray { display: none; }
       #droplets-canvas { display: none; }
     }
@@ -1071,7 +1042,7 @@
       <div class="hero__inner">
         <p class="mono hero__kicker">&Agrave; para&icirc;tre — No&euml;l 2026</p>
         <h1 class="hero__title">Oceanocratie</h1>
-        <p class="hero__subtitle">La France n'est pas un hexagone. C'est un archipel.</p>
+        <p class="hero__subtitle">Une nation libre regarde la mer.</p>
 
         <div class="book-wrapper">
           <div class="book" id="book" role="img" aria-label="Couverture du livre Oc&eacute;anocratie par Colomban — livre bleu avec titre blanc">
@@ -1107,23 +1078,6 @@
       </div>
     </section>
 
-    <!-- ═══ STATS / KPI ═══ -->
-    <div class="reveal" id="stats-section">
-      <div class="stats">
-        <div class="stat stagger-child">
-          <span class="stat__number">97%</span>
-          <span class="stat__label">des donn&eacute;es num&eacute;riques mondiales transitent par des c&acirc;bles sous-marins — souverainet&eacute; num&eacute;rique</span>
-        </div>
-        <div class="stat stagger-child">
-          <span class="stat__number">80%</span>
-          <span class="stat__label">des marchandises mondiales sont transport&eacute;es par voie maritime — interface &eacute;conomique</span>
-        </div>
-        <div class="stat stagger-child">
-          <span class="stat__number">EMR</span>
-          <span class="stat__label">&eacute;olien offshore, hydrolien, &eacute;nergie thermique des mers — un potentiel &eacute;nerg&eacute;tique consid&eacute;rable</span>
-        </div>
-      </div>
-    </div>
 
     <!-- ═══ TOUT PASSE PAR LA MER ═══ -->
     <section class="sea-pillars reveal">
