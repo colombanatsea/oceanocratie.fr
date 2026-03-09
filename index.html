@@ -417,12 +417,6 @@
 
     .waitlist__btn { flex-shrink: 0; }
 
-    .waitlist__captcha {
-      margin-top: 0.75rem;
-      display: flex;
-      justify-content: center;
-    }
-
     .waitlist__note {
       margin-top: 0.75rem;
       font-size: 0.85rem;
@@ -801,11 +795,8 @@
           <p class="waitlist__label mono">Soyez pr&eacute;venu(e) de la sortie</p>
           <form class="waitlist__form" id="waitlist-form">
             <input type="email" name="email" placeholder="votre@email.com" required class="waitlist__input" autocomplete="email" />
-            <button type="submit" class="btn btn-primary waitlist__btn">Me pr&eacute;venir</button>
+            <button type="submit" class="btn btn-primary waitlist__btn h-captcha" data-sitekey="44767a32-65fc-4bc8-aa22-32aee088f86e" data-size="invisible" data-callback="onCaptchaPass">Me pr&eacute;venir</button>
           </form>
-          <div class="waitlist__captcha">
-            <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001" data-theme="dark" data-size="compact"></div>
-          </div>
           <p class="waitlist__note" id="waitlist-msg" aria-live="polite"></p>
         </div>
 
@@ -1526,21 +1517,13 @@
 
     const form = document.getElementById('waitlist-form');
     const msg = document.getElementById('waitlist-msg');
-    form?.addEventListener('submit', (e) => {
-      e.preventDefault();
+
+    // hCaptcha invisible callback — called after captcha passes
+    function onCaptchaPass(token) {
       const fd = new FormData(form);
       const email = fd.get('email');
       if (!email) return;
 
-      // Verify hCaptcha token
-      const captchaToken = typeof hcaptcha !== 'undefined' ? hcaptcha.getResponse() : '';
-      if (!captchaToken) {
-        msg.textContent = 'Veuillez valider le captcha.';
-        msg.classList.add('error');
-        return;
-      }
-
-      // Disable button during submission
       const btn = form.querySelector('.waitlist__btn');
       btn.disabled = true;
       btn.textContent = 'Envoi...';
@@ -1551,14 +1534,13 @@
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, captcha: captchaToken })
+        body: JSON.stringify({ email: email, captcha: token })
       })
       .then(() => {
         msg.textContent = 'Merci ! Vous serez pr\u00e9venu(e) de la sortie.';
         msg.classList.remove('error');
         form.reset();
         if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
-        // Track waitlist signup as conversion
         if (typeof gtag === 'function') {
           gtag('event', 'sign_up', { method: 'waitlist', event_category: 'conversion' });
         }
@@ -1572,6 +1554,16 @@
         btn.disabled = false;
         btn.textContent = 'Me pr\u00e9venir';
       });
+    }
+
+    // Validate email before hCaptcha triggers
+    form?.addEventListener('submit', (e) => {
+      const email = new FormData(form).get('email');
+      if (!email) {
+        e.preventDefault();
+        msg.textContent = 'Veuillez entrer votre email.';
+        msg.classList.add('error');
+      }
     });
   </script>
   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
