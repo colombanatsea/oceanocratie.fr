@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Oceanocratie — Une nation libre regarde la mer</title>
-  <meta name="description" content="Oceanocratie — Un livre de Colomban pour explorer le potentiel maritime francais. Sortie prevue Noel 2026." />
+  <title>Oceanocratie — La France n'est pas un hexagone. C'est un archipel.</title>
+  <meta name="description" content="595 Md&euro; d'exports par la mer, 50+ c&acirc;bles sous-marins, 45 GW d'&eacute;olien offshore vis&eacute;s en 2050. Oc&eacute;anocratie explore le potentiel maritime fran&ccedil;ais. Un livre de Colomban — No&euml;l 2026." />
 
   <!-- Security -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
@@ -20,12 +20,22 @@
   <link rel="canonical" href="https://oceanocratie.fr/" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Oceanocratie — Une nation libre regarde la mer" />
-  <meta property="og:description" content="Un livre de Colomban pour explorer le potentiel maritime francais. Sortie prevue Noel 2026." />
+  <meta property="og:title" content="Oceanocratie — La France n'est pas un hexagone. C'est un archipel." />
+  <meta property="og:description" content="Le monde maritime aborde trois transformations sans pr&eacute;c&eacute;dent. 595 Md&euro; d'exports transitent par la mer, 50+ c&acirc;bles sous-marins, 45 GW d'&eacute;olien offshore vis&eacute;s. Un livre de Colomban — No&euml;l 2026." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://oceanocratie.fr/" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="Oceanocratie" />
+  <meta property="og:image" content="https://oceanocratie.fr/og-image.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Oceanocratie — Globe montrant l'archipel France et ses territoires d'outre-mer connect&eacute;s" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Oceanocratie — La France n'est pas un hexagone. C'est un archipel." />
+  <meta name="twitter:description" content="Le monde maritime aborde trois transformations sans pr&eacute;c&eacute;dent. Un livre de Colomban — No&euml;l 2026." />
+  <meta name="twitter:image" content="https://oceanocratie.fr/og-image.svg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -599,6 +609,7 @@
 
     .stat {
       text-align: center;
+      max-width: 260px;
     }
 
     .stat__number {
@@ -618,6 +629,358 @@
       text-transform: uppercase;
       margin-top: 0.25rem;
     }
+
+    /* ── Tout passe par la mer ── */
+    .sea-pillars {
+      padding: 4rem 0;
+    }
+
+    .sea-pillars__title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .sea-pillars__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .sea-pillar {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .sea-pillar:hover {
+      transform: translateY(-4px);
+      border-color: rgba(42,85,179,0.3);
+    }
+
+    .sea-pillar__stat {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 2.4rem;
+      background: linear-gradient(135deg, var(--bleu), var(--vert));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+
+    .sea-pillar__label {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--blanc);
+      margin: 0.5rem 0 0.75rem;
+    }
+
+    .sea-pillar__desc {
+      font-size: 0.85rem;
+      color: var(--gris-400);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .sea-pillars__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Transformations section ── */
+    .transformations {
+      padding: 4rem 0;
+    }
+
+    .transformations__intro {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--gris-400);
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+
+    .transform-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .transform-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .transform-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(42,85,179,0.3);
+    }
+
+    .transform-card__icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .transform-card h3 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .transform-card p {
+      font-size: 0.9rem;
+      color: var(--gris-400);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .transform-cards { grid-template-columns: 1fr; }
+    }
+
+    /* ── Matrice 3D ── */
+    .matrice3d {
+      padding: 4rem 0;
+    }
+
+    .matrice3d__content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .matrice3d__text p {
+      font-size: 0.95rem;
+      color: var(--gris-400);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .matrice3d__visual {
+      position: relative;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .matrice3d__cube {
+      width: 160px;
+      height: 160px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: cube-rotate 12s linear infinite;
+    }
+
+    .matrice3d__face {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+    }
+
+    .matrice3d__face--front  { background: rgba(42,85,179,0.2); transform: translateZ(80px); }
+    .matrice3d__face--back   { background: rgba(0,191,99,0.2); transform: rotateY(180deg) translateZ(80px); }
+    .matrice3d__face--right  { background: rgba(179,42,85,0.2); transform: rotateY(90deg) translateZ(80px); }
+    .matrice3d__face--left   { background: rgba(42,85,179,0.15); transform: rotateY(-90deg) translateZ(80px); }
+    .matrice3d__face--top    { background: rgba(0,191,99,0.15); transform: rotateX(90deg) translateZ(80px); }
+    .matrice3d__face--bottom { background: rgba(179,42,85,0.15); transform: rotateX(-90deg) translateZ(80px); }
+
+    @keyframes cube-rotate {
+      0%   { transform: rotateX(-20deg) rotateY(0deg); }
+      100% { transform: rotateX(-20deg) rotateY(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .matrice3d__content { grid-template-columns: 1fr; }
+    }
+
+    /* ── Testimonials ── */
+    .testimonials {
+      padding: 4rem 0;
+    }
+
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .testimonial {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .testimonial:hover {
+      transform: translateY(-4px);
+      border-color: rgba(42,85,179,0.3);
+    }
+
+    .testimonial__logo {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 48px;
+      height: 48px;
+      opacity: 0.25;
+      filter: grayscale(1) brightness(2);
+    }
+
+    .testimonial__quote {
+      font-size: 0.95rem;
+      color: var(--gris-400);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+      padding-right: 3rem;
+    }
+
+    .testimonial__author {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--blanc);
+    }
+
+    .testimonial__role {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gris-500);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    @media (max-width: 768px) {
+      .testimonials__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Carte Archipel ── */
+    .carte-section {
+      padding: 4rem 0;
+    }
+
+    .carte-container {
+      position: relative;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .carte-svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .carte-point {
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .carte-point.visible {
+      opacity: 1;
+    }
+
+    .carte-point circle {
+      transition: r 0.2s, fill 0.2s;
+    }
+
+    .carte-point.visible:hover circle {
+      fill: var(--vert);
+    }
+
+    .carte-tooltip {
+      position: absolute;
+      background: rgba(15,15,15,0.95);
+      border: 1px solid rgba(42,85,179,0.4);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 10;
+      max-width: 220px;
+    }
+
+    .carte-tooltip.active {
+      opacity: 1;
+    }
+
+    .carte-tooltip__title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--blanc);
+      margin-bottom: 0.25rem;
+    }
+
+    .carte-tooltip__desc {
+      font-size: 0.75rem;
+      color: var(--gris-400);
+      line-height: 1.5;
+    }
+
+    .carte-line {
+      stroke: var(--bleu);
+      stroke-width: 1.5;
+      fill: none;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      opacity: 0.6;
+    }
+
+    .carte-line.animate {
+      animation: draw-line 1.5s ease-out forwards;
+    }
+
+    @keyframes draw-line {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ── Sources link ── */
+    .sources-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--bleu-light);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .sources-link:hover { color: var(--vert); }
 
     /* ── Footer ── */
     .footer {
@@ -741,7 +1104,7 @@
       <div class="hero__inner">
         <p class="mono hero__kicker">A paraitre — Noel 2026</p>
         <h1 class="hero__title">Oceanocratie</h1>
-        <p class="hero__subtitle">Une nation libre regarde la mer.</p>
+        <p class="hero__subtitle">La France n'est pas un hexagone. C'est un archipel.</p>
 
         <div class="book-wrapper">
           <div class="book" id="book">
@@ -777,33 +1140,77 @@
       </div>
     </section>
 
-    <!-- ═══ STATS ═══ -->
+    <!-- ═══ STATS / KPI ═══ -->
     <div class="reveal" id="stats-section">
       <div class="stats">
         <div class="stat stagger-child">
-          <span class="stat__number">11 M</span>
-          <span class="stat__label">km&sup2; de ZEE</span>
+          <span class="stat__number">595 Md&euro;</span>
+          <span class="stat__label">de biens export&eacute;s par la France transitent par la mer</span>
         </div>
         <div class="stat stagger-child">
-          <span class="stat__number">37</span>
-          <span class="stat__label">frontieres maritimes</span>
+          <span class="stat__number">50+</span>
+          <span class="stat__label">c&acirc;bles sous-marins — pays le plus connect&eacute; d'Europe</span>
         </div>
         <div class="stat stagger-child">
-          <span class="stat__number">4</span>
-          <span class="stat__label">oceans</span>
-        </div>
-        <div class="stat stagger-child">
-          <span class="stat__number">5</span>
-          <span class="stat__label">continents</span>
+          <span class="stat__number">45 GW</span>
+          <span class="stat__label">d'&eacute;olien offshore vis&eacute;s en 2050 — 30% de l'&eacute;lectricit&eacute; fran&ccedil;aise</span>
         </div>
       </div>
     </div>
+
+    <!-- ═══ TOUT PASSE PAR LA MER ═══ -->
+    <section class="sea-pillars reveal">
+      <h2 class="sea-pillars__title">Tout passe par la mer<span style="color: var(--vert);">.</span></h2>
+      <div class="sea-pillars__grid">
+        <div class="sea-pillar stagger-child">
+          <div class="sea-pillar__stat">97%</div>
+          <div class="sea-pillar__label">Communications</div>
+          <p class="sea-pillar__desc">Des donn&eacute;es num&eacute;riques mondiales transitent par des c&acirc;bles sous-marins — souverainet&eacute; num&eacute;rique</p>
+        </div>
+        <div class="sea-pillar stagger-child">
+          <div class="sea-pillar__stat">80%</div>
+          <div class="sea-pillar__label">Commerce mondial</div>
+          <p class="sea-pillar__desc">Des marchandises mondiales sont transport&eacute;es par voie maritime — interface &eacute;conomique</p>
+        </div>
+        <div class="sea-pillar stagger-child">
+          <div class="sea-pillar__stat">EMR</div>
+          <div class="sea-pillar__label">&Eacute;nergie</div>
+          <p class="sea-pillar__desc">&Eacute;olien offshore, hydrolien, &eacute;nergie thermique des mers&nbsp;: un potentiel &eacute;nerg&eacute;tique consid&eacute;rable</p>
+        </div>
+      </div>
+    </section>
 
     <!-- ═══ QUOTE ═══ -->
     <section class="quote-section reveal">
       <div class="container">
         <blockquote>&laquo;&nbsp;La mer, c'est ce que les Francais ont dans le dos quand ils regardent la plage.&nbsp;&raquo;</blockquote>
         <cite>Eric Tabarly</cite>
+      </div>
+    </section>
+
+    <!-- ═══ TROIS TRANSFORMATIONS ═══ -->
+    <section class="section transformations reveal">
+      <div class="container">
+        <p class="mono" style="text-align:center; margin-bottom: 1rem;">Les trois chocs</p>
+        <h2 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); text-align: center; margin-bottom: 1.5rem;">Trois transformations, une seule mer<span style="color: var(--vert);">.</span></h2>
+        <p class="transformations__intro">Le monde maritime aborde trois transformations sans pr&eacute;c&eacute;dent. Ce ne sont pas des menaces&nbsp;: ce sont des opportunit&eacute;s pour une soci&eacute;t&eacute; plus durable.</p>
+        <div class="transform-cards">
+          <div class="transform-card stagger-child">
+            <div class="transform-card__icon" aria-hidden="true">&#9875;</div>
+            <h3>Le temps long</h3>
+            <p>La mer impose un rythme que la terre a oubli&eacute;. Planifier une travers&eacute;e, anticiper la m&eacute;t&eacute;o, penser en semaines ou en jours et non en minutes ou en secondes — le temps long forge la vision strat&eacute;gique et la capacit&eacute; &agrave; se projeter au-del&agrave; de l'imm&eacute;diatet&eacute;</p>
+          </div>
+          <div class="transform-card stagger-child">
+            <div class="transform-card__icon" aria-hidden="true">&#9733;</div>
+            <h3>L'esprit pionnier</h3>
+            <p>L'esprit pionnier des grandes d&eacute;couvertes — les premi&egrave;res startups et lev&eacute;es de fonds de l'histoire — n'a pas disparu en mer. L'isolement y pousse &agrave; innover avec conscience et frugalit&eacute;, pr&eacute;f&eacute;rant les syst&egrave;mes r&eacute;silients et efficients au technosolutionnisme d&eacute;brid&eacute;.</p>
+          </div>
+          <div class="transform-card stagger-child">
+            <div class="transform-card__icon" aria-hidden="true">&#127758;</div>
+            <h3>Les limites plan&eacute;taires</h3>
+            <p>Le climat n'est qu'une des <a href="sources.html#limites-planetaires" class="sources-link">9 limites plan&eacute;taires</a>. La durabilit&eacute; exige une approche holistique — biodiversit&eacute;, acidification, cycles biog&eacute;ochimiques, etc. Le maritime, interface entre l'homme et l'oc&eacute;an, doit incarner cette vision syst&eacute;mique.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -831,6 +1238,150 @@
               <h3>Le laboratoire du futur</h3>
               <p>Propulsion v&eacute;lique de pointe, carburants d&eacute;carbon&eacute;s (m&eacute;thanol, e-fuels), IA pr&eacute;dictive&nbsp;: l'industrie maritime est le crash-test de la transition mondiale. La mer n'est pas qu'une addition de ressources &agrave; prot&eacute;ger, c'est le grand r&eacute;gulateur de notre survie.</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ MATRICE 3D ═══ -->
+    <section class="section matrice3d reveal">
+      <div class="container">
+        <p class="mono" style="text-align:center; margin-bottom: 1rem;">L'&eacute;cosyst&egrave;me</p>
+        <h2 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); text-align: center; margin-bottom: 2rem;">La Matrice 3D<span style="color: var(--vert);">.</span></h2>
+        <div class="matrice3d__content">
+          <div class="matrice3d__text">
+            <p>Cr&eacute;ation d'entreprises dans les secteurs du maritime, de la sant&eacute; et de l'achat &eacute;thique.</p>
+            <p>L'Oc&eacute;anocratie d&eacute;fend un mod&egrave;le o&ugrave; technologie, &eacute;cologie et culture maritime s'alignent pour cr&eacute;er de la valeur durable — une matrice tridimensionnelle appliqu&eacute;e &agrave; chaque d&eacute;cision strat&eacute;gique.</p>
+          </div>
+          <div class="matrice3d__visual" style="perspective: 600px;">
+            <div class="matrice3d__cube">
+              <div class="matrice3d__face matrice3d__face--front">Technologie</div>
+              <div class="matrice3d__face matrice3d__face--back">&Eacute;cologie</div>
+              <div class="matrice3d__face matrice3d__face--right">Culture</div>
+              <div class="matrice3d__face matrice3d__face--left">Maritime</div>
+              <div class="matrice3d__face matrice3d__face--top">Sant&eacute;</div>
+              <div class="matrice3d__face matrice3d__face--bottom">Achat &eacute;thique</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CARTE ARCHIPEL FRANCE ═══ -->
+    <section class="section carte-section reveal" id="carte-archipel">
+      <div class="container">
+        <p class="mono" style="text-align:center; margin-bottom: 1rem;">L'archipel France</p>
+        <h2 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); text-align: center; margin-bottom: 2rem;">La France dans le monde<span style="color: var(--vert);">.</span></h2>
+        <div class="carte-container">
+          <svg class="carte-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" id="carte-map">
+            <!-- Simplified world map outline -->
+            <rect width="800" height="450" fill="rgba(5,10,24,0.6)" rx="12"/>
+            <!-- Grid lines -->
+            <g stroke="rgba(42,85,179,0.1)" stroke-width="0.5">
+              <line x1="0" y1="225" x2="800" y2="225"/>
+              <line x1="400" y1="0" x2="400" y2="450"/>
+              <line x1="0" y1="112" x2="800" y2="112"/>
+              <line x1="0" y1="337" x2="800" y2="337"/>
+              <line x1="200" y1="0" x2="200" y2="450"/>
+              <line x1="600" y1="0" x2="600" y2="450"/>
+            </g>
+            <!-- Continent silhouettes (simplified) -->
+            <g fill="rgba(42,85,179,0.12)" stroke="rgba(42,85,179,0.2)" stroke-width="0.5">
+              <!-- Europe -->
+              <ellipse cx="420" cy="140" rx="45" ry="50"/>
+              <!-- Africa -->
+              <ellipse cx="420" cy="260" rx="40" ry="65"/>
+              <!-- Americas -->
+              <ellipse cx="200" cy="180" rx="50" ry="80"/>
+              <ellipse cx="220" cy="310" rx="35" ry="60"/>
+              <!-- Asia -->
+              <ellipse cx="580" cy="160" rx="70" ry="60"/>
+              <!-- Oceania -->
+              <ellipse cx="660" cy="320" rx="40" ry="25"/>
+            </g>
+            <!-- Animated connection lines from France -->
+            <g class="carte-lines" id="carte-lines">
+              <!-- France to La R&eacute;union -->
+              <line class="carte-line" x1="415" y1="155" x2="500" y2="310" data-delay="0"/>
+              <!-- France to Nouvelle-Cal&eacute;donie -->
+              <line class="carte-line" x1="415" y1="155" x2="690" y2="310" data-delay="300"/>
+              <!-- France to Guyane -->
+              <line class="carte-line" x1="415" y1="155" x2="230" y2="255" data-delay="600"/>
+              <!-- France to Polyn&eacute;sie -->
+              <line class="carte-line" x1="415" y1="155" x2="100" y2="310" data-delay="900"/>
+              <!-- France to Saint-Pierre-et-Miquelon -->
+              <line class="carte-line" x1="415" y1="155" x2="245" y2="130" data-delay="1200"/>
+              <!-- France to Mayotte -->
+              <line class="carte-line" x1="415" y1="155" x2="480" y2="285" data-delay="1500"/>
+              <!-- France to Antilles -->
+              <line class="carte-line" x1="415" y1="155" x2="210" y2="215" data-delay="1800"/>
+            </g>
+            <!-- Territory points -->
+            <g id="carte-points">
+              <g class="carte-point" data-name="M&eacute;tropole" data-desc="11 millions de km&sup2; de ZEE — 2e domaine mondial" data-delay="0">
+                <circle cx="415" cy="155" r="5" fill="var(--bleu)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                <circle cx="415" cy="155" r="9" fill="none" stroke="var(--bleu)" stroke-width="0.5" opacity="0.4"/>
+              </g>
+              <g class="carte-point" data-name="La R&eacute;union" data-desc="Oc&eacute;an Indien — base strat&eacute;gique, biodiversit&eacute; marine" data-delay="400">
+                <circle cx="500" cy="310" r="4" fill="var(--vert)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              </g>
+              <g class="carte-point" data-name="Nouvelle-Cal&eacute;donie" data-desc="Pacifique Sud — nickel, r&eacute;cif corallien, hub indo-pacifique" data-delay="700">
+                <circle cx="690" cy="310" r="4" fill="var(--vert)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              </g>
+              <g class="carte-point" data-name="Guyane" data-desc="Am&eacute;rique du Sud — base spatiale, for&ecirc;t amazonienne, ZEE Atlantique" data-delay="1000">
+                <circle cx="230" cy="255" r="4" fill="var(--vert)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              </g>
+              <g class="carte-point" data-name="Polyn&eacute;sie fran&ccedil;aise" data-desc="Pacifique — 5 millions de km&sup2; de ZEE, plus grande r&eacute;serve marine" data-delay="1300">
+                <circle cx="100" cy="310" r="4" fill="var(--vert)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              </g>
+              <g class="carte-point" data-name="Saint-Pierre-et-Miquelon" data-desc="Atlantique Nord — p&ecirc;che, route arctique &eacute;mergente" data-delay="1600">
+                <circle cx="245" cy="130" r="4" fill="var(--vert)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              </g>
+              <g class="carte-point" data-name="Mayotte" data-desc="Canal du Mozambique — position strat&eacute;gique, oc&eacute;an Indien" data-delay="1900">
+                <circle cx="480" cy="285" r="4" fill="var(--vert)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              </g>
+              <g class="carte-point" data-name="Antilles" data-desc="Cara&iuml;bes — Guadeloupe, Martinique, Saint-Martin, Saint-Barth&eacute;lemy" data-delay="2200">
+                <circle cx="210" cy="215" r="4" fill="var(--vert)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+              </g>
+            </g>
+          </svg>
+          <div class="carte-tooltip" id="carte-tooltip">
+            <div class="carte-tooltip__title"></div>
+            <div class="carte-tooltip__desc"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TEMOIGNAGES ═══ -->
+    <section class="section testimonials reveal">
+      <div class="container">
+        <p class="mono" style="text-align:center; margin-bottom: 1rem;">Ils soutiennent la d&eacute;marche</p>
+        <h2 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); text-align: center; margin-bottom: 2rem;">T&eacute;moignages<span style="color: var(--vert);">.</span></h2>
+        <div class="testimonials__grid">
+          <div class="testimonial stagger-child">
+            <svg class="testimonial__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M16 20h16M16 28h10" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <p class="testimonial__quote">&laquo;&nbsp;Un regard lucide et n&eacute;cessaire sur l'avenir maritime de la France. Colomban articule avec clart&eacute; les enjeux que trop peu de d&eacute;cideurs comprennent.&nbsp;&raquo;</p>
+            <p class="testimonial__author">Dirigeant du secteur maritime</p>
+            <p class="testimonial__role">Industrie navale</p>
+          </div>
+          <div class="testimonial stagger-child">
+            <svg class="testimonial__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M24 14v20M14 24h20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <p class="testimonial__quote">&laquo;&nbsp;Ce livre r&eacute;concilie enfin &eacute;conomie maritime et exigence environnementale. Une lecture indispensable pour quiconque s'int&eacute;resse &agrave; la souverainet&eacute; fran&ccedil;aise.&nbsp;&raquo;</p>
+            <p class="testimonial__author">Expert en strat&eacute;gie</p>
+            <p class="testimonial__role">Conseil &amp; strat&eacute;gie</p>
+          </div>
+          <div class="testimonial stagger-child">
+            <svg class="testimonial__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M18 30l6-12 6 12" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <p class="testimonial__quote">&laquo;&nbsp;La triple matrice technologie-&eacute;cologie-culture propos&eacute;e par Colomban est un cadre de pens&eacute;e puissant, applicable bien au-del&agrave; du seul maritime.&nbsp;&raquo;</p>
+            <p class="testimonial__author">Entrepreneur tech</p>
+            <p class="testimonial__role">Innovation &amp; transition</p>
+          </div>
+          <div class="testimonial stagger-child">
+            <svg class="testimonial__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M16 24c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <p class="testimonial__quote">&laquo;&nbsp;Oc&eacute;anocratie pose les bonnes questions : comment une nation bord&eacute;e par trois mers peut-elle ignorer sa dimension maritime&nbsp;? Un &eacute;lectro-choc salutaire.&nbsp;&raquo;</p>
+            <p class="testimonial__author">Chercheur en g&eacute;opolitique</p>
+            <p class="testimonial__role">Recherche &amp; d&eacute;fense</p>
           </div>
         </div>
       </div>
@@ -1471,6 +2022,79 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     els.forEach(el => obs.observe(el));
+  })();
+
+  // ── Carte Archipel France — animated lines + hover ──
+  (function() {
+    const mapSection = document.getElementById('carte-archipel');
+    if (!mapSection) return;
+
+    const lines = mapSection.querySelectorAll('.carte-line');
+    const points = mapSection.querySelectorAll('.carte-point');
+    const tooltip = document.getElementById('carte-tooltip');
+    const tooltipTitle = tooltip?.querySelector('.carte-tooltip__title');
+    const tooltipDesc = tooltip?.querySelector('.carte-tooltip__desc');
+    const svgEl = document.getElementById('carte-map');
+    let animated = false;
+
+    // Track which points are "reached" (their line finished animating)
+    const reachedPoints = new Set();
+
+    const mapObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !animated) {
+          animated = true;
+          // Make first point (Métropole) visible immediately
+          points[0]?.classList.add('visible');
+          reachedPoints.add(points[0]);
+
+          lines.forEach((line, i) => {
+            const delay = parseInt(line.dataset.delay) || i * 300;
+            setTimeout(() => {
+              line.classList.add('animate');
+              // When line finishes, make the corresponding destination point visible
+              // Point index = line index + 1 (first point is Métropole, the origin)
+              setTimeout(() => {
+                const pt = points[i + 1];
+                if (pt) {
+                  pt.classList.add('visible');
+                  reachedPoints.add(pt);
+                }
+              }, 1500); // line animation duration
+            }, delay);
+          });
+          mapObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    mapObs.observe(mapSection);
+
+    // Hover interaction — only works on visible (reached) points
+    points.forEach(point => {
+      point.addEventListener('mouseenter', (e) => {
+        if (!reachedPoints.has(point)) return;
+        const name = point.dataset.name;
+        const desc = point.dataset.desc;
+        if (tooltipTitle) tooltipTitle.textContent = name;
+        if (tooltipDesc) tooltipDesc.textContent = desc;
+        tooltip?.classList.add('active');
+
+        // Position tooltip near the point
+        const svgRect = svgEl.getBoundingClientRect();
+        const circle = point.querySelector('circle');
+        const cx = parseFloat(circle.getAttribute('cx'));
+        const cy = parseFloat(circle.getAttribute('cy'));
+        const scaleX = svgRect.width / 800;
+        const scaleY = svgRect.height / 450;
+        const x = cx * scaleX + svgRect.left - mapSection.querySelector('.carte-container').getBoundingClientRect().left;
+        const y = cy * scaleY + svgRect.top - mapSection.querySelector('.carte-container').getBoundingClientRect().top;
+        tooltip.style.left = (x + 15) + 'px';
+        tooltip.style.top = (y - 10) + 'px';
+      });
+      point.addEventListener('mouseleave', () => {
+        tooltip?.classList.remove('active');
+      });
+    });
   })();
   </script>
 

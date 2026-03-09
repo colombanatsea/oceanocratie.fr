@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#050a18"/>
+      <stop offset="100%" style="stop-color:#0d2040"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2A55B3"/>
+      <stop offset="100%" style="stop-color:#00BF63"/>
+    </linearGradient>
+    <radialGradient id="globe-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#2A55B3;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#050a18;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#accent)"/>
+
+  <!-- Globe glow -->
+  <circle cx="600" cy="280" r="200" fill="url(#globe-glow)"/>
+
+  <!-- Globe outline -->
+  <circle cx="600" cy="280" r="140" fill="none" stroke="#2A55B3" stroke-width="2" opacity="0.6"/>
+
+  <!-- Globe meridians -->
+  <ellipse cx="600" cy="280" rx="70" ry="140" fill="none" stroke="#2A55B3" stroke-width="1" opacity="0.3"/>
+  <ellipse cx="600" cy="280" rx="110" ry="140" fill="none" stroke="#2A55B3" stroke-width="1" opacity="0.2"/>
+  <line x1="460" y1="280" x2="740" y2="280" stroke="#2A55B3" stroke-width="1" opacity="0.3"/>
+  <line x1="480" y1="230" x2="720" y2="230" stroke="#2A55B3" stroke-width="0.8" opacity="0.2"/>
+  <line x1="480" y1="330" x2="720" y2="330" stroke="#2A55B3" stroke-width="0.8" opacity="0.2"/>
+
+  <!-- Simplified land masses on globe -->
+  <!-- Europe -->
+  <ellipse cx="615" cy="250" rx="18" ry="22" fill="#2A55B3" opacity="0.3"/>
+  <!-- Africa -->
+  <ellipse cx="610" cy="310" rx="15" ry="30" fill="#2A55B3" opacity="0.25"/>
+  <!-- Americas (left) -->
+  <ellipse cx="540" cy="270" rx="20" ry="35" fill="#2A55B3" opacity="0.2"/>
+
+  <!-- France point -->
+  <circle cx="610" cy="248" r="4" fill="#00BF63"/>
+  <circle cx="610" cy="248" r="8" fill="none" stroke="#00BF63" stroke-width="1" opacity="0.5"/>
+
+  <!-- Connection lines from France -->
+  <line x1="610" y1="248" x2="555" y2="305" stroke="#2A55B3" stroke-width="1" opacity="0.4"/>
+  <line x1="610" y1="248" x2="680" y2="340" stroke="#2A55B3" stroke-width="1" opacity="0.4"/>
+  <line x1="610" y1="248" x2="530" y2="240" stroke="#2A55B3" stroke-width="1" opacity="0.4"/>
+
+  <!-- Dots at connection ends -->
+  <circle cx="555" cy="305" r="3" fill="#00BF63" opacity="0.7"/>
+  <circle cx="680" cy="340" r="3" fill="#00BF63" opacity="0.7"/>
+  <circle cx="530" cy="240" r="3" fill="#00BF63" opacity="0.7"/>
+
+  <!-- Title text -->
+  <text x="600" y="490" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="700" font-size="48" fill="#FAFAFA" text-anchor="middle" letter-spacing="-0.02em">Oceanocratie</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="530" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="300" font-size="20" fill="rgba(250,250,250,0.55)" text-anchor="middle" letter-spacing="0.04em">La France n'est pas un hexagone. C'est un archipel.</text>
+
+  <!-- Author -->
+  <text x="600" y="570" font-family="'JetBrains Mono', monospace" font-weight="400" font-size="12" fill="rgba(250,250,250,0.35)" text-anchor="middle" letter-spacing="0.1em" text-transform="uppercase">COLOMBAN — NOËL 2026</text>
+</svg>
