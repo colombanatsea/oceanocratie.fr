@@ -16,6 +16,9 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 6C18 6 10 16 10 26c0 8 5 13 10 16s12 8 12 16c0-8 7-13 12-16s10-8 10-16C54 16 46 6 32 6z' fill='none' stroke='%232A55B3' stroke-width='5.5'/%3E%3Cpath d='M32 58c0-8-7-13-12-16S10 34 10 26' fill='none' stroke='%2300BF63' stroke-width='5.5'/%3E%3Ccircle cx='46' cy='12' r='3.5' fill='%2300BF63'/%3E%3C/svg%3E" />
 
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#050a18" />
+
   <!-- Canonical -->
   <link rel="canonical" href="https://oceanocratie.fr/" />
 
@@ -36,6 +39,30 @@
   <meta name="twitter:title" content="Oceanocratie — La France n'est pas un hexagone. C'est un archipel." />
   <meta name="twitter:description" content="Le monde maritime aborde trois transformations sans pr&eacute;c&eacute;dent. Un livre de Colomban — No&euml;l 2026." />
   <meta name="twitter:image" content="https://oceanocratie.fr/og-image.svg" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "Oc\u00e9anocratie",
+    "author": {
+      "@type": "Person",
+      "name": "Colomban",
+      "url": "https://colombanatsea.com/fr/a-propos/"
+    },
+    "description": "Oc\u00e9anocratie explore le potentiel maritime fran\u00e7ais : 595 Md\u20ac d'exports transitent par la mer, 50+ c\u00e2bles sous-marins, 45 GW d'\u00e9olien offshore vis\u00e9s en 2050. Un appel \u00e0 r\u00e9habiliter la dimension maritime de la France.",
+    "inLanguage": "fr",
+    "bookFormat": "https://schema.org/Hardcover",
+    "url": "https://oceanocratie.fr/",
+    "image": "https://oceanocratie.fr/og-image.svg",
+    "datePublished": "2026-12",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Colomban"
+    }
+  }
+  </script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -186,6 +213,9 @@
       z-index: 1;
       max-width: 960px;
       width: 100%;
+      background: radial-gradient(ellipse at center, rgba(5,10,24,0.5) 0%, transparent 70%);
+      padding: 3rem 2rem;
+      border-radius: 24px;
     }
 
     .hero__kicker {
@@ -204,6 +234,7 @@
       margin-bottom: 1.25rem;
       padding: 0.05em 0.1em;
       color: #ffffff;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.6), 0 0 60px rgba(5,10,24,0.7);
       opacity: 0;
       animation: fadeInUp 1s ease 0.5s both;
     }
@@ -212,11 +243,12 @@
       font-family: var(--font-heading);
       font-weight: 300;
       font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-      color: rgba(255, 255, 255, 0.55);
+      color: rgba(255, 255, 255, 0.75);
       margin-bottom: 3rem;
       letter-spacing: 0.04em;
       opacity: 0;
       animation: fadeInUp 0.8s ease 0.7s both;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.7), 0 0 40px rgba(5,10,24,0.8);
     }
 
     .hero__description {
@@ -229,6 +261,7 @@
       margin-right: auto;
       opacity: 0;
       animation: fadeInUp 0.8s ease 0.9s both;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.6), 0 0 30px rgba(5,10,24,0.7);
     }
 
     .hero__scroll-hint {
@@ -1088,26 +1121,27 @@
   </div>
 
   <!-- Three.js canvas -->
-  <canvas id="ocean-canvas"></canvas>
+  <canvas id="ocean-canvas" aria-hidden="true"></canvas>
 
   <!-- Spray particles -->
   <div class="spray" id="spray"></div>
 
   <!-- Water droplets overlay -->
-  <canvas id="droplets-canvas"></canvas>
+  <canvas id="droplets-canvas" aria-hidden="true"></canvas>
 
   <!-- Scrollable content -->
-  <div class="scroll-content">
+  <a href="#hero" class="sr-only" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Aller au contenu principal</a>
+  <div class="scroll-content" role="main">
 
     <!-- ═══ HERO ═══ -->
     <section class="hero" id="hero">
       <div class="hero__inner">
-        <p class="mono hero__kicker">A paraitre — Noel 2026</p>
+        <p class="mono hero__kicker">&Agrave; para&icirc;tre — No&euml;l 2026</p>
         <h1 class="hero__title">Oceanocratie</h1>
         <p class="hero__subtitle">La France n'est pas un hexagone. C'est un archipel.</p>
 
         <div class="book-wrapper">
-          <div class="book" id="book">
+          <div class="book" id="book" role="img" aria-label="Couverture du livre Oc&eacute;anocratie par Colomban — livre bleu avec titre blanc">
             <div class="book__accent"></div>
             <span class="book__title">Oceanocratie</span>
             <div class="book__line"></div>
@@ -1116,20 +1150,20 @@
         </div>
 
         <p class="hero__description">
-          La France possede le 2<sup>e</sup> domaine maritime mondial&nbsp;: 11&nbsp;millions de km&sup2;, 37&nbsp;etats frontaliers maritimes. Et pourtant, elle tourne le dos a la mer. Ce livre explore ce ph&eacute;nom&egrave;ne — et comment changer la donne.
+          La France poss&egrave;de le 2<sup>e</sup> domaine maritime mondial&nbsp;: 11&nbsp;millions de km&sup2;, 37&nbsp;&eacute;tats frontaliers maritimes. Et pourtant, elle tourne le dos &agrave; la mer. Ce livre explore ce ph&eacute;nom&egrave;ne — et comment changer la donne.
         </p>
 
         <div class="waitlist">
-          <p class="waitlist__label mono">Soyez prevenu(e) de la sortie</p>
+          <p class="waitlist__label mono">Soyez pr&eacute;venu(e) de la sortie</p>
           <form class="waitlist__form" id="waitlist-form">
             <input type="email" name="email" placeholder="votre@email.com" required class="waitlist__input" autocomplete="email" />
-            <button type="submit" class="btn btn-primary waitlist__btn">Me prevenir</button>
+            <button type="submit" class="btn btn-primary waitlist__btn">Me pr&eacute;venir</button>
           </form>
           <p class="waitlist__note" id="waitlist-msg" aria-live="polite"></p>
         </div>
 
         <div class="cta-group">
-          <a href="https://colombanatsea.com/fr/a-propos/" class="btn btn-outline">Decouvrir Colomban &rarr;</a>
+          <a href="https://colombanatsea.com/fr/a-propos/" class="btn btn-outline">D&eacute;couvrir Colomban &rarr;</a>
           <a href="https://www.linkedin.com/in/colombanatsea/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Suivre sur LinkedIn</a>
         </div>
       </div>
@@ -1183,7 +1217,7 @@
     <!-- ═══ QUOTE ═══ -->
     <section class="quote-section reveal">
       <div class="container">
-        <blockquote>&laquo;&nbsp;La mer, c'est ce que les Francais ont dans le dos quand ils regardent la plage.&nbsp;&raquo;</blockquote>
+        <blockquote>&laquo;&nbsp;La mer, c'est ce que les Fran&ccedil;ais ont dans le dos quand ils regardent la plage.&nbsp;&raquo;</blockquote>
         <cite>Eric Tabarly</cite>
       </div>
     </section>
@@ -1236,7 +1270,7 @@
             <div class="axis stagger-child">
               <div class="axis__dot" style="background: var(--rose); box-shadow: 0 0 12px rgba(179,42,85,0.4);"></div>
               <h3>Le laboratoire du futur</h3>
-              <p>Propulsion v&eacute;lique de pointe, carburants d&eacute;carbon&eacute;s (m&eacute;thanol, e-fuels), IA pr&eacute;dictive&nbsp;: l'industrie maritime est le crash-test de la transition mondiale. La mer n'est pas qu'une addition de ressources &agrave; prot&eacute;ger, c'est le grand r&eacute;gulateur de notre survie.</p>
+              <p>Propulsion v&eacute;lique de pointe, carburants d&eacute;carbon&eacute;s (m&eacute;thanol, e-fuels), IA pr&eacute;dictive&nbsp;: l'industrie maritime est le crash-test de la transition mondiale. La mer n'est pas qu'une additions de ressources &agrave; prot&eacute;ger, c'est le grand r&eacute;gulateur de notre survie.</p>
             </div>
           </div>
         </div>
@@ -1254,7 +1288,7 @@
             <p>L'Oc&eacute;anocratie d&eacute;fend un mod&egrave;le o&ugrave; technologie, &eacute;cologie et culture maritime s'alignent pour cr&eacute;er de la valeur durable — une matrice tridimensionnelle appliqu&eacute;e &agrave; chaque d&eacute;cision strat&eacute;gique.</p>
           </div>
           <div class="matrice3d__visual" style="perspective: 600px;">
-            <div class="matrice3d__cube">
+            <div class="matrice3d__cube" role="img" aria-label="Cube 3D en rotation repr&eacute;sentant la matrice : Technologie, &Eacute;cologie, Culture, Maritime, Sant&eacute;, Achat &eacute;thique">
               <div class="matrice3d__face matrice3d__face--front">Technologie</div>
               <div class="matrice3d__face matrice3d__face--back">&Eacute;cologie</div>
               <div class="matrice3d__face matrice3d__face--right">Culture</div>
@@ -1273,7 +1307,7 @@
         <p class="mono" style="text-align:center; margin-bottom: 1rem;">L'archipel France</p>
         <h2 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); text-align: center; margin-bottom: 2rem;">La France dans le monde<span style="color: var(--vert);">.</span></h2>
         <div class="carte-container">
-          <svg class="carte-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" id="carte-map">
+          <svg class="carte-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" id="carte-map" role="img" aria-label="Carte interactive de l'archipel France montrant les territoires d'outre-mer connect&eacute;s &agrave; la m&eacute;tropole par des lignes anim&eacute;es">
             <!-- Simplified world map outline -->
             <rect width="800" height="450" fill="rgba(5,10,24,0.6)" rx="12"/>
             <!-- Grid lines -->
@@ -1392,7 +1426,7 @@
       <div class="container">
         <div class="glass-card manifesto">
           <p>
-            Oc&eacute;anocratie est un appel direct aux d&eacute;cideurs pour int&eacute;grer la dimension maritime dans toute planification strat&eacute;gique. Il s'adresse aux politiques pour qu'ils regardent enfin au-del&agrave; de l'Hexagone, et &agrave; chaque citoyen pour comprendre cette v&eacute;rit&eacute; fondamentale&nbsp;: Notre souverainet&eacute; &eacute;conomique, environnementale, &eacute;nerg&eacute;tique, culturelle et s&eacute;curitaire ne se joue plus sur le continent, mais au large. Aujourd'hui, la c&eacute;cit&eacute; maritime est une faute strat&eacute;gique. L'Oc&eacute;anocratie propose de revoir la relation de la soci&eacute;t&eacute; au maritime pour garantir la souverainet&eacute; de la France en 2050.
+            Oc&eacute;anocratie est un appel direct aux d&eacute;cideurs pour int&eacute;grer la dimension maritime dans toute planification strat&eacute;gique. Il s'adresse aux politiques pour qu'ils regardent enfin au-del&agrave; de l'Hexagone, et &agrave; chaque citoyen pour comprendre cette v&eacute;rit&eacute; fondamentale&nbsp;: Notre souverainet&eacute; &eacute;conomique, environnementale, &eacute;nerg&eacute;tique, culturelle et s&eacute;curitaire ne se joue plus sur le continent, mais au large. Aujourd'hui, la c&eacute;cit&eacute; maritime est une faute strat&eacute;gique. L'Oc&eacute;anocratie propose de revoir de la soci&eacute;t&eacute; au maritime pour garantir la souverainet&eacute; de la France en 2050.
           </p>
         </div>
       </div>
@@ -1499,7 +1533,7 @@
       const vec3 MOON_COLOR     = vec3(0.75, 0.8, 0.95);
 
       // ── Octave rotation ──
-      mat2 octave_m = mat2(1.6, 1.2, -1.2, 1.6);
+      mat2 octave_m = mat2(1.7, 1.1, -1.3, 1.5);
 
       // ── Math utils ──
       mat3 fromEuler(vec3 ang) {
@@ -1612,6 +1646,10 @@
       // ══════════════════════════
       float sea_octave(vec2 uv, float choppy) {
         uv += noise(uv);
+        // Rotate UV to break axis-aligned seams
+        float c = 0.8660254; // cos(30deg)
+        float s2 = 0.5;     // sin(30deg)
+        uv = vec2(uv.x * c - uv.y * s2, uv.x * s2 + uv.y * c);
         vec2 wv = 1.0 - abs(sin(uv));
         vec2 swv = abs(cos(uv));
         wv = mix(wv, swv, wv);
@@ -1826,31 +1864,31 @@
     var W = function() { return window.innerWidth; };
     var H = function() { return window.innerHeight; };
 
-    // Wind angle — slight diagonal drift like driving in rain
-    var WIND_ANGLE = 0.15;
-    var WIND_VX = Math.sin(WIND_ANGLE) * 0.8;
-
     function spawnDrop() {
       if (drops.length >= MAX_DROPS) return;
       var size = 3 + Math.random() * 6;
-      var startY = -10 - Math.random() * 30;
-      var startX = 30 + Math.random() * (W() - 60);
-      var speed = 0.8 + Math.random() * 1.5;
+      // Drops appear ON the glass surface at a random position (like condensation or splatter)
+      var startX = 20 + Math.random() * (W() - 40);
+      var startY = 20 + Math.random() * (H() * 0.5);
       drops.push({
         x: startX,
         y: startY,
         r: size,
-        vy: speed,
-        vx: WIND_VX + (Math.random() - 0.5) * 0.3,
+        vy: 0,
+        vx: 0,
         opacity: 0.0,
         fadeIn: true,
+        growing: true,
+        growTime: 0,
+        growDuration: 40 + Math.random() * 80,
         life: 0,
         trail: [],
         wobble: Math.random() * 6.28,
         wobbleSpeed: 0.02 + Math.random() * 0.03,
-        friction: 0.9985 + Math.random() * 0.001,
+        friction: 0.997 + Math.random() * 0.002,
         stopped: false,
-        stopY: H() * (0.4 + Math.random() * 0.5)
+        sliding: false,
+        slideDelay: 60 + Math.random() * 120
       });
     }
 
@@ -1942,54 +1980,67 @@
         spawnTimer = 0;
       }
 
-      // Update & draw sliding drops
+      // Update & draw drops on glass surface
       for (var i = drops.length - 1; i >= 0; i--) {
         var d = drops[i];
         d.life++;
 
-        if (!d.stopped) {
-          // Gravity pulls diagonally (windshield angle)
-          d.vy += 0.008;
-          // Horizontal wobble (more horizontal, windshield wiper-like)
+        // Phase 1: Drop appears and grows on glass (condensation effect)
+        if (d.growing) {
+          d.growTime++;
+          if (d.growTime >= d.growDuration) {
+            d.growing = false;
+          }
+        }
+
+        // Phase 2: After growing, wait then start sliding
+        if (!d.growing && !d.sliding && !d.stopped) {
+          d.slideDelay--;
+          if (d.slideDelay <= 0) {
+            d.sliding = true;
+          }
+        }
+
+        // Phase 3: Slide down glass surface under gravity
+        if (d.sliding && !d.stopped) {
+          d.vy += 0.012;
           d.wobble += d.wobbleSpeed;
-          d.x += d.vx + Math.sin(d.wobble) * 0.35;
+          d.x += d.vx + Math.sin(d.wobble) * 0.25;
           d.y += d.vy;
 
-          // Apply friction (drops slow on glass surface)
           d.vy *= d.friction;
           d.vx *= d.friction;
 
-          // Trail — leave a smear trail
           d.trail.push({ x: d.x, y: d.y });
-          if (d.trail.length > 25) d.trail.shift();
+          if (d.trail.length > 30) d.trail.shift();
 
-          // Check if drop should stop (stuck on windshield)
-          if (d.y >= d.stopY && d.vy < 1.5) {
+          // Random chance to stop (surface tension on glass)
+          if (d.vy > 0.3 && Math.random() < 0.002) {
             d.stopped = true;
             d.stoppedLife = 0;
             smears.push({
               x: d.x, y: d.y,
               r: d.r * 1.5,
-              opacity: 0.2,
+              opacity: 0.15,
               life: 0,
-              maxLife: 200 + Math.random() * 300
+              maxLife: 300 + Math.random() * 400
             });
           }
-        } else {
+        }
+
+        if (d.stopped) {
           d.stoppedLife++;
-          if (d.stoppedLife > 60) {
-            d.opacity *= 0.97;
-          }
+          if (d.stoppedLife > 80) d.opacity *= 0.97;
           if (d.opacity < 0.02) {
             drops.splice(i, 1);
             continue;
           }
         }
 
-        // Fade in
+        // Fade in gently (appears on glass)
         if (d.fadeIn) {
-          d.opacity = Math.min(d.opacity + 0.025, 0.85);
-          if (d.opacity >= 0.85) d.fadeIn = false;
+          d.opacity = Math.min(d.opacity + 0.015, 0.75);
+          if (d.opacity >= 0.75) d.fadeIn = false;
         }
 
         // Remove if off screen
@@ -2148,18 +2199,18 @@
         body: JSON.stringify({ email: email })
       })
       .then(() => {
-        msg.textContent = 'Merci ! Vous serez prevenu(e) de la sortie.';
+        msg.textContent = 'Merci ! Vous serez pr\u00e9venu(e) de la sortie.';
         msg.classList.remove('error');
         form.reset();
       })
       .catch((err) => {
         console.error('Waitlist submission error:', err);
-        msg.textContent = 'Erreur lors de l\'envoi. Veuillez reessayer.';
+        msg.textContent = 'Erreur lors de l\'envoi. Veuillez r\u00e9essayer.';
         msg.classList.add('error');
       })
       .finally(() => {
         btn.disabled = false;
-        btn.textContent = 'Me prevenir';
+        btn.textContent = 'Me pr\u00e9venir';
       });
     });
   </script>
