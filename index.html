@@ -7,7 +7,7 @@
   <meta name="description" content="Oceanocratie — Un livre de Colomban pour explorer le potentiel maritime francais. Sortie prevue Noel 2026." />
 
   <!-- Security -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -26,9 +26,6 @@
   <meta property="og:url" content="https://oceanocratie.fr/" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="Oceanocratie" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Oceanocratie — Une nation libre regarde la mer" />
-  <meta name="twitter:description" content="Un livre de Colomban pour explorer le potentiel maritime francais. Sortie prevue Noel 2026." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -235,7 +232,7 @@
       gap: 0.5rem;
       opacity: 0;
       animation: fadeInUp 0.8s ease 1.5s both;
-      z-index: 20;
+      z-index: 10;
     }
 
     .hero__scroll-hint .mono {
@@ -268,13 +265,13 @@
     .book {
       width: 160px;
       height: 230px;
-      background: linear-gradient(135deg, var(--bleu-dark), var(--bleu));
+      background: linear-gradient(135deg, #1a3a7a, #2A55B3);
       border-radius: 3px 12px 12px 3px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.6rem;
       box-shadow:
         8px 8px 40px rgba(42, 85, 179, 0.4),
         -3px 0 12px rgba(0, 0, 0, 0.4),
@@ -307,9 +304,9 @@
 
     .book__title {
       font-family: var(--font-heading);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
       color: white;
       text-transform: uppercase;
     }
@@ -322,9 +319,9 @@
 
     .book__author {
       font-family: var(--font-mono);
-      font-size: 0.55rem;
+      font-size: 0.45rem;
       letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.55);
       text-transform: uppercase;
     }
 
@@ -386,6 +383,10 @@
       font-size: 0.85rem;
       color: var(--vert);
       min-height: 1.2em;
+    }
+
+    .waitlist__note.error {
+      color: var(--rose);
     }
 
     /* ── CTA ── */
@@ -507,6 +508,20 @@
       font-size: 0.88rem;
       line-height: 1.7;
       color: var(--gris-400);
+    }
+
+    /* ── Manifesto / Call-to-action section ── */
+    .manifesto {
+      text-align: center;
+      padding-bottom: 2rem;
+    }
+
+    .manifesto p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--gris-400);
+      max-width: 720px;
+      margin: 0 auto;
     }
 
     /* ── Quote ── */
@@ -738,7 +753,7 @@
         </div>
 
         <p class="hero__description">
-          La France possede le 2<sup>e</sup> domaine maritime mondial&nbsp;: 11&nbsp;millions de km&sup2;, 37&nbsp;etats frontaliers maritimes. Et pourtant, elle tourne le dos a la mer. Ce livre explore ce phénomène — et comment changer la donne.
+          La France possede le 2<sup>e</sup> domaine maritime mondial&nbsp;: 11&nbsp;millions de km&sup2;, 37&nbsp;etats frontaliers maritimes. Et pourtant, elle tourne le dos a la mer. Ce livre explore ce ph&eacute;nom&egrave;ne — et comment changer la donne.
         </p>
 
         <div class="waitlist">
@@ -798,37 +813,35 @@
         <div class="glass-card">
           <div class="axes__header">
             <p class="mono">Le livre explore</p>
-            <h2>Trois revolutions, une seule mer<span style="color: var(--vert);">.</span></h2>
+            <h2>Trois axes, une seule mer<span style="color: var(--vert);">.</span></h2>
           </div>
           <div class="axes__grid">
             <div class="axis stagger-child">
               <div class="axis__dot" style="background: var(--bleu); box-shadow: 0 0 12px rgba(42,85,179,0.4);"></div>
-              <h3>Vaincre la cecite maritime</h3>
-              <p>La France possede le 2<sup>e</sup> domaine maritime mondial, mais elle ne le voit pas. Ce livre demontre pourquoi cette cecite est un choix — et comment en sortir.</p>
+              <h3>Vaincre la c&eacute;cit&eacute; maritime</h3>
+              <p>Nous sommes devenus des terriens effray&eacute;s par l'immensit&eacute; de nos propres fronti&egrave;res. Oc&eacute;anocratie d&eacute;construit notre h&eacute;ritage culturel pour r&eacute;habiliter le &laquo;&nbsp;Sea-Leadership&nbsp;&raquo;&nbsp;: s'inspirer du pragmatisme des marins pour guider nos d&eacute;cisions &agrave; terre.</p>
             </div>
             <div class="axis stagger-child">
               <div class="axis__dot" style="background: var(--vert); box-shadow: 0 0 12px rgba(0,191,99,0.4);"></div>
-              <h3>Batir l'archipel France</h3>
-              <p>La France n'est pas un hexagone&nbsp;: c'est un archipel de 13 territoires ultramarins sur 4 oceans et 5 continents. Une vision nouvelle de la puissance francaise.</p>
+              <h3>B&acirc;tir l'archipel France</h3>
+              <p>&Agrave; l'&egrave;re de la guerre hybride et du seabed warfare (c&acirc;bles sous-marins), la ligne de front n'est plus terrestre. Le livre d&eacute;montre comment le renouveau d'une flotte strat&eacute;gique marchande, la diplomatie maritime et le d&eacute;veloppement des &eacute;nergies marines sont nos ultimes remparts souverains.</p>
             </div>
             <div class="axis stagger-child">
               <div class="axis__dot" style="background: var(--rose); box-shadow: 0 0 12px rgba(179,42,85,0.4);"></div>
               <h3>Le laboratoire du futur</h3>
-              <p>Energie, alimentation, biodiversite, connectivite, defense&nbsp;: la mer est le terrain d'experimentation de tous les grands enjeux du XXI<sup>e</sup> siecle.</p>
+              <p>Propulsion v&eacute;lique de pointe, carburants d&eacute;carbon&eacute;s (m&eacute;thanol, e-fuels), IA pr&eacute;dictive&nbsp;: l'industrie maritime est le crash-test de la transition mondiale. La mer n'est pas qu'une addition de ressources &agrave; prot&eacute;ger, c'est le grand r&eacute;gulateur de notre survie.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══ APPEL OCEANOCRATIE ═══ -->
+    <!-- ═══ MANIFESTO / APPEL ═══ -->
     <section class="section reveal">
       <div class="container">
-        <div class="glass-card oceanocratie-appeal" style="text-align: center;">
-          <p class="mono">Le manifeste</p>
-          <h2>Oceanocratie n'est pas un livre<span style="color: var(--vert);">.</span></h2>
-          <p style="max-width: 640px; margin: 0 auto; color: var(--gris-400); line-height: 1.8;">
-            C'est un appel. Un appel a regarder la carte autrement. A comprendre que la France n'est pas un hexagone mais un archipel. Que la mer n'est pas une frontiere mais un territoire. Et que notre avenir ne se joue pas uniquement sur terre — il se joue aussi sur l'eau.
+        <div class="glass-card manifesto">
+          <p>
+            Oc&eacute;anocratie est un appel direct aux d&eacute;cideurs pour int&eacute;grer la dimension maritime dans toute planification strat&eacute;gique. Il s'adresse aux politiques pour qu'ils regardent enfin au-del&agrave; de l'Hexagone, et &agrave; chaque citoyen pour comprendre cette v&eacute;rit&eacute; fondamentale&nbsp;: Notre souverainet&eacute; &eacute;conomique, environnementale, &eacute;nerg&eacute;tique, culturelle et s&eacute;curitaire ne se joue plus sur le continent, mais au large. Aujourd'hui, la c&eacute;cit&eacute; maritime est une faute strat&eacute;gique. L'Oc&eacute;anocratie propose de revoir la relation de la soci&eacute;t&eacute; au maritime pour garantir la souverainet&eacute; de la France en 2050.
           </p>
         </div>
       </div>
@@ -841,10 +854,7 @@
           <p class="mono">L'auteur</p>
           <h2>Colomban<span style="color: var(--vert);">.</span></h2>
           <p>
-            Officier de la Marine Marchande devenu entrepreneur, Colomban a quitte la mer en 2017 pour avoir un impact global sur la transformation du secteur maritime. Delegue general du GASPE, cofondateur de VAIATA Dynamics (IA maritime), president de la Fondation ENSM, auditeur a l'Academie de Marine.
-          </p>
-          <p>
-            Avec ~16&nbsp;500 abonnes LinkedIn et plus de 3,6 millions de vues par an, il porte un message simple&nbsp;: la France est une puissance maritime qui s'ignore — et il est temps que ca change.
+            Depuis 2013, Colomban d&eacute;fend une conviction claire&nbsp;: la transformation du secteur maritime requiert d'aligner la technologie, l'&eacute;cologie et la culture. Plus qu'un simple observateur de cette triple &eacute;volution, il s'attache &agrave; d&eacute;crypter un &eacute;cosyst&egrave;me hautement strat&eacute;gique, souvent caricatur&eacute; ou ignor&eacute;. Son objectif&nbsp;: assurer la durabilit&eacute; du secteur maritime et extraire les m&eacute;thodes et les valeurs op&eacute;rationnelles forg&eacute;es en mer — pragmatisme, r&eacute;silience, temps long — pour les appliquer aux d&eacute;fis de la gouvernance &agrave; terre.
           </p>
           <a href="https://colombanatsea.com/fr/a-propos/" class="author__link">
             colombanatsea.com &rarr;
@@ -997,10 +1007,6 @@
         vec2 starUV = vec2(atan(en.z, en.x), asin(en.y));
         float skyMask = smoothstep(0.02, 0.15, e.y);
 
-        // Helper: star brightness from cell distance (round, not square)
-        // For each layer: tile the UV, get cell ID + offset within cell
-        // Place star at random position inside cell, compute distance for round shape
-
         // Layer 1 — bright stars
         vec2 grid1 = starUV * 120.0;
         vec2 cell1 = floor(grid1);
@@ -1010,7 +1016,6 @@
         float dist1 = length(frac1 - starOff1 * 0.6);
         float star1 = step(0.985, id1) * smoothstep(0.06, 0.0, dist1) * skyMask;
         sky += vec3(0.9, 0.92, 1.0) * star1 * 3.0;
-        // Soft glow around bright stars
         float glow1 = step(0.985, id1) * smoothstep(0.15, 0.0, dist1) * skyMask;
         sky += vec3(0.4, 0.45, 0.7) * glow1 * 0.3;
 
@@ -1039,20 +1044,12 @@
         // Moon
         vec3 moonDir = normalize(vec3(0.3, 0.35, -0.88));
         float moonAngle = max(dot(en, moonDir), 0.0);
-
-        // Moon disc — bright and clear
         float moonDisc = smoothstep(0.9996, 0.9999, moonAngle);
         sky += vec3(0.95, 0.95, 1.0) * moonDisc * 4.0;
-
-        // Moon glow (tight halo)
         float moonGlow = pow(moonAngle, 256.0) * 2.0;
         sky += MOON_COLOR * moonGlow;
-
-        // Medium atmospheric glow
         float moonAtmo = pow(moonAngle, 32.0) * 0.2;
         sky += vec3(0.12, 0.15, 0.25) * moonAtmo;
-
-        // Wide atmospheric glow
         float moonWide = pow(moonAngle, 8.0) * 0.08;
         sky += vec3(0.08, 0.1, 0.2) * moonWide;
 
@@ -1060,7 +1057,7 @@
       }
 
       // ══════════════════════════
-      // WAVE FUNCTION (TDM's sea_octave)
+      // WAVE FUNCTION
       // ══════════════════════════
       float sea_octave(vec2 uv, float choppy) {
         uv += noise(uv);
@@ -1070,16 +1067,12 @@
         return pow(1.0 - pow(wv.x * wv.y, 0.65), choppy);
       }
 
-      // ══════════════════════════
-      // HEIGHTMAP — geometry pass (fewer iterations)
-      // ══════════════════════════
       float map(vec3 p) {
         float SEA_TIME = iTime * SEA_SPEED;
         float freq = SEA_FREQ;
         float amp = SEA_HEIGHT;
         float choppy = SEA_CHOPPY;
         vec2 uv = p.xz; uv.x *= 0.75;
-
         float d, h = 0.0;
         for(int i = 0; i < ITER_GEOMETRY; i++) {
           d = sea_octave((uv + vec2(SEA_TIME * 1.0, SEA_TIME * 0.8)) * freq, choppy);
@@ -1093,16 +1086,12 @@
         return p.y - h;
       }
 
-      // ══════════════════════════
-      // HEIGHTMAP — detailed pass (more iterations for normals)
-      // ══════════════════════════
       float map_detailed(vec3 p) {
         float SEA_TIME = iTime * SEA_SPEED;
         float freq = SEA_FREQ;
         float amp = SEA_HEIGHT;
         float choppy = SEA_CHOPPY;
         vec2 uv = p.xz; uv.x *= 0.75;
-
         float d, h = 0.0;
         for(int i = 0; i < ITER_FRAGMENT; i++) {
           d = sea_octave((uv + vec2(SEA_TIME * 1.0, SEA_TIME * 0.8)) * freq, choppy);
@@ -1116,9 +1105,6 @@
         return p.y - h;
       }
 
-      // ══════════════════════════
-      // NORMALS via finite differences
-      // ══════════════════════════
       vec3 getNormal(vec3 p, float eps) {
         vec3 n;
         n.y = map_detailed(p);
@@ -1128,9 +1114,6 @@
         return normalize(n);
       }
 
-      // ══════════════════════════
-      // HEIGHTMAP TRACING (binary search)
-      // ══════════════════════════
       float heightMapTracing(vec3 ori, vec3 dir, out vec3 p) {
         float tm = 0.0;
         float tx = 1000.0;
@@ -1142,108 +1125,56 @@
           tmid = mix(tm, tx, hm / (hm - hx));
           p = ori + dir * tmid;
           float hmid = map(p);
-          if(hmid < 0.0) {
-            tx = tmid;
-            hx = hmid;
-          } else {
-            tm = tmid;
-            hm = hmid;
-          }
+          if(hmid < 0.0) { tx = tmid; hx = hmid; }
+          else { tm = tmid; hm = hmid; }
         }
         return tmid;
       }
 
-      // ══════════════════════════
-      // OCEAN COLOR — nighttime adaptation
-      // ══════════════════════════
       vec3 getSeaColor(vec3 p, vec3 n, vec3 l, vec3 eye, vec3 dist) {
         float fresnel = 1.0 - max(dot(n, -eye), 0.0);
         fresnel = pow(fresnel, 3.0) * 0.75;
-
-        // Reflected sky (night)
         vec3 reflected = getSkyColor(reflect(eye, n));
-
-        // Refracted / underwater color
         vec3 refracted = SEA_BASE + diffuse(n, l, 80.0) * SEA_WATER * 0.15;
-
         vec3 color = mix(refracted, reflected, fresnel);
-
-        // Depth-based water tint
         float atten = max(1.0 - dot(dist,dist) * 0.001, 0.0);
         color += SEA_WATER * (p.y - SEA_HEIGHT) * 0.2 * atten;
-
-        // Subsurface scattering — teal glow through wave crests
         float sss = pow(max(dot(eye, l), 0.0), 2.0) * smoothstep(-0.1, 0.3, p.y - SEA_HEIGHT * 0.5);
         color += vec3(0.0, 0.12, 0.16) * sss * 0.4;
-
-        // Moonlight specular — tight (creates the glitter path)
         color += vec3(specular(n, l, eye, 120.0)) * MOON_COLOR * 1.2;
-        // Wider specular halo
         color += vec3(specular(n, l, eye, 20.0)) * MOON_COLOR * 0.15;
-
-        // Foam hint on crests
         float foam = smoothstep(SEA_HEIGHT * 0.85, SEA_HEIGHT * 1.1, p.y);
         float foamNoise = hash(p.xz * 8.0);
         foam *= smoothstep(0.4, 0.8, foamNoise);
         color += vec3(0.35, 0.4, 0.5) * foam * 0.2;
-
         return color;
       }
 
-      // ══════════════════════════
-      // MAIN
-      // ══════════════════════════
       void main() {
         float EPSILON_NRM = 0.1 / iResolution.x;
-
         vec2 uv = gl_FragCoord.xy / iResolution.xy;
         uv = uv * 2.0 - 1.0;
         uv.x *= iResolution.x / iResolution.y;
-
         float time = iTime * 0.15;
-
-        // ── Camera — slow cinematic drift ──
-        vec3 ang = vec3(
-          sin(time * 2.1) * 0.06,    // pitch wobble
-          sin(time) * 0.08 + 0.25,   // look slightly down at ocean
-          time * 0.5                  // slow yaw
-        );
+        vec3 ang = vec3(sin(time*2.1)*0.06, sin(time)*0.08+0.25, time*0.5);
         vec3 ori = vec3(0.0, 3.5, time * 8.0);
-
-        // Ray direction with subtle barrel distortion
         vec3 dir = normalize(vec3(uv.xy, -2.0));
         dir.z += length(uv) * 0.14;
         dir = normalize(dir) * fromEuler(ang);
-
-        // Moon light direction
         vec3 light = normalize(vec3(0.3, 0.35, -0.88));
-
-        // ── Trace ocean ──
         vec3 p;
         heightMapTracing(ori, dir, p);
         vec3 dist = p - ori;
         vec3 n = getNormal(p, dot(dist,dist) * EPSILON_NRM);
-
-        // ── Composite sky + ocean ──
         vec3 sky = getSkyColor(dir);
         vec3 sea = getSeaColor(p, n, light, dir, dist);
-
-        // Smooth horizon blend
         vec3 color = mix(sky, sea, pow(smoothstep(0.0, -0.05, dir.y), 0.3));
-
-        // ── Post-processing ──
-        // Subtle film grain
         float grain = (hash(gl_FragCoord.xy + iTime) - 0.5) * 0.03;
         color += grain;
-
-        // Cinematic tone mapping (ACES-like)
         color = color * (2.51 * color + 0.03) / (color * (2.43 * color + 0.59) + 0.14);
-
-        // Vignette
         vec2 vig = gl_FragCoord.xy / iResolution.xy;
         float v = 1.0 - pow(length(vig - 0.5) * 1.1, 2.5);
         color *= mix(0.7, 1.0, v);
-
         gl_FragColor = vec4(color, 1.0);
       }
     `;
@@ -1264,7 +1195,6 @@
     }
     gl.useProgram(prog);
 
-    // ── Attributes & uniforms ──
     const aPos = gl.getAttribLocation(prog, 'aPos');
     gl.enableVertexAttribArray(aPos);
     gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
@@ -1272,7 +1202,6 @@
     const uTime = gl.getUniformLocation(prog, 'iTime');
     const uRes = gl.getUniformLocation(prog, 'iResolution');
 
-    // ── Resize ──
     let dpr = Math.min(window.devicePixelRatio, 1.5);
     function resize() {
       const w = window.innerWidth, h = window.innerHeight;
@@ -1286,9 +1215,7 @@
     resize();
     window.addEventListener('resize', resize);
 
-    // ── Animation ──
     let startTime = performance.now();
-
     function render() {
       const t = (performance.now() - startTime) * 0.001;
       gl.uniform1f(uTime, t);
@@ -1296,7 +1223,6 @@
       requestAnimationFrame(render);
     }
 
-    // Context loss recovery
     canvas.addEventListener('webglcontextlost', (e) => {
       e.preventDefault();
       canvas.style.display = 'none';
@@ -1325,7 +1251,7 @@
     }
   })();
 
-  // ── Windshield rain effect — drops land and slide down the glass ──
+  // ── Water droplets on screen — windshield effect ──
   (function() {
     if (window.innerWidth <= 768) return;
     var dc = document.getElementById('droplets-canvas');
@@ -1344,161 +1270,179 @@
     window.addEventListener('resize', resizeDroplets);
 
     var drops = [];
-    var trails = [];
-    var MAX_DROPS = 12;
+    var smears = [];
+    var MAX_DROPS = 8;
     var W = function() { return window.innerWidth; };
     var H = function() { return window.innerHeight; };
 
+    // Wind angle — slight diagonal drift like driving in rain
+    var WIND_ANGLE = 0.15;
+    var WIND_VX = Math.sin(WIND_ANGLE) * 0.8;
+
     function spawnDrop() {
       if (drops.length >= MAX_DROPS) return;
-      var r = 2.5 + Math.random() * 5;
+      var size = 3 + Math.random() * 6;
+      var startY = -10 - Math.random() * 30;
+      var startX = 30 + Math.random() * (W() - 60);
+      var speed = 0.8 + Math.random() * 1.5;
       drops.push({
-        x: 30 + Math.random() * (W() - 60),
-        y: -5 - Math.random() * 30,
-        r: r,
-        vy: 0.3 + Math.random() * 0.6,
-        vx: (Math.random() - 0.5) * 0.15,
-        opacity: 0,
-        maxOpacity: 0.5 + Math.random() * 0.35,
+        x: startX,
+        y: startY,
+        r: size,
+        vy: speed,
+        vx: WIND_VX + (Math.random() - 0.5) * 0.3,
+        opacity: 0.0,
+        fadeIn: true,
         life: 0,
-        maxLife: 400 + Math.random() * 600,
+        trail: [],
         wobble: Math.random() * 6.28,
-        wobbleSpeed: 0.008 + Math.random() * 0.015,
-        // Windshield: drops pause briefly then slide
-        paused: true,
-        pauseFrames: 30 + Math.random() * 80,
-        sliding: false,
-        trailPoints: []
+        wobbleSpeed: 0.02 + Math.random() * 0.03,
+        friction: 0.9985 + Math.random() * 0.001,
+        stopped: false,
+        stopY: H() * (0.4 + Math.random() * 0.5)
       });
     }
 
     function drawDrop(d) {
+      // Trail — smear streak behind (windshield trail)
+      if (d.trail.length > 1) {
+        ctx.beginPath();
+        ctx.moveTo(d.trail[0].x, d.trail[0].y);
+        for (var i = 1; i < d.trail.length; i++) {
+          ctx.lineTo(d.trail[i].x, d.trail[i].y);
+        }
+        ctx.strokeStyle = 'rgba(150, 195, 240, ' + (d.opacity * 0.12) + ')';
+        ctx.lineWidth = d.r * 0.6;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(d.trail[0].x, d.trail[0].y);
+        for (var i = 1; i < d.trail.length; i++) {
+          ctx.lineTo(d.trail[i].x, d.trail[i].y);
+        }
+        ctx.strokeStyle = 'rgba(200, 225, 255, ' + (d.opacity * 0.06) + ')';
+        ctx.lineWidth = d.r * 0.2;
+        ctx.stroke();
+      }
+
+      // Main drop body — flattened oval (windshield drop shape)
       ctx.save();
       ctx.translate(d.x, d.y);
-
-      // Elongate when sliding fast
-      var stretch = d.sliding ? Math.min(d.vy * 0.15, 0.4) : 0;
-      var rx = d.r;
-      var ry = d.r * (1 + stretch);
-
-      // Drop body — lens shape on glass
+      var rx = d.r * 1.0;
+      var ry = d.r * 0.7;
       ctx.beginPath();
       ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
 
-      // Refraction gradient — like looking through wet glass
       var g = ctx.createRadialGradient(
-        -d.r * 0.25, -d.r * 0.2, d.r * 0.05,
+        -d.r * 0.15, -d.r * 0.1, d.r * 0.05,
         0, 0, d.r * 1.1
       );
       g.addColorStop(0, 'rgba(220, 240, 255, ' + (d.opacity * 0.45) + ')');
-      g.addColorStop(0.3, 'rgba(160, 210, 255, ' + (d.opacity * 0.25) + ')');
-      g.addColorStop(0.7, 'rgba(100, 170, 230, ' + (d.opacity * 0.1) + ')');
+      g.addColorStop(0.3, 'rgba(150, 200, 255, ' + (d.opacity * 0.25) + ')');
+      g.addColorStop(0.6, 'rgba(100, 170, 230, ' + (d.opacity * 0.12) + ')');
       g.addColorStop(1, 'rgba(80, 140, 200, 0)');
       ctx.fillStyle = g;
       ctx.fill();
 
-      // Edge highlight (surface tension on glass)
       ctx.strokeStyle = 'rgba(200, 230, 255, ' + (d.opacity * 0.2) + ')';
-      ctx.lineWidth = 0.4;
+      ctx.lineWidth = 0.5;
       ctx.stroke();
 
-      // Specular highlight
       ctx.beginPath();
-      ctx.arc(-d.r * 0.25, -d.r * 0.2, d.r * 0.18, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, ' + (d.opacity * 0.6) + ')';
+      ctx.ellipse(-d.r * 0.2, -d.r * 0.15, d.r * 0.22, d.r * 0.12, -0.3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, ' + (d.opacity * 0.55) + ')';
       ctx.fill();
 
       ctx.restore();
     }
 
-    function drawTrail(t) {
-      if (t.points.length < 2) return;
-      // Wet streak on glass — thin, fading
+    function drawSmear(s) {
+      var g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r);
+      g.addColorStop(0, 'rgba(160, 200, 240, ' + (s.opacity * 0.1) + ')');
+      g.addColorStop(0.5, 'rgba(140, 185, 230, ' + (s.opacity * 0.05) + ')');
+      g.addColorStop(1, 'rgba(100, 150, 200, 0)');
       ctx.beginPath();
-      ctx.moveTo(t.points[0].x, t.points[0].y);
-      for (var i = 1; i < t.points.length; i++) {
-        ctx.lineTo(t.points[i].x, t.points[i].y);
-      }
-      ctx.strokeStyle = 'rgba(160, 200, 240, ' + (t.opacity * 0.08) + ')';
-      ctx.lineWidth = t.width;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.stroke();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.fill();
     }
 
     var spawnTimer = 0;
-    function animate() {
+    function animateDroplets() {
       ctx.clearRect(0, 0, W(), H());
 
-      // Draw trails (wet streaks left behind)
-      for (var i = trails.length - 1; i >= 0; i--) {
-        var t = trails[i];
-        t.life++;
-        if (t.life > t.maxLife * 0.5) {
-          t.opacity *= 0.99;
-        }
-        if (t.opacity < 0.005 || t.life > t.maxLife) {
-          trails.splice(i, 1);
+      // Draw smears first (behind drops)
+      for (var i = smears.length - 1; i >= 0; i--) {
+        var s = smears[i];
+        s.life++;
+        s.opacity *= 0.992;
+        if (s.opacity < 0.005 || s.life > s.maxLife) {
+          smears.splice(i, 1);
           continue;
         }
-        drawTrail(t);
+        drawSmear(s);
       }
 
       // Spawn new drops
       spawnTimer++;
-      if (spawnTimer > 80 + Math.random() * 160) {
+      if (spawnTimer > 100 + Math.random() * 180) {
         spawnDrop();
         spawnTimer = 0;
       }
 
-      // Update & draw drops
+      // Update & draw sliding drops
       for (var i = drops.length - 1; i >= 0; i--) {
         var d = drops[i];
         d.life++;
 
-        // Fade in
-        if (d.opacity < d.maxOpacity) {
-          d.opacity = Math.min(d.opacity + 0.015, d.maxOpacity);
-        }
-
-        // Pause phase — drop sits on glass
-        if (d.paused) {
-          d.pauseFrames--;
-          if (d.pauseFrames <= 0) {
-            d.paused = false;
-            d.sliding = true;
-          }
-        }
-
-        // Sliding phase — gravity pulls drop down the windshield
-        if (d.sliding) {
-          d.vy += 0.005; // gentle acceleration
+        if (!d.stopped) {
+          // Gravity pulls diagonally (windshield angle)
+          d.vy += 0.008;
+          // Horizontal wobble (more horizontal, windshield wiper-like)
           d.wobble += d.wobbleSpeed;
-          d.x += d.vx + Math.sin(d.wobble) * 0.08;
+          d.x += d.vx + Math.sin(d.wobble) * 0.35;
           d.y += d.vy;
 
-          // Record trail
-          d.trailPoints.push({ x: d.x, y: d.y });
-          if (d.trailPoints.length > 40) d.trailPoints.shift();
-        }
+          // Apply friction (drops slow on glass surface)
+          d.vy *= d.friction;
+          d.vx *= d.friction;
 
-        // Fade out near end of life or bottom of screen
-        if (d.life > d.maxLife * 0.8 || d.y > H() * 0.9) {
-          d.opacity *= 0.97;
-        }
+          // Trail — leave a smear trail
+          d.trail.push({ x: d.x, y: d.y });
+          if (d.trail.length > 25) d.trail.shift();
 
-        // Remove when faded or off screen
-        if (d.opacity < 0.01 || d.y > H() + 20) {
-          // Leave a trail behind
-          if (d.trailPoints.length > 2) {
-            trails.push({
-              points: d.trailPoints.slice(),
-              width: d.r * 0.4,
-              opacity: 0.3,
+          // Check if drop should stop (stuck on windshield)
+          if (d.y >= d.stopY && d.vy < 1.5) {
+            d.stopped = true;
+            d.stoppedLife = 0;
+            smears.push({
+              x: d.x, y: d.y,
+              r: d.r * 1.5,
+              opacity: 0.2,
               life: 0,
               maxLife: 200 + Math.random() * 300
             });
           }
+        } else {
+          d.stoppedLife++;
+          if (d.stoppedLife > 60) {
+            d.opacity *= 0.97;
+          }
+          if (d.opacity < 0.02) {
+            drops.splice(i, 1);
+            continue;
+          }
+        }
+
+        // Fade in
+        if (d.fadeIn) {
+          d.opacity = Math.min(d.opacity + 0.025, 0.85);
+          if (d.opacity >= 0.85) d.fadeIn = false;
+        }
+
+        // Remove if off screen
+        if (d.y > H() + 20 || d.x < -20 || d.x > W() + 20) {
           drops.splice(i, 1);
           continue;
         }
@@ -1506,13 +1450,12 @@
         drawDrop(d);
       }
 
-      requestAnimationFrame(animate);
+      requestAnimationFrame(animateDroplets);
     }
 
-    // Start with a slight delay
     setTimeout(function() {
       spawnDrop();
-      animate();
+      animateDroplets();
     }, 2000);
   })();
 
@@ -1532,17 +1475,33 @@
   </script>
 
   <script>
-    // ── Waitlist form — sends to Google Sheets via Apps Script ──
-    // To set up: create a Google Sheet, go to Extensions > Apps Script, paste:
-    //   function doPost(e) {
-    //     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    //     var data = JSON.parse(e.postData.contents);
-    //     sheet.appendRow([new Date(), data.email]);
-    //     return ContentService.createTextOutput(JSON.stringify({result:'ok'}))
-    //       .setMimeType(ContentService.MimeType.JSON);
-    //   }
-    // Deploy as web app (Anyone can access). Replace GOOGLE_SCRIPT_URL below.
-    const GOOGLE_SCRIPT_URL = ''; // Paste your deployed Apps Script URL here
+    // ══════════════════════════════════════════════════════════════
+    // Waitlist form — Google Sheets integration via Apps Script
+    //
+    // HOW TO SET UP:
+    // 1. Create a Google Sheet
+    // 2. Go to Extensions > Apps Script
+    // 3. Paste this code in the Apps Script editor:
+    //
+    //    function doPost(e) {
+    //      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    //      var data = JSON.parse(e.postData.contents);
+    //      sheet.appendRow([new Date(), data.email]);
+    //      return ContentService
+    //        .createTextOutput(JSON.stringify({ result: 'success' }))
+    //        .setMimeType(ContentService.MimeType.JSON);
+    //    }
+    //
+    // 4. Deploy as Web App:
+    //    - Click Deploy > New deployment
+    //    - Select type: Web app
+    //    - Execute as: Me
+    //    - Who has access: Anyone
+    //    - Click Deploy and copy the URL
+    // 5. Replace PLACEHOLDER_DEPLOY_ID below with your deployment ID
+    // ══════════════════════════════════════════════════════════════
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/PLACEHOLDER_DEPLOY_ID/exec';
+
     const form = document.getElementById('waitlist-form');
     const msg = document.getElementById('waitlist-msg');
     form?.addEventListener('submit', (e) => {
@@ -1550,35 +1509,34 @@
       const fd = new FormData(form);
       const email = fd.get('email');
       if (!email) return;
-      // Check localStorage to avoid duplicate submits from same browser
-      const stored = JSON.parse(localStorage.getItem('oceanocratie_waitlist') || '[]');
-      if (stored.includes(email)) {
-        msg.textContent = 'Vous etes deja inscrit(e) !';
-        return;
-      }
-      // If Google Script URL is configured, send to Sheets
-      if (GOOGLE_SCRIPT_URL) {
-        msg.textContent = 'Envoi en cours...';
-        fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email })
-        }).then(function() {
-          stored.push(email);
-          localStorage.setItem('oceanocratie_waitlist', JSON.stringify(stored));
-          msg.textContent = 'Merci ! Vous serez prevenu(e) de la sortie.';
-          form.reset();
-        }).catch(function() {
-          msg.textContent = 'Erreur reseau. Reessayez dans un instant.';
-        });
-      } else {
-        // Fallback: localStorage only
-        stored.push(email);
-        localStorage.setItem('oceanocratie_waitlist', JSON.stringify(stored));
+
+      // Disable button during submission
+      const btn = form.querySelector('.waitlist__btn');
+      btn.disabled = true;
+      btn.textContent = 'Envoi...';
+      msg.textContent = '';
+      msg.classList.remove('error');
+
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+      .then(() => {
         msg.textContent = 'Merci ! Vous serez prevenu(e) de la sortie.';
+        msg.classList.remove('error');
         form.reset();
-      }
+      })
+      .catch((err) => {
+        console.error('Waitlist submission error:', err);
+        msg.textContent = 'Erreur lors de l\'envoi. Veuillez reessayer.';
+        msg.classList.add('error');
+      })
+      .finally(() => {
+        btn.disabled = false;
+        btn.textContent = 'Me prevenir';
+      });
     });
   </script>
 </body>
