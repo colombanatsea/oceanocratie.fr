@@ -975,28 +975,48 @@
         float horizonGlow = pow(1.0 - e.y, 12.0);
         sky += vec3(0.04, 0.05, 0.15) * horizonGlow;
 
-        // Stars — stable spherical coordinates for fixed positions
+        // Stars — round points with soft glow via distance from cell center
         vec3 en = normalize(e);
-        // Spherical UV for star grid — stable regardless of camera
         vec2 starUV = vec2(atan(en.z, en.x), asin(en.y));
-        // Multiple star layers at different scales
-        float s1 = hash(floor(starUV * 120.0));
-        float s2 = hash(floor(starUV * 200.0));
-        float s3 = hash(floor(starUV * 350.0));
-        float skyMask = smoothstep(0.02, 0.15, e.y); // fade near horizon
+        float skyMask = smoothstep(0.02, 0.15, e.y);
 
-        // Bright stars — few, prominent
-        float star1 = smoothstep(0.985, 0.99, s1) * skyMask;
-        sky += vec3(0.9, 0.92, 1.0) * star1 * 2.5;
+        // Helper: star brightness from cell distance (round, not square)
+        // For each layer: tile the UV, get cell ID + offset within cell
+        // Place star at random position inside cell, compute distance for round shape
 
-        // Medium stars with twinkle
-        float twinkle1 = sin(iTime * 2.0 + s2 * 62.83) * 0.4 + 0.6;
-        float star2 = smoothstep(0.98, 0.99, s2) * skyMask;
-        sky += vec3(0.6, 0.65, 0.85) * star2 * twinkle1 * 1.5;
+        // Layer 1 — bright stars
+        vec2 grid1 = starUV * 120.0;
+        vec2 cell1 = floor(grid1);
+        vec2 frac1 = fract(grid1) - 0.5;
+        float id1 = hash(cell1);
+        vec2 starOff1 = vec2(hash(cell1 + 71.0), hash(cell1 + 113.0)) - 0.5;
+        float dist1 = length(frac1 - starOff1 * 0.6);
+        float star1 = step(0.985, id1) * smoothstep(0.06, 0.0, dist1) * skyMask;
+        sky += vec3(0.9, 0.92, 1.0) * star1 * 3.0;
+        // Soft glow around bright stars
+        float glow1 = step(0.985, id1) * smoothstep(0.15, 0.0, dist1) * skyMask;
+        sky += vec3(0.4, 0.45, 0.7) * glow1 * 0.3;
 
-        // Faint background stars with slow shimmer
-        float twinkle2 = sin(iTime * 1.5 + s3 * 37.7) * 0.5 + 0.5;
-        float star3 = smoothstep(0.97, 0.985, s3) * skyMask;
+        // Layer 2 — medium stars with twinkle
+        vec2 grid2 = starUV * 200.0;
+        vec2 cell2 = floor(grid2);
+        vec2 frac2 = fract(grid2) - 0.5;
+        float id2 = hash(cell2);
+        vec2 starOff2 = vec2(hash(cell2 + 71.0), hash(cell2 + 113.0)) - 0.5;
+        float dist2 = length(frac2 - starOff2 * 0.6);
+        float twinkle1 = sin(iTime * 2.0 + id2 * 62.83) * 0.4 + 0.6;
+        float star2 = step(0.98, id2) * smoothstep(0.045, 0.0, dist2) * skyMask;
+        sky += vec3(0.6, 0.65, 0.85) * star2 * twinkle1 * 1.8;
+
+        // Layer 3 — faint background stars with shimmer
+        vec2 grid3 = starUV * 350.0;
+        vec2 cell3 = floor(grid3);
+        vec2 frac3 = fract(grid3) - 0.5;
+        float id3 = hash(cell3);
+        vec2 starOff3 = vec2(hash(cell3 + 71.0), hash(cell3 + 113.0)) - 0.5;
+        float dist3 = length(frac3 - starOff3 * 0.6);
+        float twinkle2 = sin(iTime * 1.5 + id3 * 37.7) * 0.5 + 0.5;
+        float star3 = step(0.97, id3) * smoothstep(0.035, 0.0, dist3) * skyMask;
         sky += vec3(0.3, 0.35, 0.5) * star3 * twinkle2 * 0.8;
 
         // Moon
@@ -1288,7 +1308,7 @@
     }
   })();
 
-  // ── Water droplets on screen ──
+  // ── Water droplets on screen — with splash impact ──
   (function() {
     if (window.innerWidth <= 768) return;
     var dc = document.getElementById('droplets-canvas');
@@ -1307,26 +1327,79 @@
     window.addEventListener('resize', resizeDroplets);
 
     var drops = [];
+    var splashes = [];
+    var residues = [];
     var MAX_DROPS = 6;
     var W = function() { return window.innerWidth; };
     var H = function() { return window.innerHeight; };
 
     function spawnDrop() {
       if (drops.length >= MAX_DROPS) return;
-      var size = 3 + Math.random() * 8;
+      var size = 4 + Math.random() * 7;
+      // Choose a random impact point on screen
+      var impactY = H() * (0.25 + Math.random() * 0.55);
+      // Compute travel distance to set speed
+      var startY = -10 - Math.random() * 40;
+      var travelDist = impactY - startY;
+      // Speed so it takes 2-5 seconds to arrive
+      var frames = 120 + Math.random() * 180;
       drops.push({
-        x: 40 + Math.random() * (W() - 80),
-        y: -10 - Math.random() * 60,
+        x: 60 + Math.random() * (W() - 120),
+        y: startY,
+        targetY: impactY,
         r: size,
-        vy: 0.15 + Math.random() * 0.3,
-        vx: (Math.random() - 0.5) * 0.1,
+        vy: travelDist / frames,
+        vx: (Math.random() - 0.5) * 0.08,
         opacity: 0.0,
         fadeIn: true,
         life: 0,
-        maxLife: 400 + Math.random() * 600,
         trail: [],
         wobble: Math.random() * 6.28,
-        wobbleSpeed: 0.01 + Math.random() * 0.02
+        wobbleSpeed: 0.01 + Math.random() * 0.02,
+        splashed: false
+      });
+    }
+
+    function spawnSplash(x, y, r) {
+      // Splash ring
+      splashes.push({
+        x: x, y: y,
+        radius: r * 0.5,
+        maxRadius: r * 4 + Math.random() * r * 2,
+        opacity: 0.7,
+        lineWidth: 1.5
+      });
+      // Secondary ring (delayed feel)
+      splashes.push({
+        x: x, y: y,
+        radius: r * 0.3,
+        maxRadius: r * 2.5 + Math.random() * r,
+        opacity: 0.4,
+        lineWidth: 1.0
+      });
+      // Tiny satellite droplets that fly out from impact
+      var numSats = 4 + Math.floor(Math.random() * 5);
+      for (var i = 0; i < numSats; i++) {
+        var angle = (Math.PI * 2 * i / numSats) + (Math.random() - 0.5) * 0.6;
+        var speed = 1.2 + Math.random() * 2.5;
+        var satR = 1 + Math.random() * 2;
+        splashes.push({
+          x: x, y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 1.5, // bias upward
+          satR: satR,
+          opacity: 0.6 + Math.random() * 0.3,
+          gravity: 0.06,
+          isSatellite: true
+        });
+      }
+      // Leave a residue (water mark on "glass")
+      residues.push({
+        x: x, y: y,
+        r: r * (1.2 + Math.random() * 0.8),
+        opacity: 0.22,
+        life: 0,
+        maxLife: 300 + Math.random() * 400
       });
     }
 
@@ -1338,39 +1411,85 @@
         for (var i = 1; i < d.trail.length; i++) {
           ctx.lineTo(d.trail[i].x, d.trail[i].y);
         }
-        ctx.strokeStyle = 'rgba(180, 210, 255, ' + (d.opacity * 0.08) + ')';
-        ctx.lineWidth = d.r * 0.3;
+        ctx.strokeStyle = 'rgba(180, 210, 255, ' + (d.opacity * 0.1) + ')';
+        ctx.lineWidth = d.r * 0.25;
         ctx.lineCap = 'round';
         ctx.stroke();
       }
 
-      // Main drop body — refraction look
-      var g = ctx.createRadialGradient(
-        d.x - d.r * 0.3, d.y - d.r * 0.3, d.r * 0.1,
-        d.x, d.y, d.r
-      );
-      g.addColorStop(0, 'rgba(220, 240, 255, ' + (d.opacity * 0.35) + ')');
-      g.addColorStop(0.5, 'rgba(150, 200, 255, ' + (d.opacity * 0.15) + ')');
-      g.addColorStop(0.8, 'rgba(100, 160, 220, ' + (d.opacity * 0.08) + ')');
-      g.addColorStop(1, 'rgba(80, 140, 200, 0)');
+      // Main drop body — teardrop shape
+      ctx.save();
+      ctx.translate(d.x, d.y);
 
+      // Teardrop path: rounded bottom, pointed top
+      var rx = d.r * 0.75;
+      var ry = d.r * 1.2;
       ctx.beginPath();
-      // Slightly elongated (teardrop feel)
-      ctx.ellipse(d.x, d.y, d.r * 0.85, d.r * 1.1, 0, 0, Math.PI * 2);
+      ctx.moveTo(0, -ry * 0.9); // pointed top
+      ctx.bezierCurveTo(rx * 0.4, -ry * 0.4, rx, ry * 0.2, 0, ry * 0.7);
+      ctx.bezierCurveTo(-rx, ry * 0.2, -rx * 0.4, -ry * 0.4, 0, -ry * 0.9);
+      ctx.closePath();
+
+      // Refraction gradient
+      var g = ctx.createRadialGradient(
+        -d.r * 0.2, -d.r * 0.1, d.r * 0.05,
+        0, 0, d.r * 1.1
+      );
+      g.addColorStop(0, 'rgba(220, 240, 255, ' + (d.opacity * 0.4) + ')');
+      g.addColorStop(0.35, 'rgba(150, 200, 255, ' + (d.opacity * 0.2) + ')');
+      g.addColorStop(0.7, 'rgba(100, 170, 230, ' + (d.opacity * 0.1) + ')');
+      g.addColorStop(1, 'rgba(80, 140, 200, 0)');
       ctx.fillStyle = g;
       ctx.fill();
 
-      // Bright highlight — light refraction
+      // Edge highlight (surface tension)
+      ctx.strokeStyle = 'rgba(200, 230, 255, ' + (d.opacity * 0.25) + ')';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+
+      // Bright specular highlight
       ctx.beginPath();
-      ctx.arc(d.x - d.r * 0.25, d.y - d.r * 0.3, d.r * 0.25, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, ' + (d.opacity * 0.6) + ')';
+      ctx.arc(-d.r * 0.2, -d.r * 0.25, d.r * 0.2, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, ' + (d.opacity * 0.65) + ')';
       ctx.fill();
 
-      // Edge ring — surface tension
+      ctx.restore();
+    }
+
+    function drawSplashRing(s) {
       ctx.beginPath();
-      ctx.ellipse(d.x, d.y, d.r * 0.85, d.r * 1.1, 0, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(200, 230, 255, ' + (d.opacity * 0.2) + ')';
-      ctx.lineWidth = 0.5;
+      ctx.ellipse(s.x, s.y, s.radius, s.radius * 0.35, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(180, 215, 255, ' + s.opacity + ')';
+      ctx.lineWidth = s.lineWidth;
+      ctx.stroke();
+    }
+
+    function drawSatellite(s) {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.satR, 0, Math.PI * 2);
+      var g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.satR);
+      g.addColorStop(0, 'rgba(220, 240, 255, ' + (s.opacity * 0.6) + ')');
+      g.addColorStop(1, 'rgba(150, 200, 255, 0)');
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+
+    function drawResidue(r) {
+      // Subtle water mark left on the "glass"
+      var g = ctx.createRadialGradient(r.x, r.y, 0, r.x, r.y, r.r);
+      g.addColorStop(0, 'rgba(160, 200, 240, ' + (r.opacity * 0.15) + ')');
+      g.addColorStop(0.5, 'rgba(140, 185, 230, ' + (r.opacity * 0.08) + ')');
+      g.addColorStop(0.8, 'rgba(120, 170, 220, ' + (r.opacity * 0.03) + ')');
+      g.addColorStop(1, 'rgba(100, 150, 200, 0)');
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.fill();
+      // Thin ring edge
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.r * 0.9, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(200, 230, 255, ' + (r.opacity * 0.1) + ')';
+      ctx.lineWidth = 0.3;
       ctx.stroke();
     }
 
@@ -1378,42 +1497,91 @@
     function animateDroplets() {
       ctx.clearRect(0, 0, W(), H());
 
+      // Draw residues first (behind everything)
+      for (var i = residues.length - 1; i >= 0; i--) {
+        var r = residues[i];
+        r.life++;
+        if (r.life > r.maxLife * 0.6) {
+          r.opacity *= 0.985;
+        }
+        if (r.opacity < 0.005 || r.life > r.maxLife) {
+          residues.splice(i, 1);
+          continue;
+        }
+        drawResidue(r);
+      }
+
+      // Spawn new drops
       spawnTimer++;
-      if (spawnTimer > 120 + Math.random() * 200) {
+      if (spawnTimer > 140 + Math.random() * 220) {
         spawnDrop();
         spawnTimer = 0;
       }
 
+      // Update & draw falling drops
       for (var i = drops.length - 1; i >= 0; i--) {
         var d = drops[i];
         d.life++;
 
-        // Gravity + gentle wobble
-        d.vy += 0.002;
+        // Accelerate slightly (gravity on glass)
+        d.vy += 0.003;
         d.wobble += d.wobbleSpeed;
-        d.x += d.vx + Math.sin(d.wobble) * 0.15;
+        d.x += d.vx + Math.sin(d.wobble) * 0.12;
         d.y += d.vy;
 
         // Trail
         d.trail.push({ x: d.x, y: d.y });
-        if (d.trail.length > 12) d.trail.shift();
+        if (d.trail.length > 14) d.trail.shift();
 
-        // Fade in/out
+        // Fade in
         if (d.fadeIn) {
-          d.opacity = Math.min(d.opacity + 0.015, 0.9);
+          d.opacity = Math.min(d.opacity + 0.02, 0.9);
           if (d.opacity >= 0.9) d.fadeIn = false;
         }
-        if (d.life > d.maxLife * 0.7) {
-          d.opacity *= 0.97;
+
+        // Impact! — splash on screen
+        if (!d.splashed && d.y >= d.targetY) {
+          d.splashed = true;
+          spawnSplash(d.x, d.y, d.r);
+          drops.splice(i, 1);
+          continue;
         }
 
-        // Remove if off-screen or faded
-        if (d.y > H() + 20 || d.opacity < 0.01 || d.life > d.maxLife) {
+        // Failsafe: remove if off screen
+        if (d.y > H() + 20) {
           drops.splice(i, 1);
           continue;
         }
 
         drawDrop(d);
+      }
+
+      // Update & draw splash effects
+      for (var i = splashes.length - 1; i >= 0; i--) {
+        var s = splashes[i];
+        if (s.isSatellite) {
+          // Flying satellite droplet
+          s.x += s.vx;
+          s.y += s.vy;
+          s.vy += s.gravity;
+          s.opacity *= 0.96;
+          s.satR *= 0.98;
+          if (s.opacity < 0.01 || s.satR < 0.3) {
+            splashes.splice(i, 1);
+            continue;
+          }
+          drawSatellite(s);
+        } else {
+          // Expanding ring
+          s.radius += (s.maxRadius - s.radius) * 0.08;
+          s.opacity *= 0.94;
+          s.lineWidth *= 0.97;
+          if (s.opacity < 0.01) {
+            splashes.splice(i, 1);
+            continue;
+          }
+          drawSplashRing(s);
+        }
       }
 
       requestAnimationFrame(animateDroplets);
