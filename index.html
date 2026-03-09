@@ -7,7 +7,7 @@
   <meta name="description" content="La France collectionne les atouts maritimes mais tourne le dos &agrave; la mer. Oc&eacute;anocratie explore ce ph&eacute;nom&egrave;ne — et comment changer la donne." />
 
   <!-- Security -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://js.hcaptcha.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://imgs.hcaptcha.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://api.hcaptcha.com; frame-src https://newassets.hcaptcha.com; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -417,6 +417,12 @@
 
     .waitlist__btn { flex-shrink: 0; }
 
+    .waitlist__captcha {
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: center;
+    }
+
     .waitlist__note {
       margin-top: 0.75rem;
       font-size: 0.85rem;
@@ -797,6 +803,9 @@
             <input type="email" name="email" placeholder="votre@email.com" required class="waitlist__input" autocomplete="email" />
             <button type="submit" class="btn btn-primary waitlist__btn">Me pr&eacute;venir</button>
           </form>
+          <div class="waitlist__captcha">
+            <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001" data-theme="dark" data-size="compact"></div>
+          </div>
           <p class="waitlist__note" id="waitlist-msg" aria-live="polite"></p>
         </div>
 
@@ -1523,6 +1532,14 @@
       const email = fd.get('email');
       if (!email) return;
 
+      // Verify hCaptcha token
+      const captchaToken = typeof hcaptcha !== 'undefined' ? hcaptcha.getResponse() : '';
+      if (!captchaToken) {
+        msg.textContent = 'Veuillez valider le captcha.';
+        msg.classList.add('error');
+        return;
+      }
+
       // Disable button during submission
       const btn = form.querySelector('.waitlist__btn');
       btn.disabled = true;
@@ -1534,12 +1551,13 @@
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
+        body: JSON.stringify({ email: email, captcha: captchaToken })
       })
       .then(() => {
         msg.textContent = 'Merci ! Vous serez pr\u00e9venu(e) de la sortie.';
         msg.classList.remove('error');
         form.reset();
+        if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
         // Track waitlist signup as conversion
         if (typeof gtag === 'function') {
           gtag('event', 'sign_up', { method: 'waitlist', event_category: 'conversion' });
@@ -1556,5 +1574,6 @@
       });
     });
   </script>
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </body>
 </html>
