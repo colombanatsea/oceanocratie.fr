@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Oceanocratie — La France n'est pas un hexagone. C'est un archipel.</title>
-  <meta name="description" content="595 Md&euro; d'exports par la mer, 50+ c&acirc;bles sous-marins, 45 GW d'&eacute;olien offshore vis&eacute;s en 2050. Oc&eacute;anocratie explore le potentiel maritime fran&ccedil;ais. Un livre de Colomban — No&euml;l 2026." />
+  <title>Oceanocratie — Colomban</title>
+  <meta name="description" content="La France collectionne les atouts maritimes mais tourne le dos &agrave; la mer. Oc&eacute;anocratie explore ce ph&eacute;nom&egrave;ne — et comment changer la donne." />
 
   <!-- Security -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
@@ -23,22 +23,22 @@
   <link rel="canonical" href="https://oceanocratie.fr/" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Oceanocratie — La France n'est pas un hexagone. C'est un archipel." />
-  <meta property="og:description" content="Le monde maritime aborde trois transformations sans pr&eacute;c&eacute;dent. 595 Md&euro; d'exports transitent par la mer, 50+ c&acirc;bles sous-marins, 45 GW d'&eacute;olien offshore vis&eacute;s. Un livre de Colomban — No&euml;l 2026." />
+  <meta property="og:title" content="Oceanocratie — Colomban" />
+  <meta property="og:description" content="La France collectionne les atouts maritimes mais tourne le dos &agrave; la mer. Oc&eacute;anocratie explore ce ph&eacute;nom&egrave;ne — et comment changer la donne." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://oceanocratie.fr/" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="Oceanocratie" />
-  <meta property="og:image" content="https://oceanocratie.fr/og-image.svg" />
+  <meta property="og:image" content="https://oceanocratie.fr/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Oceanocratie — Globe montrant l'archipel France et ses territoires d'outre-mer connect&eacute;s" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Oceanocratie — La France n'est pas un hexagone. C'est un archipel." />
-  <meta name="twitter:description" content="Le monde maritime aborde trois transformations sans pr&eacute;c&eacute;dent. Un livre de Colomban — No&euml;l 2026." />
-  <meta name="twitter:image" content="https://oceanocratie.fr/og-image.svg" />
+  <meta name="twitter:title" content="Oceanocratie — Colomban" />
+  <meta name="twitter:description" content="La France collectionne les atouts maritimes mais tourne le dos &agrave; la mer. Oc&eacute;anocratie explore ce ph&eacute;nom&egrave;ne — et comment changer la donne." />
+  <meta name="twitter:image" content="https://oceanocratie.fr/og-image.png" />
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -55,7 +55,7 @@
     "inLanguage": "fr",
     "bookFormat": "https://schema.org/Hardcover",
     "url": "https://oceanocratie.fr/",
-    "image": "https://oceanocratie.fr/og-image.svg",
+    "image": "https://oceanocratie.fr/og-image.png",
     "datePublished": "2026-12",
     "publisher": {
       "@type": "Organization",
@@ -785,73 +785,6 @@
       .transform-cards { grid-template-columns: 1fr; }
     }
 
-    /* ── Matrice 3D ── */
-    .matrice3d {
-      padding: 4rem 0;
-    }
-
-    .matrice3d__content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .matrice3d__text p {
-      font-size: 0.95rem;
-      color: var(--gris-400);
-      line-height: 1.7;
-      margin-bottom: 1rem;
-    }
-
-    .matrice3d__visual {
-      position: relative;
-      height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .matrice3d__cube {
-      width: 160px;
-      height: 160px;
-      position: relative;
-      transform-style: preserve-3d;
-      animation: cube-rotate 12s linear infinite;
-    }
-
-    .matrice3d__face {
-      position: absolute;
-      width: 160px;
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 1rem;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 8px;
-    }
-
-    .matrice3d__face--front  { background: rgba(42,85,179,0.2); transform: translateZ(80px); }
-    .matrice3d__face--back   { background: rgba(0,191,99,0.2); transform: rotateY(180deg) translateZ(80px); }
-    .matrice3d__face--right  { background: rgba(179,42,85,0.2); transform: rotateY(90deg) translateZ(80px); }
-    .matrice3d__face--left   { background: rgba(42,85,179,0.15); transform: rotateY(-90deg) translateZ(80px); }
-    .matrice3d__face--top    { background: rgba(0,191,99,0.15); transform: rotateX(90deg) translateZ(80px); }
-    .matrice3d__face--bottom { background: rgba(179,42,85,0.15); transform: rotateX(-90deg) translateZ(80px); }
-
-    @keyframes cube-rotate {
-      0%   { transform: rotateX(-20deg) rotateY(0deg); }
-      100% { transform: rotateX(-20deg) rotateY(360deg); }
-    }
-
-    @media (max-width: 768px) {
-      .matrice3d__content { grid-template-columns: 1fr; }
-    }
-
     /* ── Testimonials ── */
     .testimonials {
       padding: 4rem 0;
@@ -1178,16 +1111,16 @@
     <div class="reveal" id="stats-section">
       <div class="stats">
         <div class="stat stagger-child">
-          <span class="stat__number">595 Md&euro;</span>
-          <span class="stat__label">de biens export&eacute;s par la France transitent par la mer</span>
+          <span class="stat__number">97%</span>
+          <span class="stat__label">des donn&eacute;es num&eacute;riques mondiales transitent par des c&acirc;bles sous-marins — souverainet&eacute; num&eacute;rique</span>
         </div>
         <div class="stat stagger-child">
-          <span class="stat__number">50+</span>
-          <span class="stat__label">c&acirc;bles sous-marins — pays le plus connect&eacute; d'Europe</span>
+          <span class="stat__number">80%</span>
+          <span class="stat__label">des marchandises mondiales sont transport&eacute;es par voie maritime — interface &eacute;conomique</span>
         </div>
         <div class="stat stagger-child">
-          <span class="stat__number">45 GW</span>
-          <span class="stat__label">d'&eacute;olien offshore vis&eacute;s en 2050 — 30% de l'&eacute;lectricit&eacute; fran&ccedil;aise</span>
+          <span class="stat__number">EMR</span>
+          <span class="stat__label">&eacute;olien offshore, hydrolien, &eacute;nergie thermique des mers — un potentiel &eacute;nerg&eacute;tique consid&eacute;rable</span>
         </div>
       </div>
     </div>
@@ -1197,19 +1130,19 @@
       <h2 class="sea-pillars__title">Tout passe par la mer<span style="color: var(--vert);">.</span></h2>
       <div class="sea-pillars__grid">
         <div class="sea-pillar stagger-child">
-          <div class="sea-pillar__stat">97%</div>
-          <div class="sea-pillar__label">Communications</div>
-          <p class="sea-pillar__desc">Des donn&eacute;es num&eacute;riques mondiales transitent par des c&acirc;bles sous-marins — souverainet&eacute; num&eacute;rique</p>
+          <div class="sea-pillar__stat">595 Md&euro;</div>
+          <div class="sea-pillar__label">Exports maritimes</div>
+          <p class="sea-pillar__desc">De biens export&eacute;s par la France transitent par la mer</p>
         </div>
         <div class="sea-pillar stagger-child">
-          <div class="sea-pillar__stat">80%</div>
-          <div class="sea-pillar__label">Commerce mondial</div>
-          <p class="sea-pillar__desc">Des marchandises mondiales sont transport&eacute;es par voie maritime — interface &eacute;conomique</p>
+          <div class="sea-pillar__stat">50+</div>
+          <div class="sea-pillar__label">C&acirc;bles sous-marins</div>
+          <p class="sea-pillar__desc">Pays le plus connect&eacute; d'Europe</p>
         </div>
         <div class="sea-pillar stagger-child">
-          <div class="sea-pillar__stat">EMR</div>
-          <div class="sea-pillar__label">&Eacute;nergie</div>
-          <p class="sea-pillar__desc">&Eacute;olien offshore, hydrolien, &eacute;nergie thermique des mers&nbsp;: un potentiel &eacute;nerg&eacute;tique consid&eacute;rable</p>
+          <div class="sea-pillar__stat">45 GW</div>
+          <div class="sea-pillar__label">&Eacute;olien offshore</div>
+          <p class="sea-pillar__desc">Vis&eacute;s en 2050 — 30% de l'&eacute;lectricit&eacute; fran&ccedil;aise</p>
         </div>
       </div>
     </section>
@@ -1271,30 +1204,6 @@
               <div class="axis__dot" style="background: var(--rose); box-shadow: 0 0 12px rgba(179,42,85,0.4);"></div>
               <h3>Le laboratoire du futur</h3>
               <p>Propulsion v&eacute;lique de pointe, carburants d&eacute;carbon&eacute;s (m&eacute;thanol, e-fuels), IA pr&eacute;dictive&nbsp;: l'industrie maritime est le crash-test de la transition mondiale. La mer n'est pas qu'une additions de ressources &agrave; prot&eacute;ger, c'est le grand r&eacute;gulateur de notre survie.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ MATRICE 3D ═══ -->
-    <section class="section matrice3d reveal">
-      <div class="container">
-        <p class="mono" style="text-align:center; margin-bottom: 1rem;">L'&eacute;cosyst&egrave;me</p>
-        <h2 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); text-align: center; margin-bottom: 2rem;">La Matrice 3D<span style="color: var(--vert);">.</span></h2>
-        <div class="matrice3d__content">
-          <div class="matrice3d__text">
-            <p>Cr&eacute;ation d'entreprises dans les secteurs du maritime, de la sant&eacute; et de l'achat &eacute;thique.</p>
-            <p>L'Oc&eacute;anocratie d&eacute;fend un mod&egrave;le o&ugrave; technologie, &eacute;cologie et culture maritime s'alignent pour cr&eacute;er de la valeur durable — une matrice tridimensionnelle appliqu&eacute;e &agrave; chaque d&eacute;cision strat&eacute;gique.</p>
-          </div>
-          <div class="matrice3d__visual" style="perspective: 600px;">
-            <div class="matrice3d__cube" role="img" aria-label="Cube 3D en rotation repr&eacute;sentant la matrice : Technologie, &Eacute;cologie, Culture, Maritime, Sant&eacute;, Achat &eacute;thique">
-              <div class="matrice3d__face matrice3d__face--front">Technologie</div>
-              <div class="matrice3d__face matrice3d__face--back">&Eacute;cologie</div>
-              <div class="matrice3d__face matrice3d__face--right">Culture</div>
-              <div class="matrice3d__face matrice3d__face--left">Maritime</div>
-              <div class="matrice3d__face matrice3d__face--top">Sant&eacute;</div>
-              <div class="matrice3d__face matrice3d__face--bottom">Achat &eacute;thique</div>
             </div>
           </div>
         </div>
@@ -1869,7 +1778,7 @@
       var size = 3 + Math.random() * 6;
       // Drops appear ON the glass surface at a random position (like condensation or splatter)
       var startX = 20 + Math.random() * (W() - 40);
-      var startY = 20 + Math.random() * (H() * 0.5);
+      var startY = -10 + Math.random() * (H() * 0.3);
       drops.push({
         x: startX,
         y: startY,
@@ -1994,7 +1903,7 @@
         }
 
         // Phase 2: After growing, wait then start sliding
-        if (!d.growing && !d.sliding && !d.stopped) {
+        if (!d.growing && !d.sliding) {
           d.slideDelay--;
           if (d.slideDelay <= 0) {
             d.sliding = true;
@@ -2002,7 +1911,7 @@
         }
 
         // Phase 3: Slide down glass surface under gravity
-        if (d.sliding && !d.stopped) {
+        if (d.sliding) {
           d.vy += 0.012;
           d.wobble += d.wobbleSpeed;
           d.x += d.vx + Math.sin(d.wobble) * 0.25;
@@ -2014,27 +1923,6 @@
           d.trail.push({ x: d.x, y: d.y });
           if (d.trail.length > 30) d.trail.shift();
 
-          // Random chance to stop (surface tension on glass)
-          if (d.vy > 0.3 && Math.random() < 0.002) {
-            d.stopped = true;
-            d.stoppedLife = 0;
-            smears.push({
-              x: d.x, y: d.y,
-              r: d.r * 1.5,
-              opacity: 0.15,
-              life: 0,
-              maxLife: 300 + Math.random() * 400
-            });
-          }
-        }
-
-        if (d.stopped) {
-          d.stoppedLife++;
-          if (d.stoppedLife > 80) d.opacity *= 0.97;
-          if (d.opacity < 0.02) {
-            drops.splice(i, 1);
-            continue;
-          }
         }
 
         // Fade in gently (appears on glass)
