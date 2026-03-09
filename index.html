@@ -7,7 +7,7 @@
   <meta name="description" content="Oceanocratie — Un livre de Colomban pour explorer le potentiel maritime francais. Sortie prevue Noel 2026." />
 
   <!-- Security -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -26,6 +26,9 @@
   <meta property="og:url" content="https://oceanocratie.fr/" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="Oceanocratie" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Oceanocratie — Une nation libre regarde la mer" />
+  <meta name="twitter:description" content="Un livre de Colomban pour explorer le potentiel maritime francais. Sortie prevue Noel 2026." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -232,6 +235,7 @@
       gap: 0.5rem;
       opacity: 0;
       animation: fadeInUp 0.8s ease 1.5s both;
+      z-index: 20;
     }
 
     .hero__scroll-hint .mono {
@@ -734,7 +738,7 @@
         </div>
 
         <p class="hero__description">
-          La France possede le 2<sup>e</sup> domaine maritime mondial&nbsp;: 11&nbsp;millions de km&sup2;, 37&nbsp;etats frontaliers maritimes. Et pourtant, elle tourne le dos a la mer. Ce livre explore pourquoi — et comment changer la donne.
+          La France possede le 2<sup>e</sup> domaine maritime mondial&nbsp;: 11&nbsp;millions de km&sup2;, 37&nbsp;etats frontaliers maritimes. Et pourtant, elle tourne le dos a la mer. Ce livre explore ce phénomène — et comment changer la donne.
         </p>
 
         <div class="waitlist">
@@ -747,7 +751,7 @@
         </div>
 
         <div class="cta-group">
-          <a href="https://colombanatsea.com" class="btn btn-outline">Decouvrir Colomban &rarr;</a>
+          <a href="https://colombanatsea.com/fr/a-propos/" class="btn btn-outline">Decouvrir Colomban &rarr;</a>
           <a href="https://www.linkedin.com/in/colombanatsea/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Suivre sur LinkedIn</a>
         </div>
       </div>
@@ -799,20 +803,33 @@
           <div class="axes__grid">
             <div class="axis stagger-child">
               <div class="axis__dot" style="background: var(--bleu); box-shadow: 0 0 12px rgba(42,85,179,0.4);"></div>
-              <h3>Technologique</h3>
-              <p>Le maritime ne doit pas passer par la numerisation&nbsp;: il doit entrer directement dans l'ere de la digitalisation et de l'IA.</p>
+              <h3>Vaincre la cecite maritime</h3>
+              <p>La France possede le 2<sup>e</sup> domaine maritime mondial, mais elle ne le voit pas. Ce livre demontre pourquoi cette cecite est un choix — et comment en sortir.</p>
             </div>
             <div class="axis stagger-child">
               <div class="axis__dot" style="background: var(--vert); box-shadow: 0 0 12px rgba(0,191,99,0.4);"></div>
-              <h3>Environnementale</h3>
-              <p>Integrer le maritime dans une societe durable — au-dela du seul climat, avec les 9 limites planetaires.</p>
+              <h3>Batir l'archipel France</h3>
+              <p>La France n'est pas un hexagone&nbsp;: c'est un archipel de 13 territoires ultramarins sur 4 oceans et 5 continents. Une vision nouvelle de la puissance francaise.</p>
             </div>
             <div class="axis stagger-child">
               <div class="axis__dot" style="background: var(--rose); box-shadow: 0 0 12px rgba(179,42,85,0.4);"></div>
-              <h3>Socioculturelle</h3>
-              <p>Transformer les esprits au sein et au-dela du maritime. La vraie revolution est culturelle.</p>
+              <h3>Le laboratoire du futur</h3>
+              <p>Energie, alimentation, biodiversite, connectivite, defense&nbsp;: la mer est le terrain d'experimentation de tous les grands enjeux du XXI<sup>e</sup> siecle.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ APPEL OCEANOCRATIE ═══ -->
+    <section class="section reveal">
+      <div class="container">
+        <div class="glass-card oceanocratie-appeal" style="text-align: center;">
+          <p class="mono">Le manifeste</p>
+          <h2>Oceanocratie n'est pas un livre<span style="color: var(--vert);">.</span></h2>
+          <p style="max-width: 640px; margin: 0 auto; color: var(--gris-400); line-height: 1.8;">
+            C'est un appel. Un appel a regarder la carte autrement. A comprendre que la France n'est pas un hexagone mais un archipel. Que la mer n'est pas une frontiere mais un territoire. Et que notre avenir ne se joue pas uniquement sur terre — il se joue aussi sur l'eau.
+          </p>
         </div>
       </div>
     </section>
@@ -824,12 +841,12 @@
           <p class="mono">L'auteur</p>
           <h2>Colomban<span style="color: var(--vert);">.</span></h2>
           <p>
-            Officier de la Marine Marchande, entrepreneur et figure de la triple transition maritime. Delegue General du GASPE, cofondateur de VAIATA Dynamics, president de la Fondation ENSM.
+            Officier de la Marine Marchande devenu entrepreneur, Colomban a quitte la mer en 2017 pour avoir un impact global sur la transformation du secteur maritime. Delegue general du GASPE, cofondateur de VAIATA Dynamics (IA maritime), president de la Fondation ENSM, auditeur a l'Academie de Marine.
           </p>
           <p>
-            Depuis 2013, Colomban porte la conviction que technologie, environnement et culture sont indissociables dans la transformation du maritime.
+            Avec ~16&nbsp;500 abonnes LinkedIn et plus de 3,6 millions de vues par an, il porte un message simple&nbsp;: la France est une puissance maritime qui s'ignore — et il est temps que ca change.
           </p>
-          <a href="https://colombanatsea.com" class="author__link">
+          <a href="https://colombanatsea.com/fr/a-propos/" class="author__link">
             colombanatsea.com &rarr;
           </a>
         </div>
@@ -1308,7 +1325,7 @@
     }
   })();
 
-  // ── Water droplets on screen — with splash impact ──
+  // ── Windshield rain effect — drops land and slide down the glass ──
   (function() {
     if (window.innerWidth <= 768) return;
     var dc = document.getElementById('droplets-canvas');
@@ -1327,228 +1344,161 @@
     window.addEventListener('resize', resizeDroplets);
 
     var drops = [];
-    var splashes = [];
-    var residues = [];
-    var MAX_DROPS = 6;
+    var trails = [];
+    var MAX_DROPS = 12;
     var W = function() { return window.innerWidth; };
     var H = function() { return window.innerHeight; };
 
     function spawnDrop() {
       if (drops.length >= MAX_DROPS) return;
-      var size = 4 + Math.random() * 7;
-      // Choose a random impact point on screen
-      var impactY = H() * (0.25 + Math.random() * 0.55);
-      // Compute travel distance to set speed
-      var startY = -10 - Math.random() * 40;
-      var travelDist = impactY - startY;
-      // Speed so it takes 2-5 seconds to arrive
-      var frames = 120 + Math.random() * 180;
+      var r = 2.5 + Math.random() * 5;
       drops.push({
-        x: 60 + Math.random() * (W() - 120),
-        y: startY,
-        targetY: impactY,
-        r: size,
-        vy: travelDist / frames,
-        vx: (Math.random() - 0.5) * 0.08,
-        opacity: 0.0,
-        fadeIn: true,
+        x: 30 + Math.random() * (W() - 60),
+        y: -5 - Math.random() * 30,
+        r: r,
+        vy: 0.3 + Math.random() * 0.6,
+        vx: (Math.random() - 0.5) * 0.15,
+        opacity: 0,
+        maxOpacity: 0.5 + Math.random() * 0.35,
         life: 0,
-        trail: [],
+        maxLife: 400 + Math.random() * 600,
         wobble: Math.random() * 6.28,
-        wobbleSpeed: 0.01 + Math.random() * 0.02,
-        splashed: false
-      });
-    }
-
-    function spawnSplash(x, y, r) {
-      // Splash ring
-      splashes.push({
-        x: x, y: y,
-        radius: r * 0.5,
-        maxRadius: r * 4 + Math.random() * r * 2,
-        opacity: 0.7,
-        lineWidth: 1.5
-      });
-      // Secondary ring (delayed feel)
-      splashes.push({
-        x: x, y: y,
-        radius: r * 0.3,
-        maxRadius: r * 2.5 + Math.random() * r,
-        opacity: 0.4,
-        lineWidth: 1.0
-      });
-      // Tiny satellite droplets that fly out from impact
-      var numSats = 4 + Math.floor(Math.random() * 5);
-      for (var i = 0; i < numSats; i++) {
-        var angle = (Math.PI * 2 * i / numSats) + (Math.random() - 0.5) * 0.6;
-        var speed = 1.2 + Math.random() * 2.5;
-        var satR = 1 + Math.random() * 2;
-        splashes.push({
-          x: x, y: y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 1.5, // bias upward
-          satR: satR,
-          opacity: 0.6 + Math.random() * 0.3,
-          gravity: 0.06,
-          isSatellite: true
-        });
-      }
-      // Leave a residue (water mark on "glass")
-      residues.push({
-        x: x, y: y,
-        r: r * (1.2 + Math.random() * 0.8),
-        opacity: 0.22,
-        life: 0,
-        maxLife: 300 + Math.random() * 400
+        wobbleSpeed: 0.008 + Math.random() * 0.015,
+        // Windshield: drops pause briefly then slide
+        paused: true,
+        pauseFrames: 30 + Math.random() * 80,
+        sliding: false,
+        trailPoints: []
       });
     }
 
     function drawDrop(d) {
-      // Trail — fading streak behind
-      if (d.trail.length > 1) {
-        ctx.beginPath();
-        ctx.moveTo(d.trail[0].x, d.trail[0].y);
-        for (var i = 1; i < d.trail.length; i++) {
-          ctx.lineTo(d.trail[i].x, d.trail[i].y);
-        }
-        ctx.strokeStyle = 'rgba(180, 210, 255, ' + (d.opacity * 0.1) + ')';
-        ctx.lineWidth = d.r * 0.25;
-        ctx.lineCap = 'round';
-        ctx.stroke();
-      }
-
-      // Main drop body — teardrop shape
       ctx.save();
       ctx.translate(d.x, d.y);
 
-      // Teardrop path: rounded bottom, pointed top
-      var rx = d.r * 0.75;
-      var ry = d.r * 1.2;
-      ctx.beginPath();
-      ctx.moveTo(0, -ry * 0.9); // pointed top
-      ctx.bezierCurveTo(rx * 0.4, -ry * 0.4, rx, ry * 0.2, 0, ry * 0.7);
-      ctx.bezierCurveTo(-rx, ry * 0.2, -rx * 0.4, -ry * 0.4, 0, -ry * 0.9);
-      ctx.closePath();
+      // Elongate when sliding fast
+      var stretch = d.sliding ? Math.min(d.vy * 0.15, 0.4) : 0;
+      var rx = d.r;
+      var ry = d.r * (1 + stretch);
 
-      // Refraction gradient
+      // Drop body — lens shape on glass
+      ctx.beginPath();
+      ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+
+      // Refraction gradient — like looking through wet glass
       var g = ctx.createRadialGradient(
-        -d.r * 0.2, -d.r * 0.1, d.r * 0.05,
+        -d.r * 0.25, -d.r * 0.2, d.r * 0.05,
         0, 0, d.r * 1.1
       );
-      g.addColorStop(0, 'rgba(220, 240, 255, ' + (d.opacity * 0.4) + ')');
-      g.addColorStop(0.35, 'rgba(150, 200, 255, ' + (d.opacity * 0.2) + ')');
+      g.addColorStop(0, 'rgba(220, 240, 255, ' + (d.opacity * 0.45) + ')');
+      g.addColorStop(0.3, 'rgba(160, 210, 255, ' + (d.opacity * 0.25) + ')');
       g.addColorStop(0.7, 'rgba(100, 170, 230, ' + (d.opacity * 0.1) + ')');
       g.addColorStop(1, 'rgba(80, 140, 200, 0)');
       ctx.fillStyle = g;
       ctx.fill();
 
-      // Edge highlight (surface tension)
-      ctx.strokeStyle = 'rgba(200, 230, 255, ' + (d.opacity * 0.25) + ')';
-      ctx.lineWidth = 0.5;
+      // Edge highlight (surface tension on glass)
+      ctx.strokeStyle = 'rgba(200, 230, 255, ' + (d.opacity * 0.2) + ')';
+      ctx.lineWidth = 0.4;
       ctx.stroke();
 
-      // Bright specular highlight
+      // Specular highlight
       ctx.beginPath();
-      ctx.arc(-d.r * 0.2, -d.r * 0.25, d.r * 0.2, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, ' + (d.opacity * 0.65) + ')';
+      ctx.arc(-d.r * 0.25, -d.r * 0.2, d.r * 0.18, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, ' + (d.opacity * 0.6) + ')';
       ctx.fill();
 
       ctx.restore();
     }
 
-    function drawSplashRing(s) {
+    function drawTrail(t) {
+      if (t.points.length < 2) return;
+      // Wet streak on glass — thin, fading
       ctx.beginPath();
-      ctx.ellipse(s.x, s.y, s.radius, s.radius * 0.35, 0, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(180, 215, 255, ' + s.opacity + ')';
-      ctx.lineWidth = s.lineWidth;
-      ctx.stroke();
-    }
-
-    function drawSatellite(s) {
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.satR, 0, Math.PI * 2);
-      var g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.satR);
-      g.addColorStop(0, 'rgba(220, 240, 255, ' + (s.opacity * 0.6) + ')');
-      g.addColorStop(1, 'rgba(150, 200, 255, 0)');
-      ctx.fillStyle = g;
-      ctx.fill();
-    }
-
-    function drawResidue(r) {
-      // Subtle water mark left on the "glass"
-      var g = ctx.createRadialGradient(r.x, r.y, 0, r.x, r.y, r.r);
-      g.addColorStop(0, 'rgba(160, 200, 240, ' + (r.opacity * 0.15) + ')');
-      g.addColorStop(0.5, 'rgba(140, 185, 230, ' + (r.opacity * 0.08) + ')');
-      g.addColorStop(0.8, 'rgba(120, 170, 220, ' + (r.opacity * 0.03) + ')');
-      g.addColorStop(1, 'rgba(100, 150, 200, 0)');
-      ctx.beginPath();
-      ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
-      ctx.fillStyle = g;
-      ctx.fill();
-      // Thin ring edge
-      ctx.beginPath();
-      ctx.arc(r.x, r.y, r.r * 0.9, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(200, 230, 255, ' + (r.opacity * 0.1) + ')';
-      ctx.lineWidth = 0.3;
+      ctx.moveTo(t.points[0].x, t.points[0].y);
+      for (var i = 1; i < t.points.length; i++) {
+        ctx.lineTo(t.points[i].x, t.points[i].y);
+      }
+      ctx.strokeStyle = 'rgba(160, 200, 240, ' + (t.opacity * 0.08) + ')';
+      ctx.lineWidth = t.width;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
       ctx.stroke();
     }
 
     var spawnTimer = 0;
-    function animateDroplets() {
+    function animate() {
       ctx.clearRect(0, 0, W(), H());
 
-      // Draw residues first (behind everything)
-      for (var i = residues.length - 1; i >= 0; i--) {
-        var r = residues[i];
-        r.life++;
-        if (r.life > r.maxLife * 0.6) {
-          r.opacity *= 0.985;
+      // Draw trails (wet streaks left behind)
+      for (var i = trails.length - 1; i >= 0; i--) {
+        var t = trails[i];
+        t.life++;
+        if (t.life > t.maxLife * 0.5) {
+          t.opacity *= 0.99;
         }
-        if (r.opacity < 0.005 || r.life > r.maxLife) {
-          residues.splice(i, 1);
+        if (t.opacity < 0.005 || t.life > t.maxLife) {
+          trails.splice(i, 1);
           continue;
         }
-        drawResidue(r);
+        drawTrail(t);
       }
 
       // Spawn new drops
       spawnTimer++;
-      if (spawnTimer > 140 + Math.random() * 220) {
+      if (spawnTimer > 80 + Math.random() * 160) {
         spawnDrop();
         spawnTimer = 0;
       }
 
-      // Update & draw falling drops
+      // Update & draw drops
       for (var i = drops.length - 1; i >= 0; i--) {
         var d = drops[i];
         d.life++;
 
-        // Accelerate slightly (gravity on glass)
-        d.vy += 0.003;
-        d.wobble += d.wobbleSpeed;
-        d.x += d.vx + Math.sin(d.wobble) * 0.12;
-        d.y += d.vy;
-
-        // Trail
-        d.trail.push({ x: d.x, y: d.y });
-        if (d.trail.length > 14) d.trail.shift();
-
         // Fade in
-        if (d.fadeIn) {
-          d.opacity = Math.min(d.opacity + 0.02, 0.9);
-          if (d.opacity >= 0.9) d.fadeIn = false;
+        if (d.opacity < d.maxOpacity) {
+          d.opacity = Math.min(d.opacity + 0.015, d.maxOpacity);
         }
 
-        // Impact! — splash on screen
-        if (!d.splashed && d.y >= d.targetY) {
-          d.splashed = true;
-          spawnSplash(d.x, d.y, d.r);
-          drops.splice(i, 1);
-          continue;
+        // Pause phase — drop sits on glass
+        if (d.paused) {
+          d.pauseFrames--;
+          if (d.pauseFrames <= 0) {
+            d.paused = false;
+            d.sliding = true;
+          }
         }
 
-        // Failsafe: remove if off screen
-        if (d.y > H() + 20) {
+        // Sliding phase — gravity pulls drop down the windshield
+        if (d.sliding) {
+          d.vy += 0.005; // gentle acceleration
+          d.wobble += d.wobbleSpeed;
+          d.x += d.vx + Math.sin(d.wobble) * 0.08;
+          d.y += d.vy;
+
+          // Record trail
+          d.trailPoints.push({ x: d.x, y: d.y });
+          if (d.trailPoints.length > 40) d.trailPoints.shift();
+        }
+
+        // Fade out near end of life or bottom of screen
+        if (d.life > d.maxLife * 0.8 || d.y > H() * 0.9) {
+          d.opacity *= 0.97;
+        }
+
+        // Remove when faded or off screen
+        if (d.opacity < 0.01 || d.y > H() + 20) {
+          // Leave a trail behind
+          if (d.trailPoints.length > 2) {
+            trails.push({
+              points: d.trailPoints.slice(),
+              width: d.r * 0.4,
+              opacity: 0.3,
+              life: 0,
+              maxLife: 200 + Math.random() * 300
+            });
+          }
           drops.splice(i, 1);
           continue;
         }
@@ -1556,41 +1506,13 @@
         drawDrop(d);
       }
 
-      // Update & draw splash effects
-      for (var i = splashes.length - 1; i >= 0; i--) {
-        var s = splashes[i];
-        if (s.isSatellite) {
-          // Flying satellite droplet
-          s.x += s.vx;
-          s.y += s.vy;
-          s.vy += s.gravity;
-          s.opacity *= 0.96;
-          s.satR *= 0.98;
-          if (s.opacity < 0.01 || s.satR < 0.3) {
-            splashes.splice(i, 1);
-            continue;
-          }
-          drawSatellite(s);
-        } else {
-          // Expanding ring
-          s.radius += (s.maxRadius - s.radius) * 0.08;
-          s.opacity *= 0.94;
-          s.lineWidth *= 0.97;
-          if (s.opacity < 0.01) {
-            splashes.splice(i, 1);
-            continue;
-          }
-          drawSplashRing(s);
-        }
-      }
-
-      requestAnimationFrame(animateDroplets);
+      requestAnimationFrame(animate);
     }
 
     // Start with a slight delay
     setTimeout(function() {
       spawnDrop();
-      animateDroplets();
+      animate();
     }, 2000);
   })();
 
@@ -1610,7 +1532,17 @@
   </script>
 
   <script>
-    // ── Waitlist form — stores locally until a backend is configured ──
+    // ── Waitlist form — sends to Google Sheets via Apps Script ──
+    // To set up: create a Google Sheet, go to Extensions > Apps Script, paste:
+    //   function doPost(e) {
+    //     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    //     var data = JSON.parse(e.postData.contents);
+    //     sheet.appendRow([new Date(), data.email]);
+    //     return ContentService.createTextOutput(JSON.stringify({result:'ok'}))
+    //       .setMimeType(ContentService.MimeType.JSON);
+    //   }
+    // Deploy as web app (Anyone can access). Replace GOOGLE_SCRIPT_URL below.
+    const GOOGLE_SCRIPT_URL = ''; // Paste your deployed Apps Script URL here
     const form = document.getElementById('waitlist-form');
     const msg = document.getElementById('waitlist-msg');
     form?.addEventListener('submit', (e) => {
@@ -1618,15 +1550,35 @@
       const fd = new FormData(form);
       const email = fd.get('email');
       if (!email) return;
+      // Check localStorage to avoid duplicate submits from same browser
       const stored = JSON.parse(localStorage.getItem('oceanocratie_waitlist') || '[]');
       if (stored.includes(email)) {
         msg.textContent = 'Vous etes deja inscrit(e) !';
         return;
       }
-      stored.push(email);
-      localStorage.setItem('oceanocratie_waitlist', JSON.stringify(stored));
-      msg.textContent = 'Merci ! Vous serez prevenu(e) de la sortie.';
-      form.reset();
+      // If Google Script URL is configured, send to Sheets
+      if (GOOGLE_SCRIPT_URL) {
+        msg.textContent = 'Envoi en cours...';
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email })
+        }).then(function() {
+          stored.push(email);
+          localStorage.setItem('oceanocratie_waitlist', JSON.stringify(stored));
+          msg.textContent = 'Merci ! Vous serez prevenu(e) de la sortie.';
+          form.reset();
+        }).catch(function() {
+          msg.textContent = 'Erreur reseau. Reessayez dans un instant.';
+        });
+      } else {
+        // Fallback: localStorage only
+        stored.push(email);
+        localStorage.setItem('oceanocratie_waitlist', JSON.stringify(stored));
+        msg.textContent = 'Merci ! Vous serez prevenu(e) de la sortie.';
+        form.reset();
+      }
     });
   </script>
 </body>
