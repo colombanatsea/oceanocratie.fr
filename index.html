@@ -636,191 +636,6 @@
 
     /* ── Stats ribbon ── */
 
-    /* ── Tout passe par la mer ── */
-    .sea-pillars {
-      padding: 4rem 0;
-    }
-
-    .sea-pillars__title {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .sea-pillars__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .sea-pillar {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .sea-pillar:hover {
-      transform: translateY(-4px);
-      border-color: rgba(42,85,179,0.3);
-    }
-
-    .sea-pillar__stat {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: 2.4rem;
-      background: linear-gradient(135deg, var(--bleu), var(--vert));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.1;
-    }
-
-    .sea-pillar__label {
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--blanc);
-      margin: 0.5rem 0 0.75rem;
-    }
-
-    .sea-pillar__desc {
-      font-size: 0.85rem;
-      color: var(--gris-400);
-      line-height: 1.6;
-    }
-
-    @media (max-width: 768px) {
-      .sea-pillars__grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── Transformations section ── */
-    .transformations {
-      padding: 4rem 0;
-    }
-
-    .transformations__intro {
-      font-size: 1.15rem;
-      line-height: 1.8;
-      color: var(--gris-400);
-      max-width: 720px;
-      margin: 0 auto 3rem;
-      text-align: center;
-    }
-
-    .transform-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .transform-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 2rem 1.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .transform-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(42,85,179,0.3);
-    }
-
-    .transform-card__icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .transform-card h3 {
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .transform-card p {
-      font-size: 0.9rem;
-      color: var(--gris-400);
-      line-height: 1.7;
-    }
-
-    @media (max-width: 768px) {
-      .transform-cards { grid-template-columns: 1fr; }
-    }
-
-    /* ── Testimonials ── */
-    .testimonials {
-      padding: 4rem 0;
-    }
-
-    .testimonials__grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-
-    .testimonial {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 2rem;
-      position: relative;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .testimonial:hover {
-      transform: translateY(-4px);
-      border-color: rgba(42,85,179,0.3);
-    }
-
-    .testimonial__logo {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.25rem;
-      width: 48px;
-      height: 48px;
-      opacity: 0.25;
-      filter: grayscale(1) brightness(2);
-    }
-
-    .testimonial__quote {
-      font-size: 0.95rem;
-      color: var(--gris-400);
-      line-height: 1.7;
-      font-style: italic;
-      margin-bottom: 1.25rem;
-      padding-right: 3rem;
-    }
-
-    .testimonial__author {
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--blanc);
-    }
-
-    .testimonial__role {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--gris-500);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-top: 0.2rem;
-    }
-
-    @media (max-width: 768px) {
-      .testimonials__grid { grid-template-columns: 1fr; }
-    }
 
     /* ── Carte Archipel ── */
     .carte-section {
@@ -1079,27 +894,6 @@
     </section>
 
 
-    <!-- ═══ TOUT PASSE PAR LA MER ═══ -->
-    <section class="sea-pillars reveal">
-      <h2 class="sea-pillars__title">Tout passe par la mer<span style="color: var(--vert);">.</span></h2>
-      <div class="sea-pillars__grid">
-        <div class="sea-pillar stagger-child">
-          <div class="sea-pillar__stat">595 Md&euro;</div>
-          <div class="sea-pillar__label">Exports maritimes</div>
-          <p class="sea-pillar__desc">De biens export&eacute;s par la France transitent par la mer</p>
-        </div>
-        <div class="sea-pillar stagger-child">
-          <div class="sea-pillar__stat">50+</div>
-          <div class="sea-pillar__label">C&acirc;bles sous-marins</div>
-          <p class="sea-pillar__desc">Pays le plus connect&eacute; d'Europe</p>
-        </div>
-        <div class="sea-pillar stagger-child">
-          <div class="sea-pillar__stat">45 GW</div>
-          <div class="sea-pillar__label">&Eacute;olien offshore</div>
-          <p class="sea-pillar__desc">Vis&eacute;s en 2050 — 30% de l'&eacute;lectricit&eacute; fran&ccedil;aise</p>
-        </div>
-      </div>
-    </section>
 
     <!-- ═══ QUOTE ═══ -->
     <section class="quote-section reveal">
@@ -1109,31 +903,6 @@
       </div>
     </section>
 
-    <!-- ═══ TROIS TRANSFORMATIONS ═══ -->
-    <section class="section transformations reveal">
-      <div class="container">
-        <p class="mono" style="text-align:center; margin-bottom: 1rem;">Les trois chocs</p>
-        <h2 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); text-align: center; margin-bottom: 1.5rem;">Trois transformations, une seule mer<span style="color: var(--vert);">.</span></h2>
-        <p class="transformations__intro">Le monde maritime aborde trois transformations sans pr&eacute;c&eacute;dent. Ce ne sont pas des menaces&nbsp;: ce sont des opportunit&eacute;s pour une soci&eacute;t&eacute; plus durable.</p>
-        <div class="transform-cards">
-          <div class="transform-card stagger-child">
-            <div class="transform-card__icon" aria-hidden="true">&#9875;</div>
-            <h3>Le temps long</h3>
-            <p>La mer impose un rythme que la terre a oubli&eacute;. Planifier une travers&eacute;e, anticiper la m&eacute;t&eacute;o, penser en semaines ou en jours et non en minutes ou en secondes — le temps long forge la vision strat&eacute;gique et la capacit&eacute; &agrave; se projeter au-del&agrave; de l'imm&eacute;diatet&eacute;</p>
-          </div>
-          <div class="transform-card stagger-child">
-            <div class="transform-card__icon" aria-hidden="true">&#9733;</div>
-            <h3>L'esprit pionnier</h3>
-            <p>L'esprit pionnier des grandes d&eacute;couvertes — les premi&egrave;res startups et lev&eacute;es de fonds de l'histoire — n'a pas disparu en mer. L'isolement y pousse &agrave; innover avec conscience et frugalit&eacute;, pr&eacute;f&eacute;rant les syst&egrave;mes r&eacute;silients et efficients au technosolutionnisme d&eacute;brid&eacute;.</p>
-          </div>
-          <div class="transform-card stagger-child">
-            <div class="transform-card__icon" aria-hidden="true">&#127758;</div>
-            <h3>Les limites plan&eacute;taires</h3>
-            <p>Le climat n'est qu'une des <a href="sources.html#limites-planetaires" class="sources-link">9 limites plan&eacute;taires</a>. La durabilit&eacute; exige une approche holistique — biodiversit&eacute;, acidification, cycles biog&eacute;ochimiques, etc. Le maritime, interface entre l'homme et l'oc&eacute;an, doit incarner cette vision syst&eacute;mique.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ═══ LES 3 AXES ═══ -->
     <section class="section reveal">
@@ -1141,7 +910,7 @@
         <div class="glass-card">
           <div class="axes__header">
             <p class="mono">Le livre explore</p>
-            <h2>Trois axes, une seule mer<span style="color: var(--vert);">.</span></h2>
+            <h2>Trois axes pour la France<span style="color: var(--vert);">.</span></h2>
           </div>
           <div class="axes__grid">
             <div class="axis stagger-child">
@@ -1250,46 +1019,13 @@
       </div>
     </section>
 
-    <!-- ═══ TEMOIGNAGES ═══ -->
-    <section class="section testimonials reveal">
-      <div class="container">
-        <p class="mono" style="text-align:center; margin-bottom: 1rem;">Ils soutiennent la d&eacute;marche</p>
-        <h2 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); text-align: center; margin-bottom: 2rem;">T&eacute;moignages<span style="color: var(--vert);">.</span></h2>
-        <div class="testimonials__grid">
-          <div class="testimonial stagger-child">
-            <svg class="testimonial__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M16 20h16M16 28h10" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <p class="testimonial__quote">&laquo;&nbsp;Un regard lucide et n&eacute;cessaire sur l'avenir maritime de la France. Colomban articule avec clart&eacute; les enjeux que trop peu de d&eacute;cideurs comprennent.&nbsp;&raquo;</p>
-            <p class="testimonial__author">Dirigeant du secteur maritime</p>
-            <p class="testimonial__role">Industrie navale</p>
-          </div>
-          <div class="testimonial stagger-child">
-            <svg class="testimonial__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M24 14v20M14 24h20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <p class="testimonial__quote">&laquo;&nbsp;Ce livre r&eacute;concilie enfin &eacute;conomie maritime et exigence environnementale. Une lecture indispensable pour quiconque s'int&eacute;resse &agrave; la souverainet&eacute; fran&ccedil;aise.&nbsp;&raquo;</p>
-            <p class="testimonial__author">Expert en strat&eacute;gie</p>
-            <p class="testimonial__role">Conseil &amp; strat&eacute;gie</p>
-          </div>
-          <div class="testimonial stagger-child">
-            <svg class="testimonial__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M18 30l6-12 6 12" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <p class="testimonial__quote">&laquo;&nbsp;La triple matrice technologie-&eacute;cologie-culture propos&eacute;e par Colomban est un cadre de pens&eacute;e puissant, applicable bien au-del&agrave; du seul maritime.&nbsp;&raquo;</p>
-            <p class="testimonial__author">Entrepreneur tech</p>
-            <p class="testimonial__role">Innovation &amp; transition</p>
-          </div>
-          <div class="testimonial stagger-child">
-            <svg class="testimonial__logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M16 24c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <p class="testimonial__quote">&laquo;&nbsp;Oc&eacute;anocratie pose les bonnes questions : comment une nation bord&eacute;e par trois mers peut-elle ignorer sa dimension maritime&nbsp;? Un &eacute;lectro-choc salutaire.&nbsp;&raquo;</p>
-            <p class="testimonial__author">Chercheur en g&eacute;opolitique</p>
-            <p class="testimonial__role">Recherche &amp; d&eacute;fense</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ═══ MANIFESTO / APPEL ═══ -->
     <section class="section reveal">
       <div class="container">
         <div class="glass-card manifesto">
           <p>
-            Oc&eacute;anocratie est un appel direct aux d&eacute;cideurs pour int&eacute;grer la dimension maritime dans toute planification strat&eacute;gique. Il s'adresse aux politiques pour qu'ils regardent enfin au-del&agrave; de l'Hexagone, et &agrave; chaque citoyen pour comprendre cette v&eacute;rit&eacute; fondamentale&nbsp;: Notre souverainet&eacute; &eacute;conomique, environnementale, &eacute;nerg&eacute;tique, culturelle et s&eacute;curitaire ne se joue plus sur le continent, mais au large. Aujourd'hui, la c&eacute;cit&eacute; maritime est une faute strat&eacute;gique. L'Oc&eacute;anocratie propose de revoir de la soci&eacute;t&eacute; au maritime pour garantir la souverainet&eacute; de la France en 2050.
+            Oc&eacute;anocratie est un appel direct aux d&eacute;cideurs pour int&eacute;grer la dimension maritime dans toute planification strat&eacute;gique. Il s'adresse aux politiques pour qu'ils regardent enfin au-del&agrave; de l'Hexagone, et &agrave; chaque citoyen pour comprendre cette v&eacute;rit&eacute; fondamentale&nbsp;: Notre souverainet&eacute; &eacute;conomique, environnementale, &eacute;nerg&eacute;tique, culturelle et s&eacute;curitaire ne se joue plus sur le continent, mais au large. Aujourd'hui, la c&eacute;cit&eacute; maritime est une faute strat&eacute;gique. L'Oc&eacute;anocratie propose de revoir le rapport de la soci&eacute;t&eacute; au maritime pour garantir la souverainet&eacute; de la France en 2050.
           </p>
         </div>
       </div>
@@ -1314,7 +1050,7 @@
     <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
       <div class="container">
-        <p>&copy; 2026 <a href="https://colombanatsea.com">Colomban</a> — oceanocratie.fr</p>
+        <p>&copy; 2026 <a href="https://colombanatsea.com">Colomban</a> — oceanocratie.fr — Prot&eacute;g&eacute; par <a href="https://vaiata-dynamics.com/fr/" target="_blank" rel="noopener noreferrer">VAIATA Cyber</a></p>
       </div>
     </footer>
 
