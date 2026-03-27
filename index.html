@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Oceanocratie — Colomban</title>
   <meta name="description" content="La France collectionne les atouts maritimes mais tourne le dos &agrave; la mer. Oc&eacute;anocratie explore ce ph&eacute;nom&egrave;ne — et comment changer la donne." />
+  <meta name="robots" content="index, follow" />
 
   <!-- Security -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://js.hcaptcha.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://imgs.hcaptcha.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://api.hcaptcha.com; frame-src https://newassets.hcaptcha.com; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
@@ -97,7 +98,7 @@
 
     :root {
       --bleu: #2A55B3;
-      --bleu-light: #3a6fd4;
+      --bleu-light: #5b8be6;
       --bleu-dark: #1a3a7a;
       --vert: #00BF63;
       --rose: #B32A55;
@@ -107,7 +108,7 @@
       --gris-100: #F2F2F5;
       --gris-200: #E4E4EA;
       --gris-400: #9D9DAF;
-      --gris-500: #5C5C6E;
+      --gris-500: #8585A0;
       --font-heading: 'Poppins', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -296,7 +297,7 @@
 
     .hero__scroll-hint .mono {
       color: var(--gris-400);
-      font-size: 0.65rem;
+      font-size: 0.75rem;
     }
 
     .hero__scroll-line {
@@ -363,7 +364,7 @@
 
     .book__title {
       font-family: var(--font-heading);
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.18em;
       color: white;
@@ -378,7 +379,7 @@
 
     .book__author {
       font-family: var(--font-mono);
-      font-size: 0.45rem;
+      font-size: 0.75rem;
       letter-spacing: 0.12em;
       color: rgba(255,255,255,0.55);
       text-transform: uppercase;
@@ -605,7 +606,7 @@
     }
 
     .author .mono {
-      color: var(--bleu);
+      color: var(--bleu-light);
       margin-bottom: 0.75rem;
     }
 
@@ -628,7 +629,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      color: var(--bleu);
+      color: var(--bleu-light);
       font-family: var(--font-mono);
       font-size: 0.8rem;
       letter-spacing: 0.05em;
@@ -646,7 +647,7 @@
       align-items: center;
       gap: 0.4rem;
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: var(--bleu-light);
       text-decoration: underline;
       text-underline-offset: 3px;
@@ -664,7 +665,7 @@
 
     .footer p {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: var(--gris-500);
       letter-spacing: 0.05em;
     }
@@ -674,7 +675,7 @@
       transition: color 0.2s;
     }
 
-    .footer a:hover { color: var(--bleu); }
+    .footer a:hover { color: var(--bleu-light); }
 
     /* ── Animations ── */
     @keyframes fadeInUp {
@@ -744,7 +745,7 @@
       .glass-card { padding: 2rem 1.5rem; border-radius: 16px; }
       .cta-group { flex-direction: column; align-items: center; }
       .book { width: 120px; height: 170px; }
-      .book__title { font-size: 0.55rem; }
+      .book__title { font-size: 0.75rem; }
       .waitlist__form { flex-direction: column; }
       .spray { display: none; }
       #droplets-canvas { display: none; }
@@ -811,7 +812,7 @@
         <div class="waitlist">
           <p class="waitlist__label mono">Soyez pr&eacute;venu(e) de la sortie</p>
           <form class="waitlist__form" id="waitlist-form">
-            <input type="email" name="email" placeholder="votre@email.com" required class="waitlist__input" autocomplete="email" />
+            <input type="email" name="email" placeholder="votre@email.com" required class="waitlist__input" autocomplete="email" aria-label="Adresse email pour la liste d'attente" />
             <button type="submit" class="btn btn-primary waitlist__btn h-captcha" data-sitekey="44767a32-65fc-4bc8-aa22-32aee088f86e" data-size="invisible" data-callback="onCaptchaPass">Me pr&eacute;venir</button>
           </form>
           <p class="waitlist__note" id="waitlist-msg" aria-live="polite"></p>
@@ -1574,6 +1575,13 @@
         e.preventDefault();
         msg.textContent = 'Veuillez entrer votre email.';
         msg.classList.add('error');
+        return;
+      }
+      // Guard: if hCaptcha not loaded yet, prevent default and show message
+      if (typeof hcaptcha === 'undefined') {
+        e.preventDefault();
+        msg.textContent = 'Chargement en cours, veuillez réessayer dans un instant.';
+        msg.classList.remove('error');
       }
     });
   </script>
