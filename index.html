@@ -7,8 +7,7 @@
   <meta name="description" content="La France collectionne les atouts maritimes mais tourne le dos &agrave; la mer. Oc&eacute;anocratie explore ce ph&eacute;nom&egrave;ne — et comment changer la donne." />
 
   <!-- Security -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://js.hcaptcha.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://imgs.hcaptcha.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://api.hcaptcha.com; frame-src https://newassets.hcaptcha.com; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://js.hcaptcha.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://imgs.hcaptcha.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://api.hcaptcha.com; frame-src https://newassets.hcaptcha.com; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com" />
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
@@ -29,7 +28,7 @@
   <meta property="og:url" content="https://oceanocratie.fr/" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="Oceanocratie" />
-  <meta property="og:image" content="https://oceanocratie.fr/og-image.png" />
+  <meta property="og:image" content="https://oceanocratie.fr/og-image.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Oceanocratie — Globe montrant l'archipel France et ses territoires d'outre-mer connect&eacute;s" />
@@ -38,7 +37,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Oceanocratie — Colomban" />
   <meta name="twitter:description" content="La France collectionne les atouts maritimes mais tourne le dos &agrave; la mer. Oc&eacute;anocratie explore ce ph&eacute;nom&egrave;ne — et comment changer la donne." />
-  <meta name="twitter:image" content="https://oceanocratie.fr/og-image.png" />
+  <meta name="twitter:image" content="https://oceanocratie.fr/og-image.webp" />
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -55,7 +54,7 @@
     "inLanguage": "fr",
     "bookFormat": "https://schema.org/Hardcover",
     "url": "https://oceanocratie.fr/",
-    "image": "https://oceanocratie.fr/og-image.png",
+    "image": "https://oceanocratie.fr/og-image.webp",
     "datePublished": "2026-12",
     "publisher": {
       "@type": "Organization",
@@ -64,20 +63,36 @@
   }
   </script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  />
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
-  </noscript>
+  <!-- Self-hosted fonts (preload critical heading font) -->
+  <link rel="preload" href="/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin />
 
   <style>
+    /* ── Self-hosted fonts ── */
+    @font-face {
+      font-family: 'Poppins';
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+      src: url('/fonts/poppins-700.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0300-0301, U+0303, U+0308-0309, U+0323, U+0327, U+2000-206F, U+20AC;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+      src: url('/fonts/inter-400.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0300-0301, U+0303, U+0308-0309, U+0323, U+0327, U+2000-206F, U+20AC;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+      src: url('/fonts/jetbrainsmono-400.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0300-0301, U+0303, U+0308-0309, U+0323, U+0327, U+2000-206F, U+20AC;
+    }
+
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
@@ -241,7 +256,7 @@
 
     .hero__subtitle {
       font-family: var(--font-heading);
-      font-weight: 300;
+      font-weight: 400;
       font-size: clamp(1.1rem, 2.5vw, 1.5rem);
       color: rgba(255, 255, 255, 0.75);
       margin-bottom: 3rem;
@@ -401,8 +416,7 @@
       padding: 0.85rem 1.25rem;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--blanc);
       outline: none;
       transition: border-color 0.3s, box-shadow 0.3s;
@@ -442,7 +456,7 @@
       align-items: center;
       gap: 0.5rem;
       font-family: var(--font-heading);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.875rem;
       padding: 0.75rem 1.75rem;
       border-radius: 8px;
@@ -463,10 +477,9 @@
     }
 
     .btn-outline {
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.06);
       color: var(--blanc);
       border: 1px solid rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(4px);
     }
 
     .btn-outline:hover {
@@ -481,8 +494,7 @@
     }
 
     .glass-card {
-      background: rgba(10, 14, 30, 0.7);
-      backdrop-filter: blur(20px);
+      background: rgba(10, 14, 30, 0.88);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 24px;
       padding: 3rem;
@@ -503,7 +515,7 @@
 
     .axes__header h2 {
       font-family: var(--font-heading);
-      font-weight: 600;
+      font-weight: 700;
       font-size: clamp(1.4rem, 3vw, 1.8rem);
     }
 
@@ -539,7 +551,7 @@
     .axis h3 {
       font-family: var(--font-heading);
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 0.75rem;
     }
 
@@ -571,7 +583,7 @@
 
     .quote-section blockquote {
       font-family: var(--font-heading);
-      font-weight: 300;
+      font-weight: 400;
       font-style: italic;
       font-size: clamp(1.2rem, 3vw, 1.6rem);
       line-height: 1.8;
@@ -601,7 +613,7 @@
 
     .author h2 {
       font-family: var(--font-heading);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 1.6rem;
       margin-bottom: 1.5rem;
     }
@@ -739,6 +751,13 @@
       .spray { display: none; }
       #droplets-canvas { display: none; }
       .hero__scroll-hint { display: none; }
+    }
+
+    /* ── Desktop: restore glass effects ── */
+    @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+      .glass-card { backdrop-filter: blur(20px); background: rgba(10, 14, 30, 0.7); }
+      .waitlist__input { backdrop-filter: blur(8px); background: rgba(255, 255, 255, 0.06); }
+      .btn-outline { backdrop-filter: blur(4px); background: rgba(255, 255, 255, 0.04); }
     }
   </style>
 
@@ -900,7 +919,22 @@
     const canvas = document.getElementById('ocean-canvas');
     const fallback = document.getElementById('ocean-fallback');
 
-    if (isMobile || !canvas) {
+    // GPU tier detection — skip WebGL on weak GPUs
+    function isWeakGPU() {
+      try {
+        const c = document.createElement('canvas');
+        const g = c.getContext('webgl');
+        if (!g) return true;
+        const dbg = g.getExtension('WEBGL_debug_renderer_info');
+        if (dbg) {
+          const r = g.getParameter(dbg.UNMASKED_RENDERER_WEBGL).toLowerCase();
+          if (/swiftshader|llvmpipe|mesa/.test(r)) return true;
+        }
+      } catch(e) { return true; }
+      return false;
+    }
+
+    if (isMobile || !canvas || isWeakGPU()) {
       if (canvas) canvas.style.display = 'none';
       initNonGL();
       return;
@@ -1018,44 +1052,23 @@
         float horizonGlow = pow(1.0 - e.y, 12.0);
         sky += vec3(0.04, 0.05, 0.15) * horizonGlow;
 
-        // Stars — round points with soft glow via distance from cell center
+        // Stars — single optimized layer with varied brightness
         vec3 en = normalize(e);
         vec2 starUV = vec2(atan(en.z, en.x), asin(en.y));
         float skyMask = smoothstep(0.02, 0.15, e.y);
 
-        // Layer 1 — bright stars
-        vec2 grid1 = starUV * 120.0;
+        vec2 grid1 = starUV * 180.0;
         vec2 cell1 = floor(grid1);
         vec2 frac1 = fract(grid1) - 0.5;
         float id1 = hash(cell1);
         vec2 starOff1 = vec2(hash(cell1 + 71.0), hash(cell1 + 113.0)) - 0.5;
         float dist1 = length(frac1 - starOff1 * 0.6);
-        float star1 = step(0.985, id1) * smoothstep(0.06, 0.0, dist1) * skyMask;
-        sky += vec3(0.9, 0.92, 1.0) * star1 * 3.0;
-        float glow1 = step(0.985, id1) * smoothstep(0.15, 0.0, dist1) * skyMask;
-        sky += vec3(0.4, 0.45, 0.7) * glow1 * 0.3;
-
-        // Layer 2 — medium stars with twinkle
-        vec2 grid2 = starUV * 200.0;
-        vec2 cell2 = floor(grid2);
-        vec2 frac2 = fract(grid2) - 0.5;
-        float id2 = hash(cell2);
-        vec2 starOff2 = vec2(hash(cell2 + 71.0), hash(cell2 + 113.0)) - 0.5;
-        float dist2 = length(frac2 - starOff2 * 0.6);
-        float twinkle1 = sin(iTime * 2.0 + id2 * 62.83) * 0.4 + 0.6;
-        float star2 = step(0.98, id2) * smoothstep(0.045, 0.0, dist2) * skyMask;
-        sky += vec3(0.6, 0.65, 0.85) * star2 * twinkle1 * 1.8;
-
-        // Layer 3 — faint background stars with shimmer
-        vec2 grid3 = starUV * 350.0;
-        vec2 cell3 = floor(grid3);
-        vec2 frac3 = fract(grid3) - 0.5;
-        float id3 = hash(cell3);
-        vec2 starOff3 = vec2(hash(cell3 + 71.0), hash(cell3 + 113.0)) - 0.5;
-        float dist3 = length(frac3 - starOff3 * 0.6);
-        float twinkle2 = sin(iTime * 1.5 + id3 * 37.7) * 0.5 + 0.5;
-        float star3 = step(0.97, id3) * smoothstep(0.035, 0.0, dist3) * skyMask;
-        sky += vec3(0.3, 0.35, 0.5) * star3 * twinkle2 * 0.8;
+        float twinkle = sin(iTime * 1.5 + id1 * 52.0) * 0.35 + 0.65;
+        float bright = smoothstep(0.94, 1.0, id1);
+        float star1 = bright * smoothstep(0.05, 0.0, dist1) * skyMask * twinkle;
+        sky += vec3(0.7, 0.75, 0.95) * star1 * 2.5;
+        float glow1 = bright * smoothstep(0.12, 0.0, dist1) * skyMask;
+        sky += vec3(0.3, 0.35, 0.55) * glow1 * 0.2;
 
         // Moon
         vec3 moonDir = normalize(vec3(0.3, 0.35, -0.88));
@@ -1566,6 +1579,28 @@
       }
     });
   </script>
-  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+
+  <!-- hCaptcha lazy-loaded when waitlist section approaches viewport -->
+  <script>
+  (function() {
+    var loaded = false;
+    function loadHCaptcha() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://js.hcaptcha.com/1/api.js';
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    var el = document.querySelector('.waitlist');
+    if (el && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function(entries, obs) {
+        if (entries[0].isIntersecting) { loadHCaptcha(); obs.disconnect(); }
+      }, { rootMargin: '300px' }).observe(el);
+    } else if (el) {
+      loadHCaptcha();
+    }
+  })();
+  </script>
 </body>
 </html>
